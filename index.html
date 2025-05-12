@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YourSite.exe</title>
+
+    <!-- 98.css + your styles -->
+    <link rel="stylesheet" href="https://unpkg.com/98.css" />
+    <link rel="stylesheet" href="my-root.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- ───── Desktop “icons” ───── -->
+    <div class="container">
+      <a id="myComputer" href="#" class="sections-container">
+        <img src="img/risorse.ico" alt="" />
+        <p>My&nbsp;Computer</p>
+      </a>
+      <a id="myProjects" href="#" class="sections-container">
+        <img src="img/projects.ico" alt="" />
+        <p>Projects</p>
+      </a>
+      <a id="cmdPrompt" href="#" class="sections-container">
+        <img src="img/console.ico" alt="" />
+        <p>Command<br>Prompt</p>
+      </a>
+      <a id="socialIcon" href="#" class="sections-container">
+        <img src="img/insta.png" alt="" />
+        <p>Social</p>
+      </a>
+    </div>
+
+    <!-- ───── Modal 1 : My Computer ───── -->
+    <div id="modal1" class="modal-content">
+      <div id="myComputerModal" class="modal modal-low window">
+        <div class="title-bar">
+          <div class="title-bar-text">My&nbsp;Computer</div>
+          <div class="title-bar-controls">
+            <button id="min1" aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button id="close1" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <div class="mainoptions">
+          <div class="options">
+            <div class="options-divider"></div>
+            <a><p>File</p></a>
+            <a><p>Edit</p></a>
+            <a><p>View</p></a>
+            <a><p>Go</p></a>
+            <a><p>Favorites</p></a>
+            <a><p>Help</p></a>
+          </div>
+          <div class="black-box"><img src="img/black.png" alt="" /></div>
+        </div>
+
+        <div class="window-body">
+          <div class="white-box mycomputer">
+            <h4>This is Joy Shi's Personal Website</h4>
+            <p>
+              <strong>About me</strong> <br />
+              I was born in Maryland, USA, and am currently finishing up my
+              Schwarzman Scholars fellowship year in China.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── Modal 2 : Projects ───── -->
+    <div id="modal2" class="modal-content">
+      <div id="projectsModal" class="modal window">
+        <div class="title-bar">
+          <div class="title-bar-text">Projects</div>
+          <div class="title-bar-controls">
+            <button id="min2" aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button id="close2" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <div class="mainoptions">
+          <div class="options">
+            <div class="options-divider"></div>
+            <a><p>File</p></a>
+            <a><p>Edit</p></a>
+            <a><p>View</p></a>
+            <a><p>Go</p></a>
+            <a><p>Favorites</p></a>
+            <a><p>Help</p></a>
+          </div>
+          <div class="black-box"><img src="img/black.png" alt="" /></div>
+        </div>
+
+        <div class="window-body">
+          <div class="white-box">
+            <div class="white-box-grid">
+              <div class="white-box-grid__pane1">
+                <!-- 👉 Put a project list intro here -->
+              </div>
+
+              <div class="white-box-grid__pane2">
+                <div class="section-container row">
+                  <!-- 👉 Example project tile -->
+                  <!--
+                <a href="#" class="ied" target="_blank">
+                  <img src="img/placeholder.ico" alt="" />
+                  <p>Project&nbsp;Name</p>
+                </a>
+                --></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── Modal 3 : Command Prompt ───── -->
+    <div id="modal3" class="modal-content">
+      <div id="cmdModal" class="modal window">
+        <div class="title-bar">
+          <div class="title-bar-text">Command&nbsp;Prompt</div>
+          <div class="title-bar-controls">
+            <button id="min3" aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button id="close3" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <div class="window-body">
+          <div class="white-box">
+            <div class="black-box-grid">
+              Microsoft(R) Windows 98<br />
+              (C) Microsoft Corp.<br />
+              <textarea id="cmdText"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── Modal 7 : Social Links ───── -->
+    <div id="modal7" class="modal-content">
+      <div id="socialModal" class="modal window">
+        <div class="title-bar">
+          <div class="title-bar-text">Social</div>
+          <div class="title-bar-controls">
+            <button id="min7" aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button id="close7" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <div class="mainoptions">
+          <div class="options">
+            <div class="options-divider"></div>
+            <a><p>File</p></a>
+            <a><p>Edit</p></a>
+            <a><p>View</p></a>
+            <a><p>Go</p></a>
+            <a><p>Favorites</p></a>
+            <a><p>Help</p></a>
+          </div>
+          <div class="black-box"><img src="img/black.png" alt="" /></div>
+        </div>
+
+        <div class="window-body">
+          <div class="white-box">
+            <div class="white-box-grid">
+              <div class="white-box-grid__pane1">
+                <img src="img/insta.png" alt="" />
+                <h4 class="social-sub">Social</h4>
+                <p>Send me a message here!</p>
+              </div>
+
+              <div class="white-box-grid__pane2">
+                <div class="section-container row">
+                  <a
+                    class="ied"
+                    href="mailto:joy.shi@sc.tsinghua.edu.cn"
+                    target="_blank"
+                  >
+                    <img src="img/outlook_express.ico" alt="" />
+                    <p>Email</p>
+                  </a>
+                  <a
+                    class="ied"
+                    target="blank_"
+                    href="https://www.linkedin.com/in/joyshi456/"
+                  >
+                    <img src="img/desktop.ico" alt="" />
+                    <p>Linkedin</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── Task-bar Footer ───── -->
+    <footer>
+      <button id="btnStart" class="btnstart">
+        <img src="img/start.png" alt="" />
+        <strong>Start</strong>
+      </button>
+
+      <div class="separator-container">
+        <div class="separator"></div>
+        <div class="vertical-bar"></div>
+
+        <div class="box-icons">
+          <!-- 👉 Quick-launch icons -->
+        </div>
+
+        <div class="separator"></div>
+        <div class="vertical-bar"></div>
+      </div>
+
+      <!-- Open-window buttons (populated by JS) -->
+      <div class="modal-buttons">
+        <!-- e.g. <button id="btn_1"><img src="img/risorse.ico" />My Computer</button> -->
+      </div>
+
+      <div class="sections-container-end">
+        <div class="separator"></div>
+        <div class="time-container">
+          <a href="#"><img class="icons" src="img/audio.ico" alt="" /></a>
+          <a href="#"><img class="icons" src="img/calendar.ico" alt="" /></a>
+          <span id="clock"></span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ───── Scripts (logic only) ───── -->
+    <script src="scripts/modalslogic.js"></script>
+    <script src="scripts/time.js"></script>
+  </body>
+</html>
