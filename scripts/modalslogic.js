@@ -1,5 +1,4 @@
-/*  modalslogic.js  —  Win-98-style desktop (Recycle Bin, Chrome troll,
- *  and Start-menu windows removed; Social window now uses wire())      */
+/*  modalslogic.js  —  Win-98-style desktop */
 
 (() => {
   /* ───────────── helpers ───────────── */
@@ -116,7 +115,6 @@
     pos: { left: "150px", top: "200px" },
   });
 
-  /* NEW: Social window integrated like the others */
   wire({
     iconId: "socialIcon",
     modalId: "socialModal",
