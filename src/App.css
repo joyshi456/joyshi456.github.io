@@ -1,0 +1,84 @@
+/* App specific styles if needed */
+.desktop {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* TipTap WordPad Editor Styles */
+.wp-editor {
+  outline: none;
+  height: 100%;
+}
+
+.wp-editor .ProseMirror {
+  outline: none;
+  height: 100%;
+  padding: 20px 40px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 12pt;
+  line-height: 1.5;
+  min-height: 100%;
+  color: #000;
+}
+
+.wp-editor .ProseMirror > * {
+  margin: 0;
+  padding: 0;
+}
+
+.wp-editor .ProseMirror h1,
+.wp-editor .ProseMirror h2,
+.wp-editor .ProseMirror h3 {
+  margin: 12px 0 6px 0;
+  font-weight: bold;
+}
+
+.wp-editor .ProseMirror h2 {
+  font-size: 18pt;
+}
+
+.wp-editor .ProseMirror h3 {
+  font-size: 14pt;
+}
+
+.wp-editor .ProseMirror p {
+  margin: 6px 0;
+}
+
+.wp-editor .ProseMirror ul,
+.wp-editor .ProseMirror ol {
+  padding-left: 30px;
+  margin: 6px 0;
+}
+
+.wp-editor .ProseMirror li {
+  margin: 3px 0;
+}
+
+.wp-editor .ProseMirror hr {
+  border: none;
+  border-top: 1px solid #000;
+  margin: 12px 0;
+}
+
+.wp-editor .ProseMirror strong {
+  font-weight: bold;
+}
+
+.wp-editor .ProseMirror em {
+  font-style: italic;
+}
+
+.wp-editor .ProseMirror u {
+  text-decoration: underline;
+}
+
+/* Placeholder */
+.wp-editor .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #aaa;
+  pointer-events: none;
+  height: 0;
+}

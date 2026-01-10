@@ -1,0 +1,26 @@
+:root {
+  /* Windows 98 Standard Teal */
+  --desktop-bg: #008080;
+}
+
+@font-face {
+  font-family: "font98";
+  src: url("/font/W95FA.otf");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--desktop-bg);
+  font-family: 'Pixelated MS Sans Serif', Arial, sans-serif;
+  font-size: 14px; /* Increased from default for better readability */
+  overflow: hidden;
+  /* Desktop shouldn't scroll */
+  width: 100vw;
+  height: 100vh;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}

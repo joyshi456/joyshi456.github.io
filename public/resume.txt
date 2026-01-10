@@ -1,0 +1,82 @@
+JOY SHI
+New York City, USA
+joyshi456@gmail.com
+github.com/joyshi456
+
+================================================================================
+WORK EXPERIENCE
+================================================================================
+
+Founding Engineer - Pegasi (Neo '24)                          Jul 2025 - Present
+Building enterprise agents for financial institutions.
+  · Architected agentic card migration platform generating $350K+ ARR
+  · First author for financial compliance model and dataset generation paper
+    accepted to NeurIPS 2025
+  · Built an AI-native "consultant" API for a Fortune 100 financial client
+  · Implemented GRPO for SOTA performance in Text-to-SQL LLMs
+  · Published mechanistic interpretability paper focused on internal
+    representations of financial hallucinations
+
+Applied AI Engineer - Monad Ventures                              2024 - 2025
+Fine-tuned multilingual LLMs, and A/B testing for robust QA for a large-scale
+conversational AI product (2M+ users). Implemented evaluation metrics for
+safety and consistency.
+
+ML Engineer - Fermilab                                             Spring 2023
+Developed an anomaly detection model in PyTorch, improving dark shower
+detection for particle physics lab.
+
+Applied Cryptography Fellow - ETH Zürich                           Summer 2022
+Found vulnerabilities in K-Min Values data structure through Python
+simulations; acceptance rate of 1%.
+
+Project Manager Intern - Bohr Quantum Technologies                 Summer 2021
+Led a $5M seed round for a quantum startup through investment deck and market
+analysis.
+
+================================================================================
+EDUCATION
+================================================================================
+
+Tsinghua University, Schwarzman College                        2024 - June 2025
+Master of Management Science, Richard Merkin Fellow
+Thesis: A Framework for Classifying Suicide-Related Content in Chinese-
+        Language Search Results
+
+California Institute of Technology, Pasadena, CA, USA             2020 - 2024
+Bachelor of Science, Computer Science (Machine Learning & AI Track)
+GPA: 4.0/4.0
+Awards: Full Ride Scholarship ($84,000), ARCS Scholar, SFS STEM Action Grant,
+        2x AIME Qualifier
+Teaching Assistant: Software Design, Analysis of Algorithms, Quantum Mechanics,
+                    Statistical Physics
+
+================================================================================
+TECHNICAL SKILLS
+================================================================================
+
+Programming:  Python, C/C++/CUDA, SQL, Java, JavaScript, HTML/CSS, OCaml
+AI/ML:        PyTorch, TensorFlow, Keras, Tinker, Distillation, RL
+Other Tools:  FastAPI, Excel, PowerPoint, Git, Docker, Claude Code, PostHog
+Languages:    English (Native), Mandarin (Native), Spanish (Conversational)
+Hobbies:      Chess, Marathon Swimming, Hiking, Film Critique
+
+================================================================================
+PROJECTS AND LEADERSHIP
+================================================================================
+
+Jane Street Mock Trading Bot (Python, Pandas, NumPy)
+Designed end-to-end arbitraging bot achieving 4th place in the Jane Street
+Trading Bot Competition
+
+CheXpert Image Classification (2nd Place) (PyTorch, Transfer Learning)
+CNN-based deep learning model for medical image classification with 88%
+accuracy.
+
+Founder and President - INTEGIRLS
+Founded and led a global nonprofit advancing gender equity in STEM. Expanded
+to 20+ chapters; raised $25K+ through industry partnerships (including Jane
+Street and Adobe). Oversaw platform design, youth safety protocols, and
+cross-regional governance.
+
+================================================================================

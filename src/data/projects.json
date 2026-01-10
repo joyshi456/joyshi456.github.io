@@ -1,0 +1,23 @@
+[
+    {
+        "id": "portfolio",
+        "title": "Agent-Mediated Portfolio",
+        "description": "A Windows 98 style portfolio that uses an agent to answer questions.",
+        "tags": [
+            "React",
+            "TypeScript",
+            "Vite",
+            "Zustand"
+        ]
+    },
+    {
+        "id": "accent-detector",
+        "title": "Accent Detector",
+        "description": "ML model to detect accents from audio.",
+        "tags": [
+            "Python",
+            "PyTorch",
+            "Audio Processing"
+        ]
+    }
+]

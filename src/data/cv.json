@@ -1,0 +1,36 @@
+{
+    "basics": {
+        "name": "Joy Shi",
+        "label": "Software Engineer & Schwarzman Scholar",
+        "summary": "Building agents and exploring the intersection of technology and policy."
+    },
+    "work": [
+        {
+            "company": "Pegasi AI",
+            "position": "Software Engineer",
+            "startDate": "2024-01-01",
+            "summary": "Building autonomous agents for complex workflows.",
+            "highlights": [
+                "Architected core agent loop.",
+                "Implemented tool usage and memory systems."
+            ]
+        },
+        {
+            "company": "Bohr Quantum",
+            "position": "Hardware Engineer",
+            "startDate": "2022-06-01",
+            "endDate": "2023-08-01",
+            "summary": "Quantum control systems.",
+            "highlights": []
+        }
+    ],
+    "education": [
+        {
+            "institution": "Tsinghua University",
+            "area": "Global Affairs",
+            "studyType": "Master's",
+            "startDate": "2024-08-01",
+            "endDate": "Present"
+        }
+    ]
+}
