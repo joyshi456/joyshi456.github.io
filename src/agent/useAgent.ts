@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
 import { useStore } from '../store/store';
 import { getScreenSnapshot } from './ScreenReader';
-import { askGeminiAgent } from './GeminiService';
+import { checkRouterIntent, executeAgentStep } from './GeminiService';
+import { createAgentAbortController, abortAllAgentRequests } from '../lib/api';
 
 export const useAgent = () => {
     const {
@@ -18,14 +19,23 @@ export const useAgent = () => {
         setIsProcessing(true);
         setAgentStatus('thinking', 'Analyzing global state...');
 
-        try {
-            // 1. Initial State Capture
-            // In a continuous loop, we would do this repeatedly.
-            // For now, let's do a single-step decision or a simple 2-step sequence.
+        // Create fresh abort controller for this run
+        createAgentAbortController();
 
-            // Loop limit to prevent infinite run costs
+        try {
+            // 1. Router check (once at the start)
+            setAgentStatus('thinking', 'Checking intent...');
+            const routerResult = await checkRouterIntent(query);
+
+            if (!routerResult.needs_tool && routerResult.response) {
+                console.log("Router handled request (No tools needed)");
+                setAgentStatus('answering', routerResult.response);
+                return;
+            }
+
+            // 2. Agent loop (only if tools needed)
             let steps = 0;
-            const MAX_STEPS = 5;
+            const MAX_STEPS = 10;
             let currentQuery = query;
 
             while (steps < MAX_STEPS) {
@@ -35,12 +45,12 @@ export const useAgent = () => {
                     setAgentStatus('idle');
                     break;
                 }
-                // 1. Capture "Vision"
+                // Capture screen state
                 const screenState = getScreenSnapshot();
 
-                // 2. Ask Gemini
+                // Call agent (no router)
                 setAgentStatus('thinking', steps === 0 ? 'Planning...' : 'Reviewing next step...');
-                const decision = await askGeminiAgent(currentQuery, screenState);
+                const decision = await executeAgentStep(currentQuery, screenState);
 
                 // 3. Update overlay with "Thought"
                 setAgentStatus('executing', decision.thought);
@@ -216,8 +226,13 @@ export const useAgent = () => {
             }
 
         } catch (error) {
-            console.error(error);
-            setAgentStatus('answering', 'Error during execution.');
+            if (error instanceof Error && error.name === 'AbortError') {
+                console.log('Agent requests aborted');
+                setAgentStatus('idle');
+            } else {
+                console.error(error);
+                setAgentStatus('answering', 'Error during execution.');
+            }
         } finally {
             setIsProcessing(false);
         }

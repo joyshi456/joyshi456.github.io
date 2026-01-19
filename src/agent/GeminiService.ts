@@ -33,23 +33,18 @@ const checkIntent = async (
   }
 };
 
-export const askGeminiAgent = async (
+// Router check - call this once at the start
+export const checkRouterIntent = async (
+  userQuery: string
+): Promise<{ needs_tool: boolean; response?: string }> => {
+  return checkIntent(userQuery);
+};
+
+// Agent execution - call this in the action loop (no router)
+export const executeAgentStep = async (
   userQuery: string,
   screenState: ScreenElement[]
 ): Promise<AgentDecision> => {
-  // 1. Router Check
-  const routerDecision = await checkIntent(userQuery);
-
-  if (!routerDecision.needs_tool && routerDecision.response) {
-    console.log("Router handled request (No tools needed)");
-    return {
-      thought: "This is a simple conversation.",
-      action: "speak",
-      message: routerDecision.response,
-    };
-  }
-
-  // 2. Agent Execution (if tools needed)
   const systemPrompt = `
     You are an automated agent operating a Windows 98 desktop portfolio.
 

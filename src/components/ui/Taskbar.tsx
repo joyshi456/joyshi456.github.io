@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from './Button';
 import clsx from 'clsx';
 import { changeLanguage } from '../../i18n';
+import { useStore } from '../../store/store';
 
 interface TaskbarProps {
     onStartClick: () => void;
@@ -21,6 +22,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({ onStartClick, windows, onWindo
     const [time, setTime] = useState(new Date());
     const [showLangMenu, setShowLangMenu] = useState(false);
     const langMenuRef = useRef<HTMLDivElement>(null);
+    const { agentStatus, cancelAgent } = useStore();
 
     useEffect(() => {
         const timer = setInterval(() => setTime(new Date()), 1000);
@@ -130,6 +132,27 @@ export const Taskbar: React.FC<TaskbarProps> = ({ onStartClick, windows, onWindo
                 backgroundColor: '#c0c0c0',
                 gap: '4px'
             }}>
+                {/* Stop Agent Icon - only shows when agent is running */}
+                {agentStatus !== 'idle' && (
+                    <button
+                        onClick={cancelAgent}
+                        title="Stop Agent"
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '16px',
+                            height: '16px',
+                            backgroundColor: '#c00000',
+                            border: '1px solid #000',
+                            cursor: 'pointer',
+                            padding: 0,
+                            borderRadius: '2px',
+                        }}
+                    >
+                        <span style={{ color: '#fff', fontSize: '10px', fontWeight: 'bold', lineHeight: 1 }}>■</span>
+                    </button>
+                )}
                 <img src="/img/audio.ico" alt="" style={{ height: 16 }} />
 
                 {/* Language Indicator */}

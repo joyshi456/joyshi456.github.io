@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import React from 'react';
+import { abortAllAgentRequests } from '../lib/api';
 
 export type WindowId = 'cv' | 'projects' | 'contact' | 'cmd' | 'about' | 'paint' | 'mycomputer' | string;
 
@@ -213,7 +214,10 @@ export const useStore = create<AppState>((set, get) => ({
 
     setAgentStatus: (status, message) => set({ agentStatus: status, agentMessage: message || null, agentCancelled: false }),
 
-    cancelAgent: () => set({ agentStatus: 'idle', agentMessage: null, agentCancelled: true, isClicking: false }),
+    cancelAgent: () => {
+        abortAllAgentRequests();
+        set({ agentStatus: 'idle', agentMessage: null, agentCancelled: true, isClicking: false });
+    },
 
     setCursorPosition: (x, y) => set({ cursorPosition: { x, y } }),
     setIsClicking: (isClicking) => set({ isClicking })

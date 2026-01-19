@@ -1,7 +1,30 @@
 // API helper for Cloudflare Worker endpoints
 // All API calls go through the Worker - no keys exposed in frontend
 
-const API_BASE = import.meta.env.DEV ? "https://enjoyshi.com" : "";
+const API_BASE = "https://enjoyshi.com";
+
+// Global abort controller for cancelling all agent requests
+let agentAbortController: AbortController | null = null;
+
+export function createAgentAbortController(): AbortController {
+  // Abort any existing controller
+  if (agentAbortController) {
+    agentAbortController.abort();
+  }
+  agentAbortController = new AbortController();
+  return agentAbortController;
+}
+
+export function abortAllAgentRequests(): void {
+  if (agentAbortController) {
+    agentAbortController.abort();
+    agentAbortController = null;
+  }
+}
+
+export function getAgentSignal(): AbortSignal | undefined {
+  return agentAbortController?.signal;
+}
 
 interface RouterResponse {
   needs_tool: boolean;
@@ -23,6 +46,7 @@ export async function callRouter(prompt: string): Promise<RouterResponse> {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt }),
+    signal: getAgentSignal(),
   });
 
   if (!res.ok) {
@@ -41,6 +65,7 @@ export async function callAgent(
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt, systemPrompt }),
+    signal: getAgentSignal(),
   });
 
   if (!res.ok) {
