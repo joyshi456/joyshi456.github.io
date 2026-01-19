@@ -10,9 +10,11 @@ export interface DesktopWindow {
     component: React.ReactNode;
     isOpen: boolean;
     isMinimized: boolean;
+    isMaximized: boolean;
     zIndex: number;
     position?: { x: number; y: number };
     size?: { width: number; height: number };
+    preMaximizeState?: { position: { x: number; y: number }; size: { width: number; height: number } };
 }
 
 interface AppState {
@@ -29,10 +31,16 @@ interface AppState {
     cursorPosition: { x: number; y: number };
     isClicking: boolean;
 
+    // Clippy Demo State
+    clippyDemoActive: boolean;
+    startClippyDemo: () => void;
+    stopClippyDemo: () => void;
+
     // Actions
     openWindow: (id: WindowId, title?: string, icon?: string, component?: React.ReactNode, size?: { width: number; height: number }) => void;
     closeWindow: (id: WindowId) => void;
     minimizeWindow: (id: WindowId) => void;
+    maximizeWindow: (id: WindowId) => void;
     focusWindow: (id: WindowId) => void;
     updateWindowPosition: (id: WindowId, x: number, y: number) => void;
     updateWindowSize: (id: WindowId, width: number, height: number) => void;
@@ -45,12 +53,12 @@ interface AppState {
 
 export const useStore = create<AppState>((set, get) => ({
     windows: {
-        'cmd': { id: 'cmd', title: 'Command Prompt', isOpen: true, zIndex: 10, position: { x: 50, y: 400 }, isMinimized: false, size: { width: 500, height: 350 }, icon: '/img/cmd.png', component: null },
-        'cv': { id: 'cv', title: 'Resume - WordPad', isOpen: false, zIndex: 1, position: { x: 50, y: 50 }, isMinimized: false, size: { width: 500, height: 400 }, icon: '/img/wordpad_icons/WordPad-icon-cropped.png', component: null },
-        'mycomputer': { id: 'mycomputer', title: 'System Properties', isOpen: false, zIndex: 1, position: { x: 100, y: 100 }, isMinimized: false, size: { width: 506, height: 450 }, icon: '/img/computer.ico', component: null },
-        'documents': { id: 'documents', title: 'My Documents', isOpen: false, zIndex: 2, position: { x: 50, y: 50 }, isMinimized: false, size: { width: 500, height: 400 }, icon: '/img/my_docs.png', component: null }, // Renamed from projects
-        'contact': { id: 'contact', title: 'Outlook Express', isOpen: false, zIndex: 3, position: { x: 150, y: 150 }, isMinimized: false, size: { width: 500, height: 450 }, icon: '/img/outlook_express.png', component: null },
-        'paint': { id: 'paint', title: 'Paint', isOpen: false, zIndex: 4, position: { x: 200, y: 100 }, isMinimized: false, size: { width: 675, height: 506 }, icon: '/img/paint_icon.png', component: null }
+        'cmd': { id: 'cmd', title: 'Command Prompt', isOpen: false, zIndex: 1, position: { x: 50, y: 400 }, isMinimized: false, isMaximized: false, size: { width: 500, height: 350 }, icon: '/img/cmd.png', component: null },
+        'cv': { id: 'cv', title: 'Resume - WordPad', isOpen: false, zIndex: 1, position: { x: 50, y: 50 }, isMinimized: false, isMaximized: false, size: { width: 500, height: 400 }, icon: '/img/wordpad_icons/WordPad-icon-cropped.png', component: null },
+        'mycomputer': { id: 'mycomputer', title: 'System Properties', isOpen: false, zIndex: 1, position: { x: 100, y: 100 }, isMinimized: false, isMaximized: false, size: { width: 506, height: 450 }, icon: '/img/computer.ico', component: null },
+        'documents': { id: 'documents', title: 'My Documents', isOpen: false, zIndex: 1, position: { x: 50, y: 50 }, isMinimized: false, isMaximized: false, size: { width: 500, height: 400 }, icon: '/img/my_docs.png', component: null },
+        'contact': { id: 'contact', title: 'Outlook Express', isOpen: false, zIndex: 1, position: { x: 150, y: 150 }, isMinimized: false, isMaximized: false, size: { width: 500, height: 450 }, icon: '/img/outlook_express.png', component: null },
+        'paint': { id: 'paint', title: 'Paint', isOpen: false, zIndex: 1, position: { x: 200, y: 100 }, isMinimized: false, isMaximized: false, size: { width: 675, height: 506 }, icon: '/img/paint_icon.png', component: null }
     },
     activeWindowId: null,
     startMenuOpen: false,
@@ -59,15 +67,20 @@ export const useStore = create<AppState>((set, get) => ({
     agentCancelled: false,
     cursorPosition: { x: window.innerWidth / 2, y: window.innerHeight / 2 },
     isClicking: false,
+    clippyDemoActive: false,
+
+    startClippyDemo: () => set({ clippyDemoActive: true }),
+    stopClippyDemo: () => set({ clippyDemoActive: false }),
 
     openWindow: (id, title, icon, component, size) => {
         const { windows } = get();
         // If already exists, just open and focus
         if (windows[id]) {
+            const maxZ = Math.max(...Object.values(windows).map(w => w.zIndex), 0);
             set((state) => ({
                 windows: {
                     ...state.windows,
-                    [id]: { ...state.windows[id], isOpen: true, isMinimized: false }
+                    [id]: { ...state.windows[id], isOpen: true, isMinimized: false, zIndex: maxZ + 1 }
                 },
                 activeWindowId: id,
                 startMenuOpen: false // Close start menu on action
@@ -77,6 +90,8 @@ export const useStore = create<AppState>((set, get) => ({
 
         // Register new window (dynamic or static)
         // Note: In a real app we might have a registry, but here we can pass metadata or defaults
+        const maxZ = Math.max(...Object.values(windows).map(w => w.zIndex), 0);
+        const windowCount = Object.keys(windows).length;
         const newWindow: DesktopWindow = {
             id,
             title: title || 'Untitled',
@@ -84,8 +99,9 @@ export const useStore = create<AppState>((set, get) => ({
             component: component || null,
             isOpen: true,
             isMinimized: false,
-            zIndex: Object.keys(windows).length + 1,
-            position: { x: 50 + (Object.keys(windows).length * 20), y: 50 + (Object.keys(windows).length * 20) },
+            isMaximized: false,
+            zIndex: maxZ + 1,
+            position: { x: 50 + (windowCount * 20), y: 50 + (windowCount * 20) },
             size: size || undefined
         };
 
@@ -113,6 +129,51 @@ export const useStore = create<AppState>((set, get) => ({
             },
             activeWindowId: null // or find next highest zIndex
         }));
+    },
+
+    maximizeWindow: (id) => {
+        const { windows } = get();
+        const win = windows[id];
+        if (!win) return;
+
+        if (win.isMaximized) {
+            // Restore to previous state
+            const prevState = win.preMaximizeState;
+            set((state) => ({
+                windows: {
+                    ...state.windows,
+                    [id]: {
+                        ...state.windows[id],
+                        isMaximized: false,
+                        position: prevState?.position || { x: 100, y: 100 },
+                        size: prevState?.size || { width: 400, height: 300 },
+                        preMaximizeState: undefined
+                    }
+                }
+            }));
+        } else {
+            // Maximize - save current state and expand
+            // Account for taskbar (approx 30px at bottom)
+            const taskbarHeight = 30;
+            // Use clientWidth/clientHeight to exclude scrollbars
+            const maxWidth = document.documentElement.clientWidth;
+            const maxHeight = document.documentElement.clientHeight - taskbarHeight;
+            set((state) => ({
+                windows: {
+                    ...state.windows,
+                    [id]: {
+                        ...state.windows[id],
+                        isMaximized: true,
+                        preMaximizeState: {
+                            position: win.position || { x: 100, y: 100 },
+                            size: win.size || { width: 400, height: 300 }
+                        },
+                        position: { x: 0, y: 0 },
+                        size: { width: maxWidth, height: maxHeight }
+                    }
+                }
+            }));
+        }
     },
 
     focusWindow: (id) => {

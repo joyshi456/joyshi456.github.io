@@ -1,0 +1,130 @@
+{
+  "taskbar": {
+    "start": "Start"
+  },
+  "desktop": {
+    "myComputer": "My Computer",
+    "myDocuments": "My Documents",
+    "outlookExpress": "Outlook Express",
+    "commandPrompt": "Command Prompt",
+    "paint": "Paint"
+  },
+  "outlook": {
+    "title": "Outlook Express",
+    "name": "Name:",
+    "email": "Email:",
+    "subject": "Subject:",
+    "message": "Message:",
+    "send": "Send",
+    "sending": "Sending...",
+    "sent": "Message sent!",
+    "error": "Failed to send",
+    "fillRequired": "Please fill in Name, Email, Subject, and Message to send."
+  },
+  "explorer": {
+    "back": "Back",
+    "forward": "Forward",
+    "up": "Up",
+    "cut": "Cut",
+    "copy": "Copy",
+    "paste": "Paste",
+    "undo": "Undo",
+    "delete": "Delete",
+    "properties": "Properties",
+    "views": "Views",
+    "objects": "{{count}} object(s)",
+    "addressBar": "Address"
+  },
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "go": "Go",
+    "favorites": "Favorites",
+    "help": "Help",
+    "new": "New",
+    "open": "Open",
+    "save": "Save",
+    "saveAs": "Save As...",
+    "exit": "Exit",
+    "undo": "Undo",
+    "redo": "Redo",
+    "cut": "Cut",
+    "copy": "Copy",
+    "paste": "Paste",
+    "selectAll": "Select All"
+  },
+  "files": {
+    "myProjects": "My Projects",
+    "projects": "Projects",
+    "research": "Research",
+    "resume": "Resume.doc",
+    "contact": "Contact.txt",
+    "thingsToDo": "Things To Do"
+  },
+  "system": {
+    "title": "System Properties",
+    "system": "System:",
+    "registeredTo": "Registered to:",
+    "specialThanks": "Special Thanks to:",
+    "productId": "Product ID",
+    "windowsVersion": "Microsoft Windows 98",
+    "versionNumber": "4.10.2222 C"
+  },
+  "tabs": {
+    "general": "General",
+    "agentGuide": "Agent Guide",
+    "systemSettings": "System Settings",
+    "performance": "Performance"
+  },
+  "keyboard": {
+    "title": "Keyboard Properties",
+    "speed": "Speed",
+    "language": "Language",
+    "installedLanguages": "Installed keyboard languages and layouts:",
+    "languageColumn": "Language:",
+    "layoutColumn": "Layout:",
+    "add": "Add...",
+    "properties": "Properties",
+    "remove": "Remove",
+    "defaultLanguage": "Default language:",
+    "setAsDefault": "Set as Default",
+    "switchLanguages": "Switch languages",
+    "leftAltShift": "Left Alt+Shift",
+    "ctrlShift": "Ctrl+Shift",
+    "none": "None",
+    "enableIndicator": "Enable indicator on taskbar",
+    "addLanguage": "Add Language"
+  },
+  "buttons": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "apply": "Apply"
+  },
+  "languages": {
+    "en-US": "English (United States)",
+    "zh-CN": "Chinese (Simplified, China)",
+    "zh-TW": "Chinese (Traditional, Taiwan)",
+    "es-ES": "Spanish (Spain)",
+    "fr-FR": "French (France)",
+    "de-DE": "German (Germany)",
+    "ja-JP": "Japanese (Japan)",
+    "ko-KR": "Korean (Korea)",
+    "ru-RU": "Russian (Russia)",
+    "ar-SA": "Arabic (Saudi Arabia)",
+    "hy-AM": "Armenian (Armenia)"
+  },
+  "layouts": {
+    "usStandard": "United States 101",
+    "chinese": "Chinese (Simplified) - Microsoft Pinyin",
+    "chineseTraditional": "Chinese (Traditional) - Bopomofo",
+    "spanish": "Spanish",
+    "french": "French",
+    "german": "German",
+    "japanese": "Japanese",
+    "korean": "Korean",
+    "russian": "Russian",
+    "arabic": "Arabic",
+    "armenian": "Armenian"
+  }
+}

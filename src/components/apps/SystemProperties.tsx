@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Win98MonitorIcon } from '../ui/Win98MonitorIcon';
+import { useStore } from '../../store/store';
+import { KeyboardProperties } from './KeyboardProperties';
 
 // Windows 98 color palette
 const win = {
@@ -13,15 +16,28 @@ const win = {
 };
 
 export const SystemProperties: React.FC = () => {
+    const { t } = useTranslation();
+    const openWindow = useStore((state) => state.openWindow);
+    const startClippyDemo = useStore((state) => state.startClippyDemo);
     const [activeTab, setActiveTab] = useState<'general' | 'device' | 'hardware' | 'performance'>('general');
     const [pressedButton, setPressedButton] = useState<string | null>(null);
 
     const tabs = [
-        { id: 'general', label: 'General' },
-        { id: 'device', label: 'Agent Guide' },
-        { id: 'hardware', label: 'Hardware Profiles' },
-        { id: 'performance', label: 'Performance' }
+        { id: 'general', label: t('tabs.general') },
+        { id: 'device', label: t('tabs.agentGuide') },
+        { id: 'hardware', label: t('tabs.systemSettings') },
+        { id: 'performance', label: t('tabs.performance') }
     ];
+
+    const handleOpenKeyboard = () => {
+        openWindow(
+            'keyboard',
+            t('keyboard.title'),
+            '/img/keyboard.png',
+            <KeyboardProperties onClose={() => useStore.getState().closeWindow('keyboard')} />,
+            { width: 410, height: 380 }
+        );
+    };
 
     return (
         <div style={{
@@ -109,16 +125,16 @@ export const SystemProperties: React.FC = () => {
                         }}>
                             {/* System */}
                             <div style={{ marginBottom: '10px' }}>
-                                <div style={{ marginBottom: '2px' }}>System:</div>
+                                <div style={{ marginBottom: '2px' }}>{t('system.system')}</div>
                                 <div style={{ paddingLeft: '12px' }}>
-                                    <div>Microsoft Windows 98</div>
-                                    <div>4.10.2222 C</div>
+                                    <div>{t('system.windowsVersion')}</div>
+                                    <div>{t('system.versionNumber')}</div>
                                 </div>
                             </div>
 
                             {/* Registered to */}
                             <div style={{ marginBottom: '10px', marginTop: '16px' }}>
-                                <div style={{ marginBottom: '2px' }}>Registered to:</div>
+                                <div style={{ marginBottom: '2px' }}>{t('system.registeredTo')}</div>
                                 <div style={{ paddingLeft: '12px' }}>
                                     <div>Joy Shi</div>
                                     <div>SWE (Product & Research)</div>
@@ -135,7 +151,7 @@ export const SystemProperties: React.FC = () => {
 
                             {/* Special Thanks */}
                             <div style={{ marginTop: '16px' }}>
-                                <div style={{ marginBottom: '2px' }}>Special Thanks to:</div>
+                                <div style={{ marginBottom: '2px' }}>{t('system.specialThanks')}</div>
                                 <div style={{ paddingLeft: '12px' }}>
                                     <div>github.com/LucaArgentieri</div>
                                 </div>
@@ -145,20 +161,111 @@ export const SystemProperties: React.FC = () => {
                 )}
 
                 {activeTab === 'device' && (
-                    <div style={{ padding: '20px', textAlign: 'center', color: win.shadow }}>
-                        <div>Agent Guide</div>
-                        <div style={{ marginTop: '10px', fontSize: '13px' }}>
-                            (Feature not implemented)
+                    <div style={{ padding: '8px' }}>
+                        <div style={{ marginBottom: '12px', fontWeight: 'bold' }}>
+                            How to use the AI Agent:
+                        </div>
+                        <div style={{ paddingLeft: '8px', lineHeight: '1.6' }}>
+                            <div style={{ marginBottom: '8px' }}>
+                                <span style={{ fontWeight: 'bold' }}>1.</span> Open <span style={{ fontWeight: 'bold' }}>Command Prompt</span> from the desktop
+                            </div>
+                            <div style={{ marginBottom: '8px' }}>
+                                <span style={{ fontWeight: 'bold' }}>2.</span> Type what you want in plain English
+                            </div>
+                            <div style={{ marginBottom: '16px' }}>
+                                <span style={{ fontWeight: 'bold' }}>3.</span> Press Enter and watch the AI work
+                            </div>
+                        </div>
+                        <fieldset style={{
+                            border: `1px solid ${win.shadow}`,
+                            borderRightColor: win.highlight,
+                            borderBottomColor: win.highlight,
+                            padding: '8px 12px',
+                            margin: '0',
+                        }}>
+                            <legend style={{ padding: '0 4px', fontSize: '13px' }}>
+                                Try saying
+                            </legend>
+                            <div style={{ fontSize: '13px', lineHeight: '1.5', color: '#000' }}>
+                                "open my resume"<br />
+                                "send an email to John"<br />
+                                "draw a smiley face"<br />
+                                "what can you do?"
+                            </div>
+                        </fieldset>
+                        <div style={{ marginTop: '16px', textAlign: 'center' }}>
+                            <button
+                                onClick={startClippyDemo}
+                                onMouseDown={() => setPressedButton('demo')}
+                                onMouseUp={() => setPressedButton(null)}
+                                onMouseLeave={() => setPressedButton(null)}
+                                style={{
+                                    padding: '6px 20px',
+                                    background: win.face,
+                                    borderTop: `2px solid ${pressedButton === 'demo' ? win.darkShadow : win.highlight}`,
+                                    borderLeft: `2px solid ${pressedButton === 'demo' ? win.darkShadow : win.highlight}`,
+                                    borderRight: `2px solid ${pressedButton === 'demo' ? win.highlight : win.darkShadow}`,
+                                    borderBottom: `2px solid ${pressedButton === 'demo' ? win.highlight : win.darkShadow}`,
+                                    fontFamily: 'inherit',
+                                    fontSize: '14px',
+                                    cursor: 'pointer',
+                                    color: '#000'
+                                }}
+                            >
+                                Show Me (Clippy Demo)
+                            </button>
                         </div>
                     </div>
                 )}
 
                 {activeTab === 'hardware' && (
-                    <div style={{ padding: '20px', textAlign: 'center', color: win.shadow }}>
-                        <div>Hardware Profiles</div>
-                        <div style={{ marginTop: '10px', fontSize: '13px' }}>
-                            (Feature not implemented)
-                        </div>
+                    <div style={{ padding: '12px' }}>
+                        {/* Keyboard section */}
+                        <fieldset style={{
+                            border: `1px solid ${win.shadow}`,
+                            borderRightColor: win.highlight,
+                            borderBottomColor: win.highlight,
+                            padding: '12px',
+                            margin: '0 0 12px 0',
+                        }}>
+                            <legend style={{ padding: '0 4px', fontSize: '14px' }}>
+                                {t('keyboard.title')}
+                            </legend>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <img
+                                    src="/img/keyboard.png"
+                                    alt="Keyboard"
+                                    style={{ width: '32px', height: '32px' }}
+                                    onError={(e) => {
+                                        e.currentTarget.style.display = 'none';
+                                    }}
+                                />
+                                <span style={{ flex: 1, fontSize: '13px' }}>
+                                    {t('keyboard.installedLanguages')}
+                                </span>
+                                <button
+                                    onClick={handleOpenKeyboard}
+                                    onMouseDown={() => setPressedButton('keyboard')}
+                                    onMouseUp={() => setPressedButton(null)}
+                                    onMouseLeave={() => setPressedButton(null)}
+                                    style={{
+                                        minWidth: '90px',
+                                        padding: '4px 12px',
+                                        background: win.face,
+                                        borderTop: `2px solid ${pressedButton === 'keyboard' ? win.darkShadow : win.highlight}`,
+                                        borderLeft: `2px solid ${pressedButton === 'keyboard' ? win.darkShadow : win.highlight}`,
+                                        borderRight: `2px solid ${pressedButton === 'keyboard' ? win.highlight : win.darkShadow}`,
+                                        borderBottom: `2px solid ${pressedButton === 'keyboard' ? win.highlight : win.darkShadow}`,
+                                        fontFamily: 'inherit',
+                                        fontSize: '14px',
+                                        cursor: 'pointer',
+                                        color: '#000'
+                                    }}
+                                >
+                                    {t('keyboard.properties')}
+                                </button>
+                            </div>
+                        </fieldset>
                     </div>
                 )}
 
@@ -179,7 +286,7 @@ export const SystemProperties: React.FC = () => {
                 gap: '10px',
                 padding: '6px 10px'
             }}>
-                {['OK', 'Cancel'].map((label) => {
+                {[t('buttons.ok'), t('buttons.cancel')].map((label) => {
                     const isPressed = pressedButton === label;
                     return (
                         <button

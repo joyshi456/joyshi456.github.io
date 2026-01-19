@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
 import { useStore, type WindowId } from './store/store';
 import { useAgent } from './agent/useAgent';
+import { useTranslation } from 'react-i18next';
 // import { parseIntent } from './agent/parser';
 import { Window } from './components/ui/Window';
 import { Taskbar } from './components/ui/Taskbar';
@@ -16,16 +16,20 @@ import { Paint } from './components/apps/Paint';
 import { SystemProperties } from './components/apps/SystemProperties';
 
 import { GhostCursor } from './components/ui/GhostCursor';
+import { Clippy } from './components/ui/Clippy';
+import { useClippyDemo } from './hooks/useClippyDemo';
 
 import './App.css';
 
 function App() {
+  const { t } = useTranslation();
   const {
     windows,
     activeWindowId,
     openWindow,
     closeWindow,
     minimizeWindow,
+    maximizeWindow,
     focusWindow,
     updateWindowPosition,
     updateWindowSize,
@@ -38,6 +42,7 @@ function App() {
   } = useStore();
 
   const { runPlan } = useAgent();
+  const clippy = useClippyDemo();
 
   const handleExecute = (query: string) => {
     // Direct Agent Call (Bypass old parser)
@@ -49,23 +54,36 @@ function App() {
     // closeWindow('cmd'); 
   };
 
-  // Initial load - open Terminal
-  useEffect(() => {
-    openWindow('cmd', 'Command Prompt', '/img/cmd.png', <Terminal onExecute={handleExecute} />);
-  }, []);
+
+  // Research folder contents with URL shortcuts
+  const researchItems = [
+    {
+      id: 'fredguard',
+      label: 'FREDGuard_NeurIPS.url',
+      icon: '/img/url_shortcut.svg',
+      type: 'file' as const,
+      onClick: () => window.open('https://openreview.net/pdf?id=lH5nrHUpP7', '_blank')
+    },
+    {
+      id: 'capstone',
+      label: 'Schwarzman_Capstone.url',
+      icon: '/img/url_shortcut.svg',
+      type: 'file' as const,
+      onClick: () => window.open('https://drive.google.com/file/d/1aYjp70e3iMPkHO1Il2nvSNaxWHYnEYDG/view?usp=sharing', '_blank')
+    },
+  ];
 
   const renderComponent = (id: WindowId) => {
     switch (id) {
       case 'cv': return <CVViewer />;
       case 'mycomputer': return <SystemProperties />;
-      case 'documents': // Renamed from projects
-        return <Explorer initialPath="My Documents" items={[
-          { id: '1', label: 'My Projects', icon: '/img/folder_closed.ico', type: 'folder', onClick: () => openWindow('projects', 'Projects', '/img/folder_open.ico', <ProjectsViewer />) },
-          { id: '2', label: 'Resume.doc', icon: '/img/wordpad_icons/WordPad-icon-cropped.png', type: 'file', onClick: () => openWindow('cv', 'Resume - WordPad', '/img/wordpad_icons/WordPad-icon-cropped.png', <CVViewer />) },
-          { id: '3', label: 'Contact.txt', icon: '/img/notepad_file.ico', type: 'file', onClick: () => openWindow('contact', 'Outlook Express', '/img/outlook_express.png', <OutlookExpress />) },
+      case 'documents': // My Documents folder
+        return <Explorer initialPath={t('desktop.myDocuments')} items={[
+          { id: '1', label: t('files.research'), icon: '/img/my_docs.png', type: 'folder', onClick: () => openWindow('research', t('files.research'), '/img/my_docs.png', <Explorer initialPath={t('files.research')} items={researchItems} />) },
+          { id: '2', label: t('files.resume'), icon: '/img/wordpad_icons/WordPad-icon-cropped.png', type: 'file', onClick: () => openWindow('cv', t('files.resume'), '/img/wordpad_icons/WordPad-icon-cropped.png', <CVViewer />) },
         ]} />;
-      // case 'projects': return <ProjectsViewer />; // Deprecated or sub-window? Let's keep it accessible via Explorer folder
-      case 'projects': return <ProjectsViewer />;
+      case 'research': return <Explorer initialPath={t('files.research')} items={researchItems} />;
+      case 'projects': return <ProjectsViewer />; // Keep for backwards compatibility
       case 'contact': return <OutlookExpress />;
       case 'paint':
         return <Paint />;
@@ -87,49 +105,67 @@ function App() {
       {/* Desktop Icons */}
       <div className="desktop-icons" style={{ position: 'absolute', top: 10, left: 10, display: 'flex', flexDirection: 'column', gap: 20 }}>
         <DesktopIcon
-          label="My Computer"
+          label={t('desktop.myComputer')}
           iconSrc="/img/computer.ico"
-          onDoubleClick={() => openWindow('mycomputer', 'System Properties', '/img/computer.ico', <SystemProperties />, { width: 506, height: 450 })}
+          onDoubleClick={() => openWindow('mycomputer', t('system.title'), '/img/computer.ico', <SystemProperties />, { width: 506, height: 450 })}
         />
         <DesktopIcon
-          label="My Documents"
+          label={t('desktop.myDocuments')}
           iconSrc="/img/my_docs.png"
-          onDoubleClick={() => openWindow('documents', 'My Documents', '/img/my_docs.png', <Explorer
-            initialPath="My Documents"
+          onDoubleClick={() => openWindow('documents', t('desktop.myDocuments'), '/img/my_docs.png', <Explorer
+            initialPath={t('desktop.myDocuments')}
             items={[
-              { id: 'p1', label: 'Projects', icon: '/img/folder_closed.ico', type: 'folder', onClick: () => openWindow('projects', 'Projects', '/img/folder_open.ico', <ProjectsViewer />) },
-              { id: 'cv', label: 'Resume.doc', icon: '/img/wordpad_icons/WordPad-icon-cropped.png', type: 'file', onClick: () => openWindow('cv', 'Resume - WordPad', '/img/wordpad_icons/WordPad-icon-cropped.png', <CVViewer />) },
-              { id: 'todo', label: 'Things To Do', icon: '/img/word_icon.png', type: 'file' },
+              { id: 'research', label: t('files.research'), icon: '/img/my_docs.png', type: 'folder', onClick: () => openWindow('research', t('files.research'), '/img/my_docs.png', <Explorer initialPath={t('files.research')} items={researchItems} />) },
+              { id: 'cv', label: t('files.resume'), icon: '/img/wordpad_icons/WordPad-icon-cropped.png', type: 'file', onClick: () => openWindow('cv', t('files.resume'), '/img/wordpad_icons/WordPad-icon-cropped.png', <CVViewer />) },
+              { id: 'todo', label: t('files.thingsToDo'), icon: '/img/word_icon.png', type: 'file' },
             ]}
           />)}
         />
         <DesktopIcon
-          label="Outlook Express"
+          label={t('desktop.outlookExpress')}
           iconSrc="/img/outlook_express.png"
-          onDoubleClick={() => openWindow('contact', 'Outlook Express', '/img/outlook_express.png', <OutlookExpress />)}
+          onDoubleClick={() => openWindow('contact', t('desktop.outlookExpress'), '/img/outlook_express.png', <OutlookExpress />)}
         />
         <DesktopIcon
-          label="Paint"
+          label={t('desktop.paint')}
           iconSrc="/img/paint_icon.png"
-          onDoubleClick={() => openWindow('paint', 'Paint', '/img/paint_icon.png', <Paint />, { width: 675, height: 506 })}
+          onDoubleClick={() => openWindow('paint', t('desktop.paint'), '/img/paint_icon.png', <Paint />, { width: 675, height: 506 })}
         />
         <DesktopIcon
-          label="Command Prompt"
+          label={t('desktop.commandPrompt')}
           iconSrc="/img/cmd.png"
-          onDoubleClick={() => openWindow('cmd', 'Command Prompt', '/img/cmd.png', <Terminal onExecute={handleExecute} />)}
+          onDoubleClick={() => openWindow('cmd', t('desktop.commandPrompt'), '/img/cmd.png', <Terminal onExecute={handleExecute} />)}
+          data-agent-id="desktop-icon-command-prompt"
         />
       </div>
 
       {/* Windows */}
       {winList.map((win) => {
-        // Dialog windows (like System Properties) should only show Close button
-        const isDialog = win.id === 'mycomputer';
+        // Dialog windows (like System Properties, Keyboard) should only show Close button
+        const isDialog = win.id === 'mycomputer' || win.id === 'keyboard';
+
+        // Get translated title based on window ID
+        const getWindowTitle = (id: string): string => {
+          const titleMap: Record<string, string> = {
+            'mycomputer': t('system.title'),
+            'documents': t('desktop.myDocuments'),
+            'contact': t('desktop.outlookExpress'),
+            'paint': t('desktop.paint'),
+            'cmd': t('desktop.commandPrompt'),
+            'cv': t('files.resume'),
+            'projects': t('files.projects'),
+            'research': t('files.research'),
+            'keyboard': t('keyboard.title'),
+          };
+          return titleMap[id] || win.title;
+        };
 
         return win.isOpen && !win.isMinimized && (
           <Window
             key={win.id}
-            title={win.title}
+            title={getWindowTitle(win.id)}
             isActive={activeWindowId === win.id}
+            onMouseDown={() => focusWindow(win.id)}
             onClose={() => {
               // If closing command prompt, cancel the agent
               if (win.id === 'cmd') {
@@ -138,24 +174,35 @@ function App() {
               closeWindow(win.id);
             }}
             onMinimize={isDialog ? undefined : () => minimizeWindow(win.id)}
-            onMaximize={isDialog ? undefined : () => { }}
+            onMaximize={isDialog ? undefined : () => maximizeWindow(win.id)}
             onDragEnd={(x, y) => updateWindowPosition(win.id, x, y)}
             onResize={isDialog ? undefined : (width, height) => updateWindowSize(win.id, width, height)}
-            // noPadding={win.id === 'cmd'} // Removed to restore standard margins
             style={{
               position: 'absolute',
-              top: win.position?.y || 100,
-              left: win.position?.x || 100,
-              width: win.size?.width || 400,
-              height: win.size?.height || 300
+              top: win.position?.y ?? 100,
+              left: win.position?.x ?? 100,
+              width: win.size?.width ?? 400,
+              height: win.size?.height ?? 300,
+              zIndex: win.zIndex
             }}
           >
-            <div onMouseDown={() => focusWindow(win.id)} style={{ height: '100%' }}>
-              {renderComponent(win.id)}
-            </div>
+            {win.component || renderComponent(win.id)}
           </Window>
         );
       })}
+
+      {/* Clippy Demo */}
+      {clippy.isActive && clippy.currentStep && (
+        <Clippy
+          message={clippy.currentStep.message}
+          position={clippy.currentStep.position}
+          buttons={clippy.currentStep.buttons?.map(btn => ({
+            label: btn.label,
+            onClick: () => clippy.handleButtonClick(btn)
+          }))}
+          onClose={clippy.closeDemo}
+        />
+      )}
 
       {/* Agent Overlay */}
       {agentStatus !== 'idle' && (
@@ -180,7 +227,22 @@ function App() {
       {/* Taskbar */}
       <Taskbar
         onStartClick={toggleStartMenu}
-        windows={winList.map(w => ({ id: w.id, title: w.title, minimized: w.isMinimized, active: activeWindowId === w.id && w.isOpen }))}
+        windows={winList
+          .filter(w => w.isOpen)
+          .map(w => {
+            const titleMap: Record<string, string> = {
+              'mycomputer': t('system.title'),
+              'documents': t('desktop.myDocuments'),
+              'contact': t('desktop.outlookExpress'),
+              'paint': t('desktop.paint'),
+              'cmd': t('desktop.commandPrompt'),
+              'cv': t('files.resume'),
+              'projects': t('files.projects'),
+              'research': t('files.research'),
+              'keyboard': t('keyboard.title'),
+            };
+            return { id: w.id, title: titleMap[w.id] || w.title, minimized: w.isMinimized, active: activeWindowId === w.id };
+          })}
         onWindowClick={(id) => {
           const w = windows[id];
           if (w.isMinimized || activeWindowId !== id) {

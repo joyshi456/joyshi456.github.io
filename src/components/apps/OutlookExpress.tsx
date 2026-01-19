@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const OutlookExpress: React.FC = () => {
+    const { t } = useTranslation();
     const [senderName, setSenderName] = useState('');
     const [senderEmail, setSenderEmail] = useState('');
     const [subject, setSubject] = useState('');
@@ -12,28 +14,14 @@ export const OutlookExpress: React.FC = () => {
             // Simple validation feedback (could be better UI, but alert works for Win98 feel)
             // Or just don't send? Let's use early return and maybe user notices button does nothing.
             // Better: strictly enforce it.
-            if (window.confirm("Please fill in Name, Email, Subject, and Message to send.")) {
+            if (window.confirm(t('outlook.fillRequired'))) {
                 return;
             }
             return;
         }
         setStatus('sending');
 
-        const formspreeUrl = import.meta.env.VITE_FORMSPREE;
-
-        if (!formspreeUrl) {
-            console.error("Formspree URL not configured");
-            setTimeout(() => {
-                setStatus('success');
-                setBody('');
-                setSubject('');
-                setSenderName('');
-                setSenderEmail('');
-            }, 1000);
-            return;
-        }
-
-        fetch(formspreeUrl, {
+        fetch('https://enjoyshi.com/api/contact', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -83,38 +71,36 @@ export const OutlookExpress: React.FC = () => {
                     data-agent-type="button"
                 >
                     <img src="/img/outlook_express.png" alt="" style={{ width: 20, height: 20, marginBottom: 2 }} />
-                    <span>{status === 'sending' ? 'Sending...' : 'Send'}</span>
+                    <span>{status === 'sending' ? t('outlook.sending') : t('outlook.send')}</span>
                 </button>
             </div>
 
             {/* Headers */}
             <div style={{ padding: '8px 12px', display: 'flex', flexDirection: 'column', gap: 8, backgroundColor: '#c0c0c0' }}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <label style={{ width: 60 }}>Name:</label>
+                    <label style={{ width: 80 }}>{t('outlook.name')}</label>
                     <input
                         type="text"
                         value={senderName}
                         onChange={e => setSenderName(e.target.value)}
-                        placeholder="Your Name"
                         style={{ flex: 1, border: '1px solid #808080', padding: 2 }}
                         data-agent-id="oe-input-name"
                         data-agent-type="input"
                     />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <label style={{ width: 60 }}>Email:</label>
+                    <label style={{ width: 80 }}>{t('outlook.email')}</label>
                     <input
                         type="email"
                         value={senderEmail}
                         onChange={e => setSenderEmail(e.target.value)}
-                        placeholder="your@email.com"
                         style={{ flex: 1, border: '1px solid #808080', padding: 2 }}
                         data-agent-id="oe-input-email"
                         data-agent-type="input"
                     />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <label style={{ width: 60 }}>Subject:</label>
+                    <label style={{ width: 80 }}>{t('outlook.subject')}</label>
                     <input
                         type="text"
                         value={subject}
@@ -154,14 +140,14 @@ export const OutlookExpress: React.FC = () => {
                 }}>
                     <div className="window" style={{ width: 250 }}>
                         <div className="title-bar">
-                            <div className="title-bar-text">Outlook Express</div>
+                            <div className="title-bar-text">{t('outlook.title')}</div>
                             <div className="title-bar-controls">
                                 <button aria-label="Close" onClick={() => setStatus('idle')}></button>
                             </div>
                         </div>
                         <div className="window-body" style={{ textAlign: 'center', padding: 20 }}>
-                            <p>Message Sent Successfully!</p>
-                            <button onClick={() => setStatus('idle')}>OK</button>
+                            <p>{t('outlook.sent')}</p>
+                            <button onClick={() => setStatus('idle')}>{t('buttons.ok')}</button>
                         </div>
                     </div>
                 </div>

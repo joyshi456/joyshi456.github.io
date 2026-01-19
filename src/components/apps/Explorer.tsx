@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface ExplorerProps {
     initialPath?: string;
@@ -15,7 +16,7 @@ export interface ExplorerItem {
 
 // Default items if none provided
 const DEFAULT_ITEMS: ExplorerItem[] = [
-    { id: '1', label: 'My Projects', icon: '/img/folder_closed.ico', type: 'folder' },
+    { id: '1', label: 'My Projects', icon: '/img/my_docs.png', type: 'folder' },
     { id: '2', label: 'Resume.txt', icon: '/img/notepad_file.ico', type: 'file' },
 ];
 
@@ -23,15 +24,26 @@ export const Explorer: React.FC<ExplorerProps> = ({
     initialPath = "My Documents",
     items = DEFAULT_ITEMS
 }) => {
+    const { t } = useTranslation();
     const [viewMode, setViewMode] = useState<'large' | 'list'>('large');
+
+    // Menu items with translations
+    const menuItems = [
+        { key: 'file', label: t('menu.file') },
+        { key: 'edit', label: t('menu.edit') },
+        { key: 'view', label: t('menu.view') },
+        { key: 'go', label: t('menu.go') },
+        { key: 'favorites', label: t('menu.favorites') },
+        { key: 'help', label: t('menu.help') },
+    ];
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#c0c0c0' }}>
             {/* 1. Menu Bar */}
             <div style={{ display: 'flex', padding: '2px 4px', borderBottom: '1px solid #808080' }}>
-                {['File', 'Edit', 'View', 'Go', 'Favorites', 'Help'].map(menu => (
-                    <div key={menu} style={{ padding: '2px 6px', cursor: 'default' }}>
-                        <span style={{ textDecoration: 'none' }}>{menu[0]}</span>{menu.slice(1)}
+                {menuItems.map(menu => (
+                    <div key={menu.key} style={{ padding: '2px 6px', cursor: 'default' }}>
+                        {menu.label}
                     </div>
                 ))}
             </div>
@@ -45,23 +57,23 @@ export const Explorer: React.FC<ExplorerProps> = ({
                 backgroundColor: '#c0c0c0'
             }}>
                 <div style={{ display: 'flex', gap: 0, marginRight: 8 }}>
-                    <ToolbarButton label="Back" icon="/img/back_icon.png" disabled />
-                    <ToolbarButton label="Forward" icon="/img/forward_icon.png" disabled />
-                    <ToolbarButton label="Up" icon="/img/up_level_icon.png" />
+                    <ToolbarButton label={t('explorer.back')} icon="/img/explorer_toolbar/Explorer-back.png" disabled />
+                    <ToolbarButton label={t('explorer.forward')} icon="/img/explorer_toolbar/Explorer-forward.png" disabled />
+                    <ToolbarButton label={t('explorer.up')} icon="/img/explorer_toolbar/Explorer-up.png" />
                 </div>
                 <div style={{ width: 1, backgroundColor: '#808080', margin: '0 4px' }} />
                 <div style={{ display: 'flex', gap: 0 }}>
-                    <ToolbarButton label="Cut" icon="/img/cut_icon.png" />
-                    <ToolbarButton label="Copy" icon="/img/copy_icon.png" />
-                    <ToolbarButton label="Paste" icon="/img/paste_icon.png" />
+                    <ToolbarButton label={t('explorer.cut')} icon="/img/explorer_toolbar/Explorer-cut.png" />
+                    <ToolbarButton label={t('explorer.copy')} icon="/img/explorer_toolbar/Explorer-copy.png" />
+                    <ToolbarButton label={t('explorer.paste')} icon="/img/explorer_toolbar/Explorer-paste.png" />
                 </div>
                 <div style={{ width: 1, backgroundColor: '#808080', margin: '0 4px' }} />
-                <ToolbarButton label="Undo" icon="/img/undo_icon.png" />
+                <ToolbarButton label={t('explorer.undo')} icon="/img/explorer_toolbar/Explorer-undo.png" />
                 <div style={{ width: 1, backgroundColor: '#808080', margin: '0 4px' }} />
-                <ToolbarButton label="Delete" icon="/img/delete_icon.png" />
-                <ToolbarButton label="Properties" icon="/img/properties_icon.png" />
+                <ToolbarButton label={t('explorer.delete')} icon="/img/explorer_toolbar/Explorer-delete.png" />
+                <ToolbarButton label={t('explorer.properties')} icon="/img/explorer_toolbar/Explorer-properties.png" />
                 <div style={{ width: 1, backgroundColor: '#808080', margin: '0 4px' }} />
-                <ToolbarButton label="Views" icon="/img/views_icon.png" onClick={() => setViewMode(m => m === 'large' ? 'list' : 'large')} />
+                <ToolbarButton label={t('explorer.views')} icon="/img/explorer_toolbar/Explorer-views.png" onClick={() => setViewMode(m => m === 'large' ? 'list' : 'large')} />
             </div>
 
             {/* 3. Address Bar */}
@@ -71,7 +83,7 @@ export const Explorer: React.FC<ExplorerProps> = ({
                 padding: '2px 4px 4px 4px',
                 gap: 4
             }}>
-                <span style={{ color: '#000', fontSize: 15, marginRight: 2 }}>Address</span>
+                <span style={{ color: '#000', fontSize: 15, marginRight: 2 }}>{t('explorer.addressBar')}</span>
                 <div style={{
                     flex: 1,
                     backgroundColor: 'white',
@@ -84,7 +96,7 @@ export const Explorer: React.FC<ExplorerProps> = ({
                     paddingLeft: 2,
                     boxShadow: 'inset 1px 1px 0px #000' // Fake deep inset
                 }}>
-                    <img src="/img/folder_open.ico" alt="" style={{ width: 16, height: 16, marginRight: 4 }} />
+                    <img src="/img/my_docs.png" alt="" style={{ width: 16, height: 16, marginRight: 4 }} />
                     <span style={{ fontFamily: 'Tahoma, sans-serif', fontSize: 15 }}>{initialPath}</span>
                 </div>
             </div>
@@ -107,7 +119,10 @@ export const Explorer: React.FC<ExplorerProps> = ({
                     {items.map(item => (
                         <div
                             key={item.id}
+                            data-agent-id={`explorer-item-${item.id}`}
+                            data-agent-type={item.type}
                             onClick={item.onClick}
+                            onDoubleClick={item.onClick}
                             style={{
                                 display: 'flex',
                                 flexDirection: viewMode === 'large' ? 'column' : 'row',
@@ -116,7 +131,6 @@ export const Explorer: React.FC<ExplorerProps> = ({
                                 gap: viewMode === 'large' ? 4 : 8,
                                 cursor: 'pointer',
                                 padding: 2,
-                                // Hover effect could be added
                             }}
                         >
                             <img src={item.icon} alt="" style={{ width: 48, height: 48, imageRendering: 'pixelated' }} />
@@ -134,7 +148,7 @@ export const Explorer: React.FC<ExplorerProps> = ({
             </div>
             {/* 5. Status Bar */}
             <div style={{ height: 20, borderTop: '1px solid #808080', display: 'flex', alignItems: 'center', paddingLeft: 4, fontSize: 12, color: '#000' }}>
-                {items.length} object(s)
+                {t('explorer.objects', { count: items.length })}
             </div>
         </div>
     );

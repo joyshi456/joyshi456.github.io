@@ -34,12 +34,13 @@ export const Window: React.FC<WindowProps> = ({
     const dragOffset = useRef({ x: 0, y: 0 });
     const isResizing = useRef(false);
     const resizeDirection = useRef<string>('');
-    const resizeStart = useRef({ x: 0, y: 0, width: 0, height: 0 });
+    const resizeStart = useRef({ x: 0, y: 0, width: 0, height: 0, left: 0, top: 0 });
 
     const handleMouseDown = (e: React.MouseEvent) => {
+        // Always focus the window on any click
         if (onMouseDown) onMouseDown();
 
-        // Only drag from title bar
+        // Only start drag from title bar (not from controls)
         if ((e.target as HTMLElement).closest('.title-bar-controls')) return;
         if (!(e.target as HTMLElement).closest('.title-bar')) return;
 
@@ -66,7 +67,9 @@ export const Window: React.FC<WindowProps> = ({
                 x: e.clientX,
                 y: e.clientY,
                 width: rect.width,
-                height: rect.height
+                height: rect.height,
+                left: rect.left,
+                top: rect.top
             };
         }
     };
@@ -88,6 +91,8 @@ export const Window: React.FC<WindowProps> = ({
 
                 let newWidth = resizeStart.current.width;
                 let newHeight = resizeStart.current.height;
+                let newLeft = resizeStart.current.left;
+                let newTop = resizeStart.current.top;
 
                 if (direction.includes('e')) {
                     newWidth = Math.max(200, resizeStart.current.width + deltaX);
@@ -96,14 +101,30 @@ export const Window: React.FC<WindowProps> = ({
                     newHeight = Math.max(150, resizeStart.current.height + deltaY);
                 }
                 if (direction.includes('w')) {
-                    newWidth = Math.max(200, resizeStart.current.width - deltaX);
+                    const proposedWidth = resizeStart.current.width - deltaX;
+                    if (proposedWidth >= 200) {
+                        newWidth = proposedWidth;
+                        newLeft = resizeStart.current.left + deltaX;
+                    } else {
+                        newWidth = 200;
+                        newLeft = resizeStart.current.left + (resizeStart.current.width - 200);
+                    }
                 }
                 if (direction.includes('n')) {
-                    newHeight = Math.max(150, resizeStart.current.height - deltaY);
+                    const proposedHeight = resizeStart.current.height - deltaY;
+                    if (proposedHeight >= 150) {
+                        newHeight = proposedHeight;
+                        newTop = resizeStart.current.top + deltaY;
+                    } else {
+                        newHeight = 150;
+                        newTop = resizeStart.current.top + (resizeStart.current.height - 150);
+                    }
                 }
 
                 windowRef.current.style.width = `${newWidth}px`;
                 windowRef.current.style.height = `${newHeight}px`;
+                windowRef.current.style.left = `${newLeft}px`;
+                windowRef.current.style.top = `${newTop}px`;
             }
         };
 
@@ -118,9 +139,15 @@ export const Window: React.FC<WindowProps> = ({
 
             if (isResizing.current) {
                 isResizing.current = false;
-                if (onResize && windowRef.current) {
+                if (windowRef.current) {
                     const rect = windowRef.current.getBoundingClientRect();
-                    onResize(rect.width, rect.height);
+                    if (onResize) {
+                        onResize(rect.width, rect.height);
+                    }
+                    // Also update position in case north/west resize changed it
+                    if (onDragEnd) {
+                        onDragEnd(rect.left, rect.top);
+                    }
                 }
             }
         };

@@ -1,5 +1,6 @@
 import { forwardRef, useState, useMemo } from 'react';
 import { useEditor, EditorContent, type Editor } from '@tiptap/react';
+import { useTranslation } from 'react-i18next';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import { TextStyle } from '@tiptap/extension-text-style';
@@ -19,9 +20,7 @@ const win = {
     activeCaptionText: '#ffffff',
 };
 
-const STORAGE_KEY = 'wordpad_cv_html_v1';
-
-const DEFAULT_CV_HTML = `
+const CV_HTML_EN = `
 <h2 style="text-align: center; margin-top: 0;">JOY SHI</h2>
 <p style="text-align: center;">New York City, USA<br/>joyshi456@gmail.com<br/>github.com/joyshi456</p>
 <hr/>
@@ -29,7 +28,7 @@ const DEFAULT_CV_HTML = `
 <p><strong>Founding Engineer</strong> — Pegasi (Neo '24) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jul 2025 – Present</p>
 <p>Building enterprise agents for financial institutions.</p>
 <ul>
-  <li>Architected agentic card migration platform generating $350K+ ARR</li>
+  <li>Architected agentic card migration platform for large fintechs</li>
   <li>First author for financial compliance model and dataset generation paper accepted to NeurIPS 2025</li>
   <li>Built an AI-native "consultant" API for a Fortune 100 financial client</li>
   <li>Implemented GRPO for SOTA performance in Text-to-SQL LLMs</li>
@@ -56,8 +55,43 @@ const DEFAULT_CV_HTML = `
 <p><strong>Languages:</strong> English (Native), Mandarin (Native), Spanish (Conversational)</p>
 `;
 
-function loadInitial(): string {
-    return localStorage.getItem(STORAGE_KEY) || DEFAULT_CV_HTML;
+const CV_HTML_ZH = `
+<h2 style="text-align: center; margin-top: 0;">施悦</h2>
+<p style="text-align: center;">美国纽约市<br/>joyshi456@gmail.com<br/>github.com/joyshi456</p>
+<hr/>
+<h3>工作经历</h3>
+<p><strong>创始工程师</strong> — Pegasi (Neo '24) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2025年7月 – 至今</p>
+<p>为金融机构构建企业级智能代理。</p>
+<ul>
+  <li>为大型金融科技公司设计智能卡迁移平台架构</li>
+  <li>金融合规模型与数据集生成论文第一作者，已被NeurIPS 2025接收</li>
+  <li>为财富100强金融客户构建AI原生"顾问"API</li>
+  <li>实现GRPO算法，在Text-to-SQL大语言模型中达到最优性能</li>
+</ul>
+
+<p><strong>应用AI工程师</strong> — Monad Ventures &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2024 – 2025</p>
+<p>为大规模对话AI产品（200万+用户）微调多语言大语言模型并进行A/B测试以确保质量。实现安全性和一致性评估指标。</p>
+
+<p><strong>机器学习工程师</strong> — 费米实验室 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2023年春</p>
+<p>使用PyTorch开发异常检测模型，提升粒子物理实验室的暗簇射探测能力。</p>
+
+<hr/>
+<h3>教育背景</h3>
+<p><strong>清华大学 苏世民书院</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2024 – 2025年6月</p>
+<p>管理科学硕士，Richard Merkin学者</p>
+
+<p><strong>加州理工学院</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2020 – 2024</p>
+<p>计算机科学理学学士（机器学习与人工智能方向）<br/>GPA: 4.0/4.0</p>
+
+<hr/>
+<h3>技术技能</h3>
+<p><strong>编程语言：</strong> Python, C/C++/CUDA, SQL, Java, JavaScript, HTML/CSS, OCaml</p>
+<p><strong>AI/ML：</strong> PyTorch, TensorFlow, Keras, Tinker, 蒸馏, 强化学习</p>
+<p><strong>语言能力：</strong> 英语（母语）, 普通话（母语）, 西班牙语（日常会话）</p>
+`;
+
+function getDefaultCV(lang: string): string {
+    return lang.startsWith('zh') ? CV_HTML_ZH : CV_HTML_EN;
 }
 
 function download(filename: string, content: string) {
@@ -71,7 +105,8 @@ function download(filename: string, content: string) {
 }
 
 // Menu Bar Component
-function MenuBar({ editor }: { editor: Editor | null }) {
+function MenuBar({ editor, lang }: { editor: Editor | null; lang: string }) {
+    const { t } = useTranslation();
     const [openMenu, setOpenMenu] = useState<string | null>(null);
 
     if (!editor) return null;
@@ -165,46 +200,45 @@ function MenuBar({ editor }: { editor: Editor | null }) {
                 alignItems: 'center',
             }}
         >
-            <MenuItem label="File" menuId="file">
+            <MenuItem label={t('menu.file')} menuId="file">
                 <DropdownItem
-                    label="New"
+                    label={t('menu.new')}
                     onClick={() => {
-                        if (confirm('Start a new document? Unsaved changes will be lost.')) {
-                            editor.commands.setContent(DEFAULT_CV_HTML);
-                            localStorage.setItem(STORAGE_KEY, DEFAULT_CV_HTML);
+                        if (confirm(lang.startsWith('zh') ? '创建新文档？未保存的更改将丢失。' : 'Start a new document? Unsaved changes will be lost.')) {
+                            editor.commands.setContent(getDefaultCV(lang));
                         }
                     }}
                 />
                 <DropdownSep />
                 <DropdownItem
-                    label="Save as HTML"
-                    onClick={() => download('Resume.html', editor.getHTML())}
+                    label={t('menu.saveAs') + ' HTML'}
+                    onClick={() => download(lang.startsWith('zh') ? '简历.html' : 'Resume.html', editor.getHTML())}
                 />
                 <DropdownItem
-                    label="Save as TXT"
-                    onClick={() => download('Resume.txt', editor.getText())}
+                    label={t('menu.saveAs') + ' TXT'}
+                    onClick={() => download(lang.startsWith('zh') ? '简历.txt' : 'Resume.txt', editor.getText())}
                 />
             </MenuItem>
-            <MenuItem label="Edit" menuId="edit">
-                <DropdownItem label="Undo" onClick={() => editor.chain().focus().undo().run()} />
-                <DropdownItem label="Redo" onClick={() => editor.chain().focus().redo().run()} />
+            <MenuItem label={t('menu.edit')} menuId="edit">
+                <DropdownItem label={t('menu.undo')} onClick={() => editor.chain().focus().undo().run()} />
+                <DropdownItem label={t('menu.redo')} onClick={() => editor.chain().focus().redo().run()} />
                 <DropdownSep />
-                <DropdownItem label="Select All" onClick={() => editor.chain().focus().selectAll().run()} />
+                <DropdownItem label={t('menu.selectAll')} onClick={() => editor.chain().focus().selectAll().run()} />
             </MenuItem>
-            <MenuItem label="View" menuId="view">
-                <DropdownItem label="Ruler" onClick={() => {}} />
+            <MenuItem label={t('menu.view')} menuId="view">
+                <DropdownItem label={lang.startsWith('zh') ? '标尺' : 'Ruler'} onClick={() => {}} />
             </MenuItem>
-            <MenuItem label="Insert" menuId="insert">
-                <DropdownItem label="Date and Time" onClick={() => {
-                    const now = new Date().toLocaleString();
+            <MenuItem label={lang.startsWith('zh') ? '插入' : 'Insert'} menuId="insert">
+                <DropdownItem label={lang.startsWith('zh') ? '日期和时间' : 'Date and Time'} onClick={() => {
+                    const now = new Date().toLocaleString(lang.startsWith('zh') ? 'zh-CN' : 'en-US');
                     editor.chain().focus().insertContent(now).run();
                 }} />
             </MenuItem>
-            <MenuItem label="Format" menuId="format">
-                <DropdownItem label="Font..." onClick={() => {}} />
+            <MenuItem label={lang.startsWith('zh') ? '格式' : 'Format'} menuId="format">
+                <DropdownItem label={lang.startsWith('zh') ? '字体...' : 'Font...'} onClick={() => {}} />
             </MenuItem>
-            <MenuItem label="Help" menuId="help">
-                <DropdownItem label="Help Topics" onClick={() => {}} />
+            <MenuItem label={t('menu.help')} menuId="help">
+                <DropdownItem label={lang.startsWith('zh') ? '帮助主题' : 'Help Topics'} onClick={() => {}} />
             </MenuItem>
         </div>
     );
@@ -274,7 +308,7 @@ function ToolbarButton({
 }
 
 // Toolbars Component
-function Toolbars({ editor }: { editor: Editor | null }) {
+function Toolbars({ editor, lang }: { editor: Editor | null; lang: string }) {
     if (!editor) return null;
 
     const prevent = (e: React.MouseEvent) => e.preventDefault();
@@ -294,12 +328,12 @@ function Toolbars({ editor }: { editor: Editor | null }) {
                 }}
             >
                 <ToolbarButton icon="/img/wordpad_icons/WordPad-new.png" label="New" onClick={() => {
-                    if (confirm('Start new document?')) {
-                        editor.commands.setContent(DEFAULT_CV_HTML);
+                    if (confirm(lang.startsWith('zh') ? '创建新文档？' : 'Start new document?')) {
+                        editor.commands.setContent(getDefaultCV(lang));
                     }
                 }} />
                 <ToolbarButton icon="/img/wordpad_icons/WordPad-open.png" label="Open" onClick={() => {}} />
-                <ToolbarButton icon="/img/wordpad_icons/WordPad-save.png" label="Save" onClick={() => download('Resume.html', editor.getHTML())} />
+                <ToolbarButton icon="/img/wordpad_icons/WordPad-save.png" label="Save" onClick={() => download(lang.startsWith('zh') ? '简历.html' : 'Resume.html', editor.getHTML())} />
                 <div style={{ width: 1, height: 20, backgroundColor: win.shadow, margin: '0 2px' }} />
                 <ToolbarButton icon="/img/wordpad_icons/WordPad-print.png" label="Print" onClick={() => window.print()} />
                 <ToolbarButton icon="/img/wordpad_icons/WordPad-print-preview.png" label="Print Preview" onClick={() => {}} />
@@ -470,7 +504,7 @@ function Toolbars({ editor }: { editor: Editor | null }) {
 }
 
 // Status Bar Component
-function StatusBar({ editor }: { editor: Editor | null }) {
+function StatusBar({ editor, lang }: { editor: Editor | null; lang: string }) {
     const text = editor?.getText() ?? '';
     const words = text.trim() ? text.trim().split(/\s+/).length : 0;
 
@@ -487,8 +521,8 @@ function StatusBar({ editor }: { editor: Editor | null }) {
                 fontFamily: '"MS Sans Serif", Tahoma, sans-serif',
             }}
         >
-            <div style={{ flex: 1 }}>For Help, press F1</div>
-            <div style={{ marginRight: 8 }}>{words} words</div>
+            <div style={{ flex: 1 }}>{lang.startsWith('zh') ? '按 F1 获取帮助' : 'For Help, press F1'}</div>
+            <div style={{ marginRight: 8 }}>{words} {lang.startsWith('zh') ? '字' : 'words'}</div>
             {/* Resize grip */}
             <div
                 style={{
@@ -510,7 +544,8 @@ function StatusBar({ editor }: { editor: Editor | null }) {
 
 // Main CVViewer Component
 export const CVViewer = forwardRef<HTMLDivElement>((_, ref) => {
-    const initial = useMemo(() => loadInitial(), []);
+    const { i18n } = useTranslation();
+    const initial = useMemo(() => getDefaultCV(i18n.language), [i18n.language]);
 
     const editor = useEditor({
         extensions: [
@@ -529,9 +564,6 @@ export const CVViewer = forwardRef<HTMLDivElement>((_, ref) => {
                 spellcheck: 'false',
             },
         },
-        onUpdate: ({ editor }) => {
-            localStorage.setItem(STORAGE_KEY, editor.getHTML());
-        },
     });
 
     return (
@@ -546,8 +578,8 @@ export const CVViewer = forwardRef<HTMLDivElement>((_, ref) => {
                 fontSize: '11px',
             }}
         >
-            <MenuBar editor={editor} />
-            <Toolbars editor={editor} />
+            <MenuBar editor={editor} lang={i18n.language} />
+            <Toolbars editor={editor} lang={i18n.language} />
 
             {/* Ruler */}
             <div
@@ -622,7 +654,7 @@ export const CVViewer = forwardRef<HTMLDivElement>((_, ref) => {
                 />
             </div>
 
-            <StatusBar editor={editor} />
+            <StatusBar editor={editor} lang={i18n.language} />
         </div>
     );
 });

@@ -27,3 +27,6 @@ dist-ssr
 *.sln
 *.sw?
 AGENT_CURSOR_ARCHITECTURE.md
+LANGUAGE_SPEC.md
+docs/
+*.zip
