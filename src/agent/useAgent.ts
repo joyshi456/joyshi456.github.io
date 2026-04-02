@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { useStore } from '../store/store';
 import { getScreenSnapshot } from './ScreenReader';
 import { checkRouterIntent, executeAgentStep } from './GeminiService';
-import { createAgentAbortController, abortAllAgentRequests } from '../lib/api';
+import { createAgentAbortController } from '../lib/api';
 
 export const useAgent = () => {
     const {
