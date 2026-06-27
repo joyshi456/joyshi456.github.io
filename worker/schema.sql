@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS rsvps (
   phone      TEXT    NOT NULL,
   show_name  INTEGER NOT NULL DEFAULT 0,  -- 1 = show first name publicly
   consent    INTEGER NOT NULL DEFAULT 0,  -- 1 = agreed to receive texts
-  created_at TEXT    NOT NULL DEFAULT (datetime('now'))
+  created_at TEXT    NOT NULL DEFAULT (datetime('now')),
+  texted_at  TEXT                          -- when they were texted (NULL = not yet)
 );
 
 CREATE INDEX IF NOT EXISTS idx_rsvps_event ON rsvps (event_id);

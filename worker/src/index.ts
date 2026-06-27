@@ -98,32 +98,62 @@ export default {
       return new Response(null, { status: 204, headers: corsHeaders(origin) })
     }
 
-    // --- private admin export: full name + phone list ---------------------
-    // GET /admin/rsvps?key=ADMIN_KEY[&event=ID][&format=csv]
-    if (url.pathname === '/admin/rsvps' && req.method === 'GET') {
-      const key =
-        url.searchParams.get('key') ??
-        (req.headers.get('authorization') ?? '').replace(/^Bearer\s+/i, '')
-      if (!env.ADMIN_KEY || key !== env.ADMIN_KEY) {
-        return json({ error: 'unauthorized' }, 401, origin)
-      }
+    const adminKey = () =>
+      url.searchParams.get('key') ??
+      (req.headers.get('authorization') ?? '').replace(/^Bearer\s+/i, '')
+    const adminOk = () => !!env.ADMIN_KEY && adminKey() === env.ADMIN_KEY
+
+    // --- reset the texted flag so everyone counts as "new" again ----------
+    // GET /admin/reset-texted?key=ADMIN_KEY[&event=ID]
+    if (url.pathname === '/admin/reset-texted' && req.method === 'GET') {
+      if (!adminOk()) return json({ error: 'unauthorized' }, 401, origin)
       const eventId = url.searchParams.get('event')
-      const stmt = eventId
-        ? env.DB.prepare(
-            'SELECT event_id, name, phone, show_name, consent, created_at FROM rsvps WHERE event_id = ? ORDER BY created_at ASC',
-          ).bind(eventId)
-        : env.DB.prepare(
-            'SELECT event_id, name, phone, show_name, consent, created_at FROM rsvps ORDER BY created_at ASC',
-          )
-      const { results } = await stmt.all<{
-        event_id: string
-        name: string
-        phone: string
-        show_name: number
-        consent: number
-        created_at: string
-      }>()
+      const r = eventId
+        ? await env.DB.prepare('UPDATE rsvps SET texted_at = NULL WHERE event_id = ?').bind(eventId).run()
+        : await env.DB.prepare('UPDATE rsvps SET texted_at = NULL').run()
+      return json({ reset: true, event: eventId ?? 'all', changed: r.meta?.changes ?? 0 }, 200, origin)
+    }
+
+    // --- private admin export: full name + phone list ---------------------
+    // GET /admin/rsvps?key=ADMIN_KEY[&event=ID][&format=csv][&new=1]
+    //   new=1  -> only people not yet texted; marks them texted on the way out
+    if (url.pathname === '/admin/rsvps' && req.method === 'GET') {
+      if (!adminOk()) return json({ error: 'unauthorized' }, 401, origin)
+      const eventId = url.searchParams.get('event')
+      const onlyNew = url.searchParams.get('new') === '1'
+
+      const where: string[] = []
+      const binds: unknown[] = []
+      if (eventId) {
+        where.push('event_id = ?')
+        binds.push(eventId)
+      }
+      if (onlyNew) where.push('texted_at IS NULL')
+      const whereSql = where.length ? `WHERE ${where.join(' AND ')}` : ''
+
+      const { results } = await env.DB.prepare(
+        `SELECT id, event_id, name, phone, show_name, consent, created_at FROM rsvps ${whereSql} ORDER BY created_at ASC`,
+      )
+        .bind(...binds)
+        .all<{
+          id: number
+          event_id: string
+          name: string
+          phone: string
+          show_name: number
+          consent: number
+          created_at: string
+        }>()
       const rows = results ?? []
+
+      // claim: mark the people we're handing out as texted so the next run skips them
+      if (onlyNew && rows.length) {
+        const ids = rows.map((r) => r.id)
+        const placeholders = ids.map(() => '?').join(',')
+        await env.DB.prepare(`UPDATE rsvps SET texted_at = datetime('now') WHERE id IN (${placeholders})`)
+          .bind(...ids)
+          .run()
+      }
 
       if (url.searchParams.get('format') === 'csv') {
         const esc = (s: unknown) => `"${String(s).replace(/"/g, '""')}"`
