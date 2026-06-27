@@ -17,6 +17,8 @@ export interface Env {
   TWILIO_ACCOUNT_SID: string
   TWILIO_AUTH_TOKEN: string
   TWILIO_FROM: string
+  /** secret key gating the private /admin/rsvps export (name + phone) */
+  ADMIN_KEY: string
 }
 
 interface RsvpBody {
@@ -40,7 +42,7 @@ function corsHeaders(origin: string | null): Record<string, string> {
   return {
     'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'content-type',
+    'Access-Control-Allow-Headers': 'content-type, authorization',
     Vary: 'Origin',
   }
 }
@@ -96,6 +98,64 @@ export default {
       return new Response(null, { status: 204, headers: corsHeaders(origin) })
     }
 
+    // --- private admin export: full name + phone list ---------------------
+    // GET /admin/rsvps?key=ADMIN_KEY[&event=ID][&format=csv]
+    if (url.pathname === '/admin/rsvps' && req.method === 'GET') {
+      const key =
+        url.searchParams.get('key') ??
+        (req.headers.get('authorization') ?? '').replace(/^Bearer\s+/i, '')
+      if (!env.ADMIN_KEY || key !== env.ADMIN_KEY) {
+        return json({ error: 'unauthorized' }, 401, origin)
+      }
+      const eventId = url.searchParams.get('event')
+      const stmt = eventId
+        ? env.DB.prepare(
+            'SELECT event_id, name, phone, show_name, consent, created_at FROM rsvps WHERE event_id = ? ORDER BY created_at ASC',
+          ).bind(eventId)
+        : env.DB.prepare(
+            'SELECT event_id, name, phone, show_name, consent, created_at FROM rsvps ORDER BY created_at ASC',
+          )
+      const { results } = await stmt.all<{
+        event_id: string
+        name: string
+        phone: string
+        show_name: number
+        consent: number
+        created_at: string
+      }>()
+      const rows = results ?? []
+
+      if (url.searchParams.get('format') === 'csv') {
+        const esc = (s: unknown) => `"${String(s).replace(/"/g, '""')}"`
+        const lines = ['name,phone,event,show_name,consent,signed_up_at']
+        for (const r of rows) {
+          lines.push(
+            [esc(r.name), esc(r.phone), esc(r.event_id), r.show_name, r.consent, esc(r.created_at)].join(','),
+          )
+        }
+        return new Response(lines.join('\n'), {
+          status: 200,
+          headers: { 'content-type': 'text/csv; charset=utf-8', ...corsHeaders(origin) },
+        })
+      }
+
+      return json(
+        {
+          count: rows.length,
+          signups: rows.map((r) => ({
+            name: r.name,
+            phone: r.phone,
+            event: r.event_id,
+            showName: r.show_name === 1,
+            consent: r.consent === 1,
+            at: r.created_at,
+          })),
+        },
+        200,
+        origin,
+      )
+    }
+
     if (url.pathname !== '/rsvp') {
       return json({ error: 'not found' }, 404, origin)
     }
@@ -146,20 +206,24 @@ export default {
         .bind(eventId, name, phone, showName ? 1 : 0, consent ? 1 : 0)
         .run()
 
-      // only text on the first sign-up for this number+event
-      if (!existing) {
+      // Send a confirmation text only if Twilio is fully configured AND this
+      // is the first sign-up for this number+event. Until Twilio is set up,
+      // we just store the RSVP (Joy texts people herself from the export).
+      const twilioReady = !!(env.TWILIO_ACCOUNT_SID && env.TWILIO_AUTH_TOKEN && env.TWILIO_FROM)
+      let smsSent = false
+      if (!existing && twilioReady) {
         const title = sanitizeTitle(body.eventTitle ?? 'the event')
         const msg = `You're on the list for ${title}! We'll text you the details. Reply STOP to opt out.`
         try {
           await sendSms(env, phone, msg)
+          smsSent = true
         } catch (err) {
           // RSVP is saved; surface SMS failure but don't lose the sign-up
           console.error('SMS failed:', err)
-          return json({ ok: true, smsSent: false }, 200, origin)
         }
       }
 
-      return json({ ok: true, smsSent: !existing }, 200, origin)
+      return json({ ok: true, smsSent }, 200, origin)
     }
 
     return json({ error: 'method not allowed' }, 405, origin)

@@ -154,7 +154,7 @@ export function FlyerDialog({ event, onClose }: Props) {
                   ? 'Demo mode — no text sent.'
                   : smsSent
                     ? 'Check your phone for a confirmation text.'
-                    : "You're on the list — text confirmations coming soon."}
+                    : "You're on the list — we'll text you the details. ✿"}
               </p>
               <button type="button" className="ink-btn" onClick={onClose}>
                 back to the board
