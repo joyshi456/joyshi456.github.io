@@ -14,6 +14,7 @@ legacy_backup
 node_modules
 dist
 dist-ssr
+.wrangler
 *.local
 
 # Editor directories and files

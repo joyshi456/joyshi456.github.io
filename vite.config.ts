@@ -5,4 +5,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/', // GitHub Pages base path for user site
+  build: {
+    rollupOptions: {
+      input: {
+        // Win98 portfolio (root) + the standalone corkboard events page
+        main: 'index.html',
+        events: 'events/index.html',
+      },
+    },
+  },
 })

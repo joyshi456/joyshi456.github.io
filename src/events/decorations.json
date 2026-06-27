@@ -1,0 +1,42 @@
+[
+  {
+    "id": "tokio7",
+    "image": "/events/stickers/tokio7.png",
+    "label": "Tokio 7 — consignment, E 7th St",
+    "x": 19,
+    "y": 30,
+    "w": 215,
+    "tilt": -6,
+    "attach": "tape"
+  },
+  {
+    "id": "daveys",
+    "image": "/events/stickers/daveys.png",
+    "label": "Davey's Ice Cream",
+    "x": 81,
+    "y": 23,
+    "w": 220,
+    "tilt": 5,
+    "attach": "pin"
+  },
+  {
+    "id": "jj-cleaners",
+    "image": "/events/stickers/jj-cleaners.png",
+    "label": "J.J. Cleaners ticket",
+    "x": 19,
+    "y": 73,
+    "w": 150,
+    "tilt": -5,
+    "attach": "tape"
+  },
+  {
+    "id": "metro-acres",
+    "image": "/events/stickers/metro-acres.png",
+    "label": "Metro Acres Market receipt",
+    "x": 82,
+    "y": 70,
+    "w": 142,
+    "tilt": 4,
+    "attach": "pin"
+  }
+]
