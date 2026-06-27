@@ -21,6 +21,7 @@ export function FlyerDialog({ event, onClose }: Props) {
   const [consent, setConsent] = useState(true)
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState('')
+  const [smsSent, setSmsSent] = useState(false)
   const [coming, setComing] = useState<Attendee[]>([])
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export function FlyerDialog({ event, onClose }: Props) {
     setStatus('submitting')
     setError('')
     try {
-      await submitRsvp({
+      const result = await submitRsvp({
         eventId: event.id,
         eventTitle: event.title,
         name: name.trim(),
@@ -50,6 +51,7 @@ export function FlyerDialog({ event, onClose }: Props) {
         consent,
       })
       if (showName) setComing((c) => [...c, { name: firstName(name) }])
+      setSmsSent(result.smsSent)
       setStatus('done')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong.')
@@ -150,7 +152,9 @@ export function FlyerDialog({ event, onClose }: Props) {
                 {showName ? 'Added! ✿ ' : 'Added (kept private). '}
                 {DEMO_MODE
                   ? 'Demo mode — no text sent.'
-                  : 'Check your phone for a confirmation text.'}
+                  : smsSent
+                    ? 'Check your phone for a confirmation text.'
+                    : "You're on the list — text confirmations coming soon."}
               </p>
               <button type="button" className="ink-btn" onClick={onClose}>
                 back to the board

@@ -20,12 +20,12 @@ export const BOARD_PASSWORD = 'teahouse'
 
 export const DEMO_MODE = API_BASE.trim() === ''
 
-/** Submit an RSVP. Returns nothing on success, throws on failure. */
-export async function submitRsvp(input: RsvpInput): Promise<void> {
+/** Submit an RSVP. Returns whether a confirmation text was sent; throws on failure. */
+export async function submitRsvp(input: RsvpInput): Promise<{ smsSent: boolean }> {
   if (DEMO_MODE) {
     // Pretend-success so the UI flow is testable without a backend.
     await new Promise((r) => setTimeout(r, 600))
-    return
+    return { smsSent: false }
   }
   const res = await fetch(`${API_BASE}/rsvp`, {
     method: 'POST',
@@ -36,6 +36,8 @@ export async function submitRsvp(input: RsvpInput): Promise<void> {
     const msg = await res.text().catch(() => '')
     throw new Error(msg || `Request failed (${res.status})`)
   }
+  const data = (await res.json().catch(() => ({}))) as { smsSent?: boolean }
+  return { smsSent: data.smsSent === true }
 }
 
 /** Fetch the publicly-visible (opted-in) attendee names for an event. */
