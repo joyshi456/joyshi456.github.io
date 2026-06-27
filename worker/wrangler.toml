@@ -7,7 +7,7 @@ compatibility_date = "2025-06-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "enjoyshi-events"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "841c48bf-e3d3-471d-b551-9e41f6c53021"
 
 # In the Twilio console, open your phone number and copy its E.164 value
 # (e.g. +1212XXXXXXX) into the TWILIO_FROM secret below.

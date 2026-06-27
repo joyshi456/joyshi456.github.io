@@ -7,7 +7,7 @@ import type { Attendee, RsvpInput } from './types'
  * is deployed. Once the worker is live, set this to e.g.
  *   https://enjoyshi-events.<your-subdomain>.workers.dev
  */
-export const API_BASE = ''
+export const API_BASE = 'https://enjoyshi-events.joyshi456.workers.dev'
 
 /**
  * Password to view the board. Change this to whatever you like.
