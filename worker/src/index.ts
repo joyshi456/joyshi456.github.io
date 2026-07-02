@@ -89,6 +89,26 @@ async function sendSms(env: Env, to: string, body: string): Promise<void> {
   }
 }
 
+/** Append an entry to the add/remove audit log. Never throws into the main flow. */
+async function logAction(
+  env: Env,
+  action: 'add' | 'remove',
+  source: string,
+  eventId: string,
+  name: string,
+  phone: string,
+): Promise<void> {
+  try {
+    await env.DB.prepare(
+      'INSERT INTO rsvp_log (action, source, event_id, name, phone) VALUES (?, ?, ?, ?, ?)',
+    )
+      .bind(action, source, eventId, name, phone)
+      .run()
+  } catch {
+    /* logging must never break a sign-up or removal */
+  }
+}
+
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const origin = req.headers.get('Origin')
@@ -126,8 +146,42 @@ export default {
       }
       const id = Number(body.id)
       if (!Number.isFinite(id)) return json({ error: 'missing id' }, 400, origin)
+      const row = await env.DB.prepare('SELECT event_id, name, phone FROM rsvps WHERE id = ?')
+        .bind(id)
+        .first<{ event_id: string; name: string; phone: string }>()
       const r = await env.DB.prepare('DELETE FROM rsvps WHERE id = ?').bind(id).run()
+      if (row && (r.meta?.changes ?? 0) > 0) {
+        await logAction(env, 'remove', 'admin', row.event_id, row.name, row.phone)
+      }
       return json({ deleted: r.meta?.changes ?? 0 }, 200, origin)
+    }
+
+    // --- admin: the add/remove audit log ----------------------------------
+    // GET /admin/log?key=ADMIN_KEY[&event=ID][&format=csv]
+    if (url.pathname === '/admin/log' && req.method === 'GET') {
+      if (!adminOk()) return json({ error: 'unauthorized' }, 401, origin)
+      const eventId = url.searchParams.get('event')
+      const { results } = await (eventId
+        ? env.DB.prepare(
+            'SELECT action, source, event_id, name, phone, at FROM rsvp_log WHERE event_id = ? ORDER BY at DESC',
+          ).bind(eventId)
+        : env.DB.prepare(
+            'SELECT action, source, event_id, name, phone, at FROM rsvp_log ORDER BY at DESC',
+          )
+      ).all<{ action: string; source: string; event_id: string; name: string; phone: string; at: string }>()
+      const rows = results ?? []
+      if (url.searchParams.get('format') === 'csv') {
+        const esc = (s: unknown) => `"${String(s ?? '').replace(/"/g, '""')}"`
+        const lines = ['action,source,name,phone,event,at']
+        for (const r of rows) {
+          lines.push([r.action, esc(r.source), esc(r.name), esc(r.phone), esc(r.event_id), esc(r.at)].join(','))
+        }
+        return new Response(lines.join('\n'), {
+          status: 200,
+          headers: { 'content-type': 'text/csv; charset=utf-8', ...corsHeaders(origin) },
+        })
+      }
+      return json({ count: rows.length, log: rows }, 200, origin)
     }
 
     // --- private admin export: full name + phone list ---------------------
@@ -216,8 +270,15 @@ export default {
       }
       const id = Number(body.id)
       if (!Number.isFinite(id)) return json({ error: 'missing id' }, 400, origin)
-      const r = await env.DB.prepare('DELETE FROM rsvps WHERE id = ? AND show_name = 1').bind(id).run()
-      return json({ deleted: r.meta?.changes ?? 0 }, 200, origin)
+      const row = await env.DB.prepare(
+        'SELECT event_id, name, phone FROM rsvps WHERE id = ? AND show_name = 1',
+      )
+        .bind(id)
+        .first<{ event_id: string; name: string; phone: string }>()
+      if (!row) return json({ deleted: 0 }, 200, origin)
+      await env.DB.prepare('DELETE FROM rsvps WHERE id = ?').bind(id).run()
+      await logAction(env, 'remove', 'self', row.event_id, row.name, row.phone)
+      return json({ deleted: 1 }, 200, origin)
     }
 
     if (url.pathname !== '/rsvp') {
@@ -269,6 +330,7 @@ export default {
       )
         .bind(eventId, name, phone, showName ? 1 : 0, consent ? 1 : 0)
         .run()
+      await logAction(env, 'add', 'signup', eventId, name, phone)
 
       // Send a confirmation text only if Twilio is fully configured AND this
       // is the first sign-up for this number+event. Until Twilio is set up,

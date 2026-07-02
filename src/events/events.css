@@ -530,8 +530,15 @@ body {
 .sign-grid {
   border: 1.5px solid rgba(40, 40, 60, 0.4);
   border-radius: 2px;
-  overflow: hidden;
+  overflow-y: auto;
+  max-height: 46vh; /* long lists scroll here; the add controls stay in view */
   background: #fffdf6;
+}
+.sign-row--head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #efe9da; /* opaque so scrolled rows don't show through */
 }
 .sign-row {
   display: flex;
