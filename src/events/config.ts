@@ -68,6 +68,17 @@ export async function fetchAttendees(eventId: string): Promise<Attendee[]> {
   return data.attendees ?? []
 }
 
+/** Public self-service: remove a publicly-listed sign-up by id. */
+export async function removeRsvp(id: number): Promise<void> {
+  if (DEMO_MODE) return
+  const res = await fetch(`${API_BASE}/rsvp/delete`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ id }),
+  })
+  if (!res.ok) throw new Error(`Remove failed (${res.status})`)
+}
+
 /** Admin: fetch ALL sign-ups (with ids + phones) for an event. */
 export async function fetchAdminSignups(eventId: string): Promise<AdminSignup[]> {
   if (!IS_ADMIN || DEMO_MODE) return []

@@ -19,6 +19,8 @@ export interface EventItem {
 }
 
 export interface Attendee {
+  /** row id, used for self-service removal */
+  id?: number
   name: string
 }
 

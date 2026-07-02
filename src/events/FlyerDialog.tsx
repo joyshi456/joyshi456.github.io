@@ -9,6 +9,7 @@ import {
   fetchAttendees,
   fetchAdminSignups,
   deleteRsvp,
+  removeRsvp,
   submitRsvp,
   type AdminSignup,
 } from './config'
@@ -80,11 +81,25 @@ export function FlyerDialog({ event, onClose }: Props) {
     }
   }
 
+  // public self-service removal (any visitor can take a name off the list)
+  async function handleRemove(id?: number, label?: string) {
+    if (id == null) return
+    if (typeof window !== 'undefined' && !window.confirm(`Remove ${label ?? 'this name'} from the list?`)) {
+      return
+    }
+    setComing((c) => c.filter((x) => x.id !== id)) // optimistic
+    try {
+      await removeRsvp(id)
+    } catch {
+      fetchAttendees(event.id).then(setComing) // resync on failure
+    }
+  }
+
   // Build the ruled lines: filled signups, then the active write-in line, then blanks.
   // Admin sees every sign-up (full name + phone + ✕); the public sees opted-in first names.
   const filled = IS_ADMIN
     ? adminRows.map((r) => ({ id: r.id as number | undefined, label: r.name, phone: r.phone as string | undefined }))
-    : coming.map((c) => ({ id: undefined as number | undefined, label: c.name, phone: undefined as string | undefined }))
+    : coming.map((c) => ({ id: c.id as number | undefined, label: c.name, phone: undefined as string | undefined }))
   const activeIndex = status === 'done' ? -1 : filled.length
   const totalLines = Math.max(8, filled.length + 3)
   const rows = Array.from({ length: totalLines }, (_, i) => i)
@@ -116,7 +131,7 @@ export function FlyerDialog({ event, onClose }: Props) {
             ? 'admin · tap ✕ to remove a sign-up'
             : status === 'done'
               ? "you're on the sheet ↓"
-              : 'add your name to a free line ↓'}
+              : 'add your name to a free line · tap ✕ to remove one'}
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -147,7 +162,17 @@ export function FlyerDialog({ event, onClose }: Props) {
                         </button>
                       </span>
                     ) : (
-                      <span className="col-phone sign-name sign-name--muted">✓</span>
+                      <span className="col-phone col-phone--user">
+                        <button
+                          type="button"
+                          className="row-del"
+                          onClick={() => handleRemove(row.id, row.label)}
+                          aria-label={`remove ${row.label}`}
+                          title="remove from list"
+                        >
+                          ✕
+                        </button>
+                      </span>
                     )}
                   </div>
                 )

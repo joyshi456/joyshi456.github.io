@@ -203,6 +203,23 @@ export default {
       )
     }
 
+    // --- public self-service removal -------------------------------------
+    // POST /rsvp/delete   body: { id }
+    // Only removes publicly-listed (show_name=1) rows, so anonymous sign-ups
+    // can't be enumerated and wiped by guessing ids.
+    if (url.pathname === '/rsvp/delete' && req.method === 'POST') {
+      let body: { id?: number }
+      try {
+        body = (await req.json()) as { id?: number }
+      } catch {
+        return json({ error: 'invalid JSON' }, 400, origin)
+      }
+      const id = Number(body.id)
+      if (!Number.isFinite(id)) return json({ error: 'missing id' }, 400, origin)
+      const r = await env.DB.prepare('DELETE FROM rsvps WHERE id = ? AND show_name = 1').bind(id).run()
+      return json({ deleted: r.meta?.changes ?? 0 }, 200, origin)
+    }
+
     if (url.pathname !== '/rsvp') {
       return json({ error: 'not found' }, 404, origin)
     }
@@ -212,11 +229,11 @@ export default {
       const eventId = url.searchParams.get('event')
       if (!eventId) return json({ error: 'missing event' }, 400, origin)
       const { results } = await env.DB.prepare(
-        'SELECT name FROM rsvps WHERE event_id = ? AND show_name = 1 ORDER BY created_at ASC',
+        'SELECT id, name FROM rsvps WHERE event_id = ? AND show_name = 1 ORDER BY created_at ASC',
       )
         .bind(eventId)
-        .all<{ name: string }>()
-      const attendees = (results ?? []).map((r) => ({ name: firstName(r.name) }))
+        .all<{ id: number; name: string }>()
+      const attendees = (results ?? []).map((r) => ({ id: r.id, name: firstName(r.name) }))
       return json({ attendees }, 200, origin)
     }
 
