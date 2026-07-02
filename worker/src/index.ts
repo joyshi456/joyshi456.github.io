@@ -257,6 +257,12 @@ export default {
       )
     }
 
+    // --- admin: validate a passcode (for the UI unlock) ------------------
+    // GET /admin/check?key=PASSCODE  -> 200 {ok:true} if correct, else 401
+    if (url.pathname === '/admin/check' && req.method === 'GET') {
+      return adminOk() ? json({ ok: true }, 200, origin) : json({ ok: false }, 401, origin)
+    }
+
     // --- public: read admin-edited event overrides -----------------------
     // GET /event?event=ID  ->  { title?, when?, location? }
     if (url.pathname === '/event' && req.method === 'GET') {

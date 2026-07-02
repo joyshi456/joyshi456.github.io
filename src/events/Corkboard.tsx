@@ -4,6 +4,7 @@ import type { Decoration as Deco, EventItem } from './types'
 import { Flyer } from './Flyer'
 import { FlyerDialog } from './FlyerDialog'
 import { Decoration } from './Decoration'
+import { AdminBar } from './AdminBar'
 import { fetchEventMeta, type EventMeta } from './config'
 import eventsData from './events.json'
 import decorationsData from './decorations.json'
@@ -53,6 +54,7 @@ export function Corkboard() {
             <Decoration key={deco.id} deco={deco} />
           ))}
         </div>
+        <AdminBar />
       </div>
 
       <AnimatePresence>

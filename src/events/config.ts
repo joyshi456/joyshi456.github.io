@@ -21,16 +21,54 @@ export const BOARD_PASSWORD = 'teahouse'
 export const DEMO_MODE = API_BASE.trim() === ''
 
 /**
- * Admin mode: open the board with ?admin=<ADMIN_KEY> to reveal delete (✕)
- * controls next to each sign-up. The key must match the worker's ADMIN_KEY;
- * without it, deletes are rejected server-side, so normal visitors can't remove
- * registrations even if they poke around.
+ * Admin mode: unlocked by entering the admin passcode in the UI (see AdminBar).
+ * The passcode is validated against the worker's ADMIN_KEY, then remembered in
+ * localStorage and sent with admin requests. A ?admin=<passcode> URL still works
+ * as a backfill. Server-side checks mean a wrong/absent passcode can't edit,
+ * delete, or read phone numbers.
  */
-export const ADMIN_KEY =
-  typeof window !== 'undefined'
-    ? (new URLSearchParams(window.location.search).get('admin') ?? '')
-    : ''
+const ADMIN_STORE_KEY = 'enjoyshi-admin-key'
+
+function readAdminKey(): string {
+  if (typeof window === 'undefined') return ''
+  const fromUrl = new URLSearchParams(window.location.search).get('admin')
+  if (fromUrl) return fromUrl
+  try {
+    return localStorage.getItem(ADMIN_STORE_KEY) ?? ''
+  } catch {
+    return ''
+  }
+}
+
+export const ADMIN_KEY = readAdminKey()
 export const IS_ADMIN = ADMIN_KEY.length > 0
+
+/** Validate a passcode against the worker (returns true if it's the admin key). */
+export async function checkAdminPasscode(passcode: string): Promise<boolean> {
+  if (!passcode || DEMO_MODE) return false
+  try {
+    const res = await fetch(`${API_BASE}/admin/check?key=${encodeURIComponent(passcode)}`)
+    return res.ok
+  } catch {
+    return false
+  }
+}
+
+export function saveAdminKey(passcode: string): void {
+  try {
+    localStorage.setItem(ADMIN_STORE_KEY, passcode)
+  } catch {
+    /* private mode */
+  }
+}
+
+export function clearAdminKey(): void {
+  try {
+    localStorage.removeItem(ADMIN_STORE_KEY)
+  } catch {
+    /* ignore */
+  }
+}
 
 export interface AdminSignup {
   id: number
