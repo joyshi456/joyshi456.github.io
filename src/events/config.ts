@@ -20,6 +20,25 @@ export const BOARD_PASSWORD = 'teahouse'
 
 export const DEMO_MODE = API_BASE.trim() === ''
 
+/**
+ * Admin mode: open the board with ?admin=<ADMIN_KEY> to reveal delete (✕)
+ * controls next to each sign-up. The key must match the worker's ADMIN_KEY;
+ * without it, deletes are rejected server-side, so normal visitors can't remove
+ * registrations even if they poke around.
+ */
+export const ADMIN_KEY =
+  typeof window !== 'undefined'
+    ? (new URLSearchParams(window.location.search).get('admin') ?? '')
+    : ''
+export const IS_ADMIN = ADMIN_KEY.length > 0
+
+export interface AdminSignup {
+  id: number
+  name: string
+  phone: string
+  showName: boolean
+}
+
 /** Submit an RSVP. Returns whether a confirmation text was sent; throws on failure. */
 export async function submitRsvp(input: RsvpInput): Promise<{ smsSent: boolean }> {
   if (DEMO_MODE) {
@@ -47,4 +66,32 @@ export async function fetchAttendees(eventId: string): Promise<Attendee[]> {
   if (!res.ok) return []
   const data = (await res.json()) as { attendees?: Attendee[] }
   return data.attendees ?? []
+}
+
+/** Admin: fetch ALL sign-ups (with ids + phones) for an event. */
+export async function fetchAdminSignups(eventId: string): Promise<AdminSignup[]> {
+  if (!IS_ADMIN || DEMO_MODE) return []
+  const res = await fetch(
+    `${API_BASE}/admin/rsvps?event=${encodeURIComponent(eventId)}&key=${encodeURIComponent(ADMIN_KEY)}`,
+  )
+  if (!res.ok) return []
+  const data = (await res.json()) as {
+    signups?: { id: number; name: string; phone: string; showName: boolean }[]
+  }
+  return (data.signups ?? []).map((s) => ({
+    id: s.id,
+    name: s.name,
+    phone: s.phone,
+    showName: s.showName,
+  }))
+}
+
+/** Admin: delete a single registration by id. */
+export async function deleteRsvp(id: number): Promise<void> {
+  const res = await fetch(`${API_BASE}/admin/delete?key=${encodeURIComponent(ADMIN_KEY)}`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ id }),
+  })
+  if (!res.ok) throw new Error(`Delete failed (${res.status})`)
 }

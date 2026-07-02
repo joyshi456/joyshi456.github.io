@@ -114,6 +114,22 @@ export default {
       return json({ reset: true, event: eventId ?? 'all', changed: r.meta?.changes ?? 0 }, 200, origin)
     }
 
+    // --- delete a single registration -------------------------------------
+    // POST /admin/delete?key=ADMIN_KEY   body: { id: number }
+    if (url.pathname === '/admin/delete' && req.method === 'POST') {
+      if (!adminOk()) return json({ error: 'unauthorized' }, 401, origin)
+      let body: { id?: number }
+      try {
+        body = (await req.json()) as { id?: number }
+      } catch {
+        return json({ error: 'invalid JSON' }, 400, origin)
+      }
+      const id = Number(body.id)
+      if (!Number.isFinite(id)) return json({ error: 'missing id' }, 400, origin)
+      const r = await env.DB.prepare('DELETE FROM rsvps WHERE id = ?').bind(id).run()
+      return json({ deleted: r.meta?.changes ?? 0 }, 200, origin)
+    }
+
     // --- private admin export: full name + phone list ---------------------
     // GET /admin/rsvps?key=ADMIN_KEY[&event=ID][&format=csv][&new=1]
     //   new=1  -> only people not yet texted; marks them texted on the way out
@@ -173,6 +189,7 @@ export default {
         {
           count: rows.length,
           signups: rows.map((r) => ({
+            id: r.id,
             name: r.name,
             phone: r.phone,
             event: r.event_id,

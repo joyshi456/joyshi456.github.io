@@ -3,7 +3,15 @@ import { motion } from 'framer-motion'
 import type { Attendee, EventItem } from './types'
 import { formatWhen } from './util'
 import { Pin } from './Pin'
-import { DEMO_MODE, fetchAttendees, submitRsvp } from './config'
+import {
+  DEMO_MODE,
+  IS_ADMIN,
+  fetchAttendees,
+  fetchAdminSignups,
+  deleteRsvp,
+  submitRsvp,
+  type AdminSignup,
+} from './config'
 
 interface Props {
   event: EventItem
@@ -23,10 +31,12 @@ export function FlyerDialog({ event, onClose }: Props) {
   const [error, setError] = useState('')
   const [smsSent, setSmsSent] = useState(false)
   const [coming, setComing] = useState<Attendee[]>([])
+  const [adminRows, setAdminRows] = useState<AdminSignup[]>([])
 
   useEffect(() => {
     let live = true
-    fetchAttendees(event.id).then((a) => live && setComing(a))
+    if (IS_ADMIN) fetchAdminSignups(event.id).then((a) => live && setAdminRows(a))
+    else fetchAttendees(event.id).then((a) => live && setComing(a))
     return () => {
       live = false
     }
@@ -50,7 +60,8 @@ export function FlyerDialog({ event, onClose }: Props) {
         showName,
         consent,
       })
-      if (showName) setComing((c) => [...c, { name: firstName(name) }])
+      if (IS_ADMIN) fetchAdminSignups(event.id).then(setAdminRows)
+      else if (showName) setComing((c) => [...c, { name: firstName(name) }])
       setSmsSent(result.smsSent)
       setStatus('done')
     } catch (err) {
@@ -59,9 +70,23 @@ export function FlyerDialog({ event, onClose }: Props) {
     }
   }
 
+  async function handleDelete(id?: number) {
+    if (id == null) return
+    setAdminRows((rows) => rows.filter((r) => r.id !== id)) // optimistic
+    try {
+      await deleteRsvp(id)
+    } catch {
+      fetchAdminSignups(event.id).then(setAdminRows) // resync on failure
+    }
+  }
+
   // Build the ruled lines: filled signups, then the active write-in line, then blanks.
-  const activeIndex = status === 'done' ? -1 : coming.length
-  const totalLines = Math.max(8, coming.length + 3)
+  // Admin sees every sign-up (full name + phone + ✕); the public sees opted-in first names.
+  const filled = IS_ADMIN
+    ? adminRows.map((r) => ({ id: r.id as number | undefined, label: r.name, phone: r.phone as string | undefined }))
+    : coming.map((c) => ({ id: undefined as number | undefined, label: c.name, phone: undefined as string | undefined }))
+  const activeIndex = status === 'done' ? -1 : filled.length
+  const totalLines = Math.max(8, filled.length + 3)
   const rows = Array.from({ length: totalLines }, (_, i) => i)
 
   return (
@@ -87,7 +112,11 @@ export function FlyerDialog({ event, onClose }: Props) {
         </div>
 
         <p className="sheet-instruction">
-          {status === 'done' ? "you're on the sheet ↓" : 'add your name to a free line ↓'}
+          {IS_ADMIN
+            ? 'admin · tap ✕ to remove a sign-up'
+            : status === 'done'
+              ? "you're on the sheet ↓"
+              : 'add your name to a free line ↓'}
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -99,12 +128,27 @@ export function FlyerDialog({ event, onClose }: Props) {
             </div>
 
             {rows.map((i) => {
-              if (i < coming.length) {
+              if (i < filled.length) {
+                const row = filled[i]
                 return (
                   <div className="sign-row" key={i}>
                     <span className="col-num">{i + 1}</span>
-                    <span className="col-name sign-name">{coming[i].name}</span>
-                    <span className="col-phone sign-name sign-name--muted">✓</span>
+                    <span className="col-name sign-name">{row.label}</span>
+                    {IS_ADMIN ? (
+                      <span className="col-phone col-phone--admin">
+                        <span className="admin-phone">{row.phone}</span>
+                        <button
+                          type="button"
+                          className="row-del"
+                          onClick={() => handleDelete(row.id)}
+                          aria-label={`remove ${row.label}`}
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    ) : (
+                      <span className="col-phone sign-name sign-name--muted">✓</span>
+                    )}
                   </div>
                 )
               }
