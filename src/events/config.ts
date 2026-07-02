@@ -68,6 +68,35 @@ export async function fetchAttendees(eventId: string): Promise<Attendee[]> {
   return data.attendees ?? []
 }
 
+export interface EventMeta {
+  title?: string
+  when?: string
+  location?: string
+}
+
+/** Public: fetch admin-edited overrides (title / when / location) for an event. */
+export async function fetchEventMeta(eventId: string): Promise<EventMeta> {
+  if (DEMO_MODE) return {}
+  const res = await fetch(`${API_BASE}/event?event=${encodeURIComponent(eventId)}`)
+  if (!res.ok) return {}
+  const data = (await res.json()) as EventMeta
+  const out: EventMeta = {}
+  if (data.title) out.title = data.title
+  if (data.when) out.when = data.when
+  if (data.location) out.location = data.location
+  return out
+}
+
+/** Admin: save an event's title / when / location. */
+export async function saveEventMeta(eventId: string, meta: EventMeta): Promise<void> {
+  const res = await fetch(`${API_BASE}/admin/event?key=${encodeURIComponent(ADMIN_KEY)}`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ eventId, ...meta }),
+  })
+  if (!res.ok) throw new Error(`Save failed (${res.status})`)
+}
+
 /** Public self-service: remove a publicly-listed sign-up by id. */
 export async function removeRsvp(id: number): Promise<void> {
   if (DEMO_MODE) return

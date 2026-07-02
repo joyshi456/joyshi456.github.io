@@ -24,3 +24,12 @@ CREATE TABLE IF NOT EXISTS rsvp_log (
   at       TEXT    NOT NULL DEFAULT (datetime('now'))
 );
 CREATE INDEX IF NOT EXISTS idx_rsvp_log_at ON rsvp_log (at);
+
+-- admin-editable event overrides (title / when / location) kept out of the code
+CREATE TABLE IF NOT EXISTS event_meta (
+  event_id   TEXT PRIMARY KEY,
+  title      TEXT,
+  when_text  TEXT,
+  location   TEXT,
+  updated_at TEXT
+);

@@ -257,6 +257,54 @@ export default {
       )
     }
 
+    // --- public: read admin-edited event overrides -----------------------
+    // GET /event?event=ID  ->  { title?, when?, location? }
+    if (url.pathname === '/event' && req.method === 'GET') {
+      const eventId = url.searchParams.get('event')
+      if (!eventId) return json({}, 200, origin)
+      const row = await env.DB.prepare(
+        'SELECT title, when_text, location FROM event_meta WHERE event_id = ?',
+      )
+        .bind(eventId)
+        .first<{ title: string | null; when_text: string | null; location: string | null }>()
+      return json(
+        row
+          ? { title: row.title ?? undefined, when: row.when_text ?? undefined, location: row.location ?? undefined }
+          : {},
+        200,
+        origin,
+      )
+    }
+
+    // --- admin: edit an event's title / when / location -------------------
+    // POST /admin/event?key=ADMIN_KEY   body: { eventId, title, when, location }
+    if (url.pathname === '/admin/event' && req.method === 'POST') {
+      if (!adminOk()) return json({ error: 'unauthorized' }, 401, origin)
+      let body: { eventId?: string; title?: string; when?: string; location?: string }
+      try {
+        body = (await req.json()) as typeof body
+      } catch {
+        return json({ error: 'invalid JSON' }, 400, origin)
+      }
+      const eventId = (body.eventId ?? '').trim()
+      if (!eventId) return json({ error: 'missing eventId' }, 400, origin)
+      const title = (body.title ?? '').trim() || null
+      const when = (body.when ?? '').trim() || null
+      const location = (body.location ?? '').trim() || null
+      await env.DB.prepare(
+        `INSERT INTO event_meta (event_id, title, when_text, location, updated_at)
+         VALUES (?, ?, ?, ?, datetime('now'))
+         ON CONFLICT(event_id) DO UPDATE SET
+           title = excluded.title,
+           when_text = excluded.when_text,
+           location = excluded.location,
+           updated_at = excluded.updated_at`,
+      )
+        .bind(eventId, title, when, location)
+        .run()
+      return json({ ok: true, title, when, location }, 200, origin)
+    }
+
     // --- public self-service removal -------------------------------------
     // POST /rsvp/delete   body: { id }
     // Only removes publicly-listed (show_name=1) rows, so anonymous sign-ups

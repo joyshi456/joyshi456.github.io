@@ -10,20 +10,23 @@ import {
   fetchAdminSignups,
   deleteRsvp,
   removeRsvp,
+  saveEventMeta,
   submitRsvp,
   type AdminSignup,
+  type EventMeta,
 } from './config'
 
 interface Props {
   event: EventItem
   onClose: () => void
+  onEdit?: (id: string, patch: EventMeta) => void
 }
 
 type Status = 'idle' | 'submitting' | 'done' | 'error'
 
 const firstName = (full: string) => full.trim().split(/\s+/)[0] ?? ''
 
-export function FlyerDialog({ event, onClose }: Props) {
+export function FlyerDialog({ event, onClose, onEdit }: Props) {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [showName, setShowName] = useState(true)
@@ -33,6 +36,13 @@ export function FlyerDialog({ event, onClose }: Props) {
   const [smsSent, setSmsSent] = useState(false)
   const [coming, setComing] = useState<Attendee[]>([])
   const [adminRows, setAdminRows] = useState<AdminSignup[]>([])
+
+  // admin inline edit of title / when / location
+  const [editing, setEditing] = useState(false)
+  const [savingEdit, setSavingEdit] = useState(false)
+  const [eTitle, setETitle] = useState('')
+  const [eWhen, setEWhen] = useState('')
+  const [eLoc, setELoc] = useState('')
 
   useEffect(() => {
     let live = true
@@ -95,6 +105,25 @@ export function FlyerDialog({ event, onClose }: Props) {
     }
   }
 
+  function openEdit() {
+    setETitle(event.title)
+    setEWhen(event.when ?? '')
+    setELoc(event.location)
+    setEditing(true)
+  }
+
+  async function saveEdit() {
+    setSavingEdit(true)
+    const patch: EventMeta = { title: eTitle.trim(), when: eWhen.trim(), location: eLoc.trim() }
+    try {
+      await saveEventMeta(event.id, patch)
+      onEdit?.(event.id, patch)
+      setEditing(false)
+    } finally {
+      setSavingEdit(false)
+    }
+  }
+
   // Build the ruled lines: filled signups, then the active write-in line, then blanks.
   // Admin sees every sign-up (full name + phone + ✕); the public sees opted-in first names.
   const filled = IS_ADMIN
@@ -120,10 +149,51 @@ export function FlyerDialog({ event, onClose }: Props) {
 
       <motion.div layout="position" className="sheet-inner">
         <div className="sheet-masthead">
-          <h2 className="flyer-title flyer-title--lg">{event.title}</h2>
-          <p className="masthead-meta">
-            {formatWhen(event.date)} · {event.location}
-          </p>
+          {IS_ADMIN && editing ? (
+            <div className="event-edit">
+              <input
+                className="edit-input edit-input--title"
+                value={eTitle}
+                onChange={(e) => setETitle(e.target.value)}
+                placeholder="title"
+                aria-label="event title"
+              />
+              <input
+                className="edit-input"
+                value={eWhen}
+                onChange={(e) => setEWhen(e.target.value)}
+                placeholder="when (e.g. July 10 · 4–7pm)"
+                aria-label="event date/time"
+              />
+              <input
+                className="edit-input"
+                value={eLoc}
+                onChange={(e) => setELoc(e.target.value)}
+                placeholder="location"
+                aria-label="event location"
+              />
+              <div className="edit-actions">
+                <button type="button" className="ink-btn ink-btn--sm" onClick={saveEdit} disabled={savingEdit}>
+                  {savingEdit ? 'saving…' : 'save'}
+                </button>
+                <button type="button" className="edit-cancel" onClick={() => setEditing(false)}>
+                  cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <h2 className="flyer-title flyer-title--lg">{event.title}</h2>
+              <p className="masthead-meta">
+                {event.when ?? formatWhen(event.date)} · {event.location}
+                {IS_ADMIN && (
+                  <button type="button" className="edit-toggle" onClick={openEdit}>
+                    ✎ edit
+                  </button>
+                )}
+              </p>
+            </>
+          )}
         </div>
 
         <p className="sheet-instruction">

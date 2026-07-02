@@ -36,11 +36,11 @@ export function Flyer({ event, onOpen }: Props) {
           <div className="poster-wrap">
             <Poster src={event.image!} alt={event.title} />
             <div className="poster-details">
-              {(event.details ?? []).map((line, i) => (
-                <p key={i} className={i === 0 ? 'poster-line poster-line--lead' : 'poster-line'}>
-                  {line}
-                </p>
-              ))}
+              {event.details?.[0] && (
+                <p className="poster-line poster-line--lead">{event.details[0]}</p>
+              )}
+              <p className="poster-line">{event.when ?? formatWhen(event.date)}</p>
+              {event.location && <p className="poster-line">{event.location}</p>}
             </div>
           </div>
         </motion.div>

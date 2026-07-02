@@ -4,6 +4,8 @@ export interface EventItem {
   title: string
   /** ISO date-time, e.g. "2026-07-12T18:00:00" */
   date: string
+  /** free-text display date/time (e.g. "July 10 · 4–7pm"); overrides `date` when shown */
+  when?: string
   location: string
   /** short handwritten blurb shown on the flyer (used when there's no poster image) */
   blurb: string
