@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { BOARD_PASSWORD } from './config'
+import { BOARD_PASSWORD, checkAdminPasscode, saveAdminKey } from './config'
 
 const KEY = 'enjoyshi-events-unlocked'
 
-/** Soft password gate. Remembers unlock in localStorage so it's asked once. */
+/** Soft password gate. Accepts the guest password (view) OR the admin passcode
+ *  (view + admin mode). Remembers unlock in localStorage so it's asked once. */
 export function Gate({ children }: { children: React.ReactNode }) {
   const [unlocked, setUnlocked] = useState(() => {
     try {
@@ -14,21 +15,39 @@ export function Gate({ children }: { children: React.ReactNode }) {
   })
   const [value, setValue] = useState('')
   const [err, setErr] = useState(false)
+  const [checking, setChecking] = useState(false)
 
   if (unlocked) return <>{children}</>
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault()
-    if (value.trim().toLowerCase() === BOARD_PASSWORD.toLowerCase()) {
+    const v = value.trim()
+    // guest password → just view the board
+    if (v.toLowerCase() === BOARD_PASSWORD.toLowerCase()) {
       try {
         localStorage.setItem(KEY, '1')
       } catch {
-        /* private mode — just unlock for this session */
+        /* private mode — unlock for this session only */
       }
       setUnlocked(true)
-    } else {
-      setErr(true)
+      return
     }
+    // otherwise it might be the admin passcode → view + admin mode
+    setChecking(true)
+    setErr(false)
+    const isAdmin = await checkAdminPasscode(v)
+    setChecking(false)
+    if (isAdmin) {
+      saveAdminKey(v)
+      try {
+        localStorage.setItem(KEY, '1')
+      } catch {
+        /* ignore */
+      }
+      window.location.reload() // reload so admin mode activates
+      return
+    }
+    setErr(true)
   }
 
   return (
@@ -50,8 +69,8 @@ export function Gate({ children }: { children: React.ReactNode }) {
             autoFocus
             aria-label="password"
           />
-          <button className="ink-btn" type="submit">
-            enter →
+          <button className="ink-btn" type="submit" disabled={checking}>
+            {checking ? 'checking…' : 'enter →'}
           </button>
         </form>
         {err && <p className="gate-err">hmm, that's not it — try again ☕</p>}
