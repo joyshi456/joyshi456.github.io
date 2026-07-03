@@ -770,8 +770,108 @@ body {
   background: rgba(30, 20, 10, 0.62);
 }
 .admin-bar--on {
-  background: rgba(47, 122, 76, 0.72);
+  background: rgba(47, 122, 76, 0.82);
   color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: default;
+}
+.admin-tag {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 12px;
+}
+.admin-pill-btn {
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 12px;
+  padding: 3px 9px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+.admin-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.34);
+}
+
+/* --- logs panel ------------------------------------------------------------- */
+.logs-panel {
+  position: relative;
+  width: min(680px, 100%);
+  margin: auto;
+  background: var(--paper);
+  border-radius: 3px;
+  padding: 26px 26px 22px;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.5);
+  max-height: 84vh;
+  overflow-y: auto;
+}
+.logs-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 26px;
+  color: var(--ink);
+  margin: 0 0 2px;
+}
+.logs-sub {
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+.logs-empty {
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  color: var(--ink-soft);
+}
+.logs-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.log-row {
+  display: grid;
+  grid-template-columns: 84px 1fr 130px 62px 150px;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: 'Patrick Hand', cursive;
+  font-size: 14px;
+}
+.log-act {
+  font-weight: 700;
+}
+.log-row--add .log-act {
+  color: #2f8a55;
+}
+.log-row--remove .log-act {
+  color: #c0392b;
+}
+.log-name {
+  font-family: 'Caveat', cursive;
+  font-size: 19px;
+  color: #1c3a8a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.log-phone {
+  color: var(--ink);
+}
+.log-src,
+.log-when {
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+@media (max-width: 560px) {
+  .log-row {
+    grid-template-columns: 70px 1fr 110px;
+  }
+  .log-src,
+  .log-when {
+    display: none;
+  }
 }
 .admin-bar--form {
   display: flex;

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { IS_ADMIN, checkAdminPasscode, clearAdminKey, saveAdminKey } from './config'
+import { LogsPanel } from './LogsPanel'
 
 /** A discreet corner control: enter the admin passcode to unlock, or exit. */
 export function AdminBar() {
@@ -7,19 +8,28 @@ export function AdminBar() {
   const [value, setValue] = useState('')
   const [err, setErr] = useState(false)
   const [checking, setChecking] = useState(false)
+  const [showLogs, setShowLogs] = useState(false)
 
   if (IS_ADMIN) {
     return (
-      <button
-        className="admin-bar admin-bar--on"
-        onClick={() => {
-          clearAdminKey()
-          window.location.reload()
-        }}
-        title="exit admin mode"
-      >
-        admin ✓ · exit
-      </button>
+      <>
+        <div className="admin-bar admin-bar--on">
+          <span className="admin-tag">admin ✓</span>
+          <button className="admin-pill-btn" onClick={() => setShowLogs(true)}>
+            logs
+          </button>
+          <button
+            className="admin-pill-btn"
+            onClick={() => {
+              clearAdminKey()
+              window.location.reload()
+            }}
+          >
+            exit
+          </button>
+        </div>
+        {showLogs && <LogsPanel onClose={() => setShowLogs(false)} />}
+      </>
     )
   }
 

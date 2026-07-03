@@ -164,6 +164,33 @@ export async function fetchAdminSignups(eventId: string): Promise<AdminSignup[]>
   }))
 }
 
+export interface LogEntry {
+  action: string
+  source: string
+  name: string
+  phone: string
+  event: string
+  at: string
+}
+
+/** Admin: fetch the full add/remove audit log (includes anonymous sign-ups). */
+export async function fetchAdminLog(): Promise<LogEntry[]> {
+  if (!IS_ADMIN || DEMO_MODE) return []
+  const res = await fetch(`${API_BASE}/admin/log?key=${encodeURIComponent(ADMIN_KEY)}`)
+  if (!res.ok) return []
+  const data = (await res.json()) as {
+    log?: { action: string; source: string; name: string; phone: string; event_id: string; at: string }[]
+  }
+  return (data.log ?? []).map((r) => ({
+    action: r.action,
+    source: r.source,
+    name: r.name,
+    phone: r.phone,
+    event: r.event_id,
+    at: r.at,
+  }))
+}
+
 /** Admin: delete a single registration by id. */
 export async function deleteRsvp(id: number): Promise<void> {
   const res = await fetch(`${API_BASE}/admin/delete?key=${encodeURIComponent(ADMIN_KEY)}`, {
