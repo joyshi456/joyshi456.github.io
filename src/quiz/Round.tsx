@@ -105,6 +105,7 @@ export function Round({
           <p className={`lang-endonym script-${language.code}`} dir={language.rtl ? 'rtl' : 'ltr'}>
             {language.nativeName}
           </p>
+          {language.classical && <span className="classical-tag">classical</span>}
 
           <dl className="lang-facts">
             <div>

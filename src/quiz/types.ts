@@ -20,8 +20,10 @@ export interface Language {
   branch: string
   /** writing system, e.g. "Devanagari" */
   script: string
-  /** true for right-to-left scripts (Arabic, Hebrew, Perso-Arabic) */
+  /** true for right-to-left scripts (Arabic, Hebrew, Perso-Arabic, Syriac) */
   rtl?: boolean
+  /** classical / liturgical rather than a present-day vernacular */
+  classical?: boolean
   /** the language's word bank, keyed by concept id — a superset of the ten
    *  the test currently uses, so `concepts` can be retuned without touching this */
   words: Record<string, Word>

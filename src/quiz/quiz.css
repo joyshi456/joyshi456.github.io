@@ -38,7 +38,8 @@ body {
    Most scripts fall back to the system font, which covers them on virtually
    every device. Devanagari, Tamil, Georgian, Hebrew and Arabic are the ones
    that go missing, so those load a Noto subset (see quiz/index.html). */
-.script-hi {
+.script-hi,
+.script-sa {
   font-family: 'Noto Sans Devanagari', system-ui, sans-serif;
 }
 .script-ta {
@@ -71,8 +72,12 @@ body {
 .script-si {
   font-family: 'Noto Sans Sinhala', system-ui, sans-serif;
 }
-.script-am {
+.script-am,
+.script-gez {
   font-family: 'Noto Sans Ethiopic', system-ui, sans-serif;
+}
+.script-syc {
+  font-family: 'Noto Sans Syriac', system-ui, sans-serif;
 }
 .script-hy {
   font-family: 'Noto Sans Armenian', system-ui, sans-serif;
@@ -397,6 +402,27 @@ body {
   /* dir=rtl keeps the glyph order correct; flush it left anyway so RTL
      endonyms line up under the English name instead of floating right */
   text-align: left;
+}
+
+.classical-tag {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.66rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+
+.lang-row-tag {
+  margin-left: 8px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
 .lang-facts {
@@ -809,7 +835,28 @@ tr.wrong .key-given {
   .progress-label {
     margin-bottom: 10px;
   }
-  .lang-facts {
+  .classical-tag {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.66rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+
+.lang-row-tag {
+  margin-left: 8px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.lang-facts {
     grid-template-columns: 1fr 1fr;
   }
   .word .native {

@@ -52,7 +52,7 @@
       "id": "honey",
       "label": "Honey",
       "level": 5,
-      "note": "An ancient travelling word. Proto-Indo-European melit gave Greek meli, and Chinese mi has long been argued to be a loan from the same source."
+      "note": "Indo-European had two words for it. One, melit, gave Greek meli and Latin mel; the other, medhu, gave Sanskrit madhu, English mead and Tocharian mit — and Chinese mi has long been argued to be a loan from that last one."
     },
     {
       "id": "ash",
@@ -2174,6 +2174,245 @@
         },
         "ash": {
           "native": "iɣed"
+        }
+      }
+    },
+    {
+      "code": "ku",
+      "name": "Kurdish (Kurmanji)",
+      "nativeName": "Kurmancî",
+      "family": "Indo-European",
+      "branch": "Iranian",
+      "script": "Latin (Kurdish)",
+      "words": {
+        "water": {
+          "native": "av"
+        },
+        "fire": {
+          "native": "agir"
+        },
+        "mother": {
+          "native": "dayik"
+        },
+        "hand": {
+          "native": "dest"
+        },
+        "night": {
+          "native": "şev"
+        },
+        "bread": {
+          "native": "nan"
+        },
+        "star": {
+          "native": "stêrk"
+        },
+        "dog": {
+          "native": "kûçik"
+        },
+        "mountain": {
+          "native": "çiya"
+        },
+        "milk": {
+          "native": "şîr"
+        },
+        "smoke": {
+          "native": "dûman"
+        },
+        "honey": {
+          "native": "hingiv"
+        },
+        "ash": {
+          "native": "xwelî"
+        }
+      }
+    },
+    {
+      "code": "syc",
+      "name": "Syriac",
+      "nativeName": "ܣܘܪܝܝܐ",
+      "family": "Afro-Asiatic",
+      "branch": "Semitic",
+      "script": "Syriac",
+      "rtl": true,
+      "classical": true,
+      "words": {
+        "water": {
+          "native": "ܡܝܐ",
+          "roman": "mayyā"
+        },
+        "fire": {
+          "native": "ܢܘܪܐ",
+          "roman": "nūrā"
+        },
+        "mother": {
+          "native": "ܐܡܐ",
+          "roman": "emmā"
+        },
+        "hand": {
+          "native": "ܐܝܕܐ",
+          "roman": "īdā"
+        },
+        "night": {
+          "native": "ܠܠܝܐ",
+          "roman": "lelyā"
+        },
+        "bread": {
+          "native": "ܠܚܡܐ",
+          "roman": "laḥmā"
+        },
+        "star": {
+          "native": "ܟܘܟܒܐ",
+          "roman": "kawkbā"
+        },
+        "dog": {
+          "native": "ܟܠܒܐ",
+          "roman": "kalbā"
+        },
+        "mountain": {
+          "native": "ܛܘܪܐ",
+          "roman": "ṭūrā"
+        },
+        "milk": {
+          "native": "ܚܠܒܐ",
+          "roman": "ḥalbā"
+        },
+        "smoke": {
+          "native": "ܬܢܢܐ",
+          "roman": "tennānā"
+        },
+        "honey": {
+          "native": "ܕܒܫܐ",
+          "roman": "debšā"
+        },
+        "ash": {
+          "native": "ܩܛܡܐ",
+          "roman": "qeṭmā"
+        }
+      }
+    },
+    {
+      "code": "sa",
+      "name": "Sanskrit",
+      "nativeName": "संस्कृतम्",
+      "family": "Indo-European",
+      "branch": "Indo-Aryan",
+      "script": "Devanagari",
+      "classical": true,
+      "words": {
+        "water": {
+          "native": "जल",
+          "roman": "jala"
+        },
+        "fire": {
+          "native": "अग्नि",
+          "roman": "agni"
+        },
+        "mother": {
+          "native": "माता",
+          "roman": "mātā"
+        },
+        "hand": {
+          "native": "हस्त",
+          "roman": "hasta"
+        },
+        "night": {
+          "native": "रात्रि",
+          "roman": "rātri"
+        },
+        "bread": {
+          "native": "रोटिका",
+          "roman": "roṭikā"
+        },
+        "star": {
+          "native": "तारा",
+          "roman": "tārā"
+        },
+        "dog": {
+          "native": "श्वान्",
+          "roman": "śvān"
+        },
+        "mountain": {
+          "native": "पर्वत",
+          "roman": "parvata"
+        },
+        "milk": {
+          "native": "दुग्ध",
+          "roman": "dugdha"
+        },
+        "smoke": {
+          "native": "धूम",
+          "roman": "dhūma"
+        },
+        "honey": {
+          "native": "मधु",
+          "roman": "madhu"
+        },
+        "ash": {
+          "native": "भस्म",
+          "roman": "bhasma"
+        }
+      }
+    },
+    {
+      "code": "gez",
+      "name": "Ge'ez",
+      "nativeName": "ግዕዝ",
+      "family": "Afro-Asiatic",
+      "branch": "Semitic",
+      "script": "Ethiopic",
+      "classical": true,
+      "words": {
+        "water": {
+          "native": "ማይ",
+          "roman": "may"
+        },
+        "fire": {
+          "native": "እሳት",
+          "roman": "ʾəsāt"
+        },
+        "mother": {
+          "native": "እም",
+          "roman": "ʾəm"
+        },
+        "hand": {
+          "native": "እድ",
+          "roman": "ʾəd"
+        },
+        "night": {
+          "native": "ለሊት",
+          "roman": "lelit"
+        },
+        "bread": {
+          "native": "ኅብስት",
+          "roman": "ḫəbəst"
+        },
+        "star": {
+          "native": "ኮከብ",
+          "roman": "kokäb"
+        },
+        "dog": {
+          "native": "ከልብ",
+          "roman": "kalb"
+        },
+        "mountain": {
+          "native": "ደብር",
+          "roman": "dabr"
+        },
+        "milk": {
+          "native": "ሐለብ",
+          "roman": "ḥaläb"
+        },
+        "smoke": {
+          "native": "ጢስ",
+          "roman": "ṭis"
+        },
+        "honey": {
+          "native": "መዓር",
+          "roman": "maʿār"
+        },
+        "ash": {
+          "native": "ሐመድ",
+          "roman": "ḥamäd"
         }
       }
     },

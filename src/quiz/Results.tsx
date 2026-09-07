@@ -162,6 +162,7 @@ export function Results({
                     </span>
                     <span className="lang-row-meta">
                       {language.family} · {language.branch} · {language.script}
+                      {language.classical && <span className="lang-row-tag">classical</span>}
                     </span>
                     <span className="lang-row-score">
                       {result.score}/{concepts.length}
