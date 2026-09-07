@@ -1,0 +1,833 @@
+/* ===========================================================================
+   enjoyshi.com/quiz — multilingual vocabulary test
+   ========================================================================== */
+
+:root {
+  --paper: #faf7f2;
+  --card: #fffdfa;
+  --ink: #211e1a;
+  --ink-soft: #6d665c;
+  --line: #e2dcd1;
+  --accent: #8a3d2c;
+  --accent-soft: #f3e4de;
+  --good: #2f6b46;
+  --bad: #a3402f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- per-script font stacks -------------------------------------------------
+   Most scripts fall back to the system font, which covers them on virtually
+   every device. Devanagari, Tamil, Georgian, Hebrew and Arabic are the ones
+   that go missing, so those load a Noto subset (see quiz/index.html). */
+.script-hi {
+  font-family: 'Noto Sans Devanagari', system-ui, sans-serif;
+}
+.script-ta {
+  font-family: 'Noto Sans Tamil', system-ui, sans-serif;
+}
+.script-ka {
+  font-family: 'Noto Sans Georgian', system-ui, sans-serif;
+}
+.script-he {
+  font-family: 'Noto Sans Hebrew', system-ui, sans-serif;
+}
+.script-ar,
+.script-fa {
+  font-family: 'Noto Naskh Arabic', system-ui, sans-serif;
+  /* naskh sits small next to Latin at the same size */
+  font-size: 1.15em;
+}
+.script-bn {
+  font-family: 'Noto Sans Bengali', system-ui, sans-serif;
+}
+.script-pa {
+  font-family: 'Noto Sans Gurmukhi', system-ui, sans-serif;
+}
+.script-te {
+  font-family: 'Noto Sans Telugu', system-ui, sans-serif;
+}
+.script-ml {
+  font-family: 'Noto Sans Malayalam', system-ui, sans-serif;
+}
+.script-si {
+  font-family: 'Noto Sans Sinhala', system-ui, sans-serif;
+}
+.script-am {
+  font-family: 'Noto Sans Ethiopic', system-ui, sans-serif;
+}
+.script-hy {
+  font-family: 'Noto Sans Armenian', system-ui, sans-serif;
+}
+.script-th {
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+}
+.script-lo {
+  font-family: 'Noto Sans Lao', system-ui, sans-serif;
+}
+.script-km {
+  font-family: 'Noto Sans Khmer', system-ui, sans-serif;
+}
+.script-my {
+  font-family: 'Noto Sans Myanmar', system-ui, sans-serif;
+}
+.script-bo {
+  font-family: 'Noto Serif Tibetan', system-ui, sans-serif;
+}
+.script-ur {
+  font-family: 'Noto Nastaliq Urdu', 'Noto Naskh Arabic', system-ui, sans-serif;
+  /* nastaliq needs vertical room for its steep baseline */
+  line-height: 2.1;
+}
+.script-zh,
+.script-yue,
+.script-ja {
+  font-family: 'Hiragino Sans', 'Noto Sans CJK JP', 'Yu Gothic', system-ui, sans-serif;
+}
+.script-ko {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Malgun Gothic', system-ui, sans-serif;
+}
+
+/* --- page shell ------------------------------------------------------------ */
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 48px) clamp(16px, 4vw, 32px) 96px;
+}
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 18px;
+  margin-bottom: clamp(24px, 5vw, 44px);
+  border-bottom: 1px solid var(--line);
+}
+
+.masthead h1 {
+  font-family: 'Newsreader', Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.home {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+.home:hover {
+  color: var(--accent);
+}
+
+.masthead-set {
+  margin-left: auto;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* --- intro ---------------------------------------------------------------- */
+.intro {
+  max-width: 60ch;
+}
+
+.intro p {
+  color: var(--ink-soft);
+}
+
+.lede {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(1.1rem, 2.6vw, 1.35rem);
+  line-height: 1.5;
+  color: var(--ink) !important;
+}
+
+.tally {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.family-preview {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.family-preview li {
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+/* --- picker --------------------------------------------------------------- */
+.picker {
+  max-width: 74ch;
+}
+
+.picker-note {
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+
+.set-list {
+  list-style: none;
+  padding: 0;
+  margin: 36px 0 0;
+  display: grid;
+  gap: 14px;
+}
+
+.set-card {
+  appearance: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  display: grid;
+  gap: 5px;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line);
+  border-radius: 4px;
+  padding: 20px 22px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.set-card:hover {
+  border-color: var(--ink-soft);
+  border-left-color: var(--accent);
+  transform: translateX(2px);
+}
+
+.set-tagline {
+  font-size: 0.7rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.set-title {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 1.45rem;
+  line-height: 1.2;
+}
+.set-blurb {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  max-width: 58ch;
+}
+.set-stats {
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.set-langs {
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* --- the word ladder on the picker ---------------------------------------- */
+.ladder {
+  list-style: none;
+  counter-reset: none;
+  padding: 0;
+  margin: 18px 0 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ladder li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 11px 3px 4px;
+}
+.ladder-band {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 0.66rem;
+  color: var(--paper);
+  background: var(--accent);
+  /* rarer words sit darker on the same hue */
+  opacity: 0.55;
+}
+.ladder li:nth-child(n + 3) .ladder-band {
+  opacity: 0.7;
+}
+.ladder li:nth-child(n + 5) .ladder-band {
+  opacity: 0.82;
+}
+.ladder li:nth-child(n + 7) .ladder-band {
+  opacity: 0.92;
+}
+.ladder li:nth-child(n + 9) .ladder-band {
+  opacity: 1;
+}
+.ladder-caveat {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* --- buttons -------------------------------------------------------------- */
+.next-btn {
+  appearance: none;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--paper);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  padding: 11px 22px;
+  transition: background 0.15s ease;
+}
+.next-btn:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.next-btn:disabled {
+  background: transparent;
+  color: var(--ink-soft);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+.next-btn.ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+.next-btn.ghost:hover {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.results-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+/* --- round layout --------------------------------------------------------- */
+.round {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: clamp(20px, 4vw, 48px);
+  align-items: start;
+}
+
+.side {
+  position: sticky;
+  top: 24px;
+  display: grid;
+  gap: 14px;
+}
+
+.lang-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.round-count {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.lang-name {
+  font-family: 'Newsreader', Georgia, serif;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.15;
+  margin: 6px 0 2px;
+}
+
+.lang-endonym {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  /* dir=rtl keeps the glyph order correct; flush it left anyway so RTL
+     endonyms line up under the English name instead of floating right */
+  text-align: left;
+}
+
+.lang-facts {
+  margin: 20px 0;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+}
+.lang-facts div {
+  display: grid;
+  gap: 1px;
+}
+.lang-facts dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.lang-facts dd {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.roman-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  user-select: none;
+}
+.roman-toggle input {
+  accent-color: var(--accent);
+  margin: 0;
+}
+
+.action-bar {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 14px 20px 16px;
+}
+
+.action-bar .next-btn {
+  width: 100%;
+}
+
+.progress {
+  height: 3px;
+  background: var(--line);
+  border-radius: 2px;
+  margin: 0 0 6px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+.progress-label {
+  margin: 0 0 12px;
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+}
+
+/* --- the matching board --------------------------------------------------- */
+.hint {
+  margin: 0 0 20px;
+  max-width: 54ch;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 3vw, 28px);
+}
+
+.col {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.chip {
+  appearance: none;
+  font: inherit;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 10px 13px;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+.chip:hover {
+  border-color: var(--ink-soft);
+}
+.chip.sel {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.word {
+  display: grid;
+  gap: 1px;
+  min-height: 62px;
+}
+.word .native {
+  font-size: 1.3rem;
+  line-height: 1.25;
+  /* same reasoning as .lang-endonym: keep every chip's text on one left edge */
+  text-align: left;
+}
+.word .roman {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.word .answer {
+  margin-top: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.word .answer::before {
+  content: '→ ';
+}
+.word.paired {
+  border-color: var(--accent);
+  border-left-width: 3px;
+}
+
+.meaning {
+  min-height: 44px;
+}
+.meaning.used {
+  color: var(--ink-soft);
+  background: transparent;
+  border-style: dashed;
+  opacity: 0.55;
+}
+
+/* --- results -------------------------------------------------------------- */
+.results {
+  max-width: 760px;
+}
+
+.results-head {
+  margin-bottom: 44px;
+}
+.eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.big-score {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(3rem, 11vw, 4.6rem);
+  line-height: 1;
+  margin: 6px 0 10px;
+}
+.big-score .of {
+  font-size: 0.32em;
+  color: var(--ink-soft);
+  margin-left: 10px;
+  letter-spacing: 0.02em;
+}
+.score-note {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.section-title {
+  font-family: 'Newsreader', Georgia, serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  margin: 0 0 4px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+.section-note {
+  margin: 10px 0 18px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.family-list {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 44px;
+  display: grid;
+  gap: 14px;
+}
+.family-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+.family-name {
+  font-weight: 500;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.band-words {
+  font-weight: 400;
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+}
+.family-score {
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.meter {
+  height: 6px;
+  background: var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.meter-fill {
+  height: 100%;
+  background: var(--accent);
+}
+
+.lang-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+.lang-list li {
+  border-bottom: 1px solid var(--line);
+}
+
+.lang-row {
+  appearance: none;
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+  background: none;
+  border: 0;
+  text-align: left;
+  padding: 14px 4px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 16px;
+  color: var(--ink);
+}
+.lang-row:hover {
+  background: var(--card);
+}
+.lang-row-name {
+  font-weight: 500;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+.lang-row-endonym {
+  font-weight: 400;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+.lang-row-meta {
+  grid-column: 1;
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+}
+.lang-row-score {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  align-self: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+}
+
+.key-scroll {
+  overflow-x: auto;
+}
+
+.key-table {
+  width: 100%;
+  min-width: 420px;
+  border-collapse: collapse;
+  margin: 0 0 18px;
+  font-size: 0.88rem;
+}
+.key-table th {
+  text-align: left;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+  padding: 6px 10px 6px 0;
+  border-bottom: 1px solid var(--line);
+}
+.key-table td {
+  padding: 7px 10px 7px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: baseline;
+}
+.key-table tr:last-child td {
+  border-bottom: 0;
+}
+.key-native {
+  font-size: 1.1rem;
+}
+.key-roman {
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.key-band {
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.key-given {
+  white-space: nowrap;
+}
+tr.right .key-given {
+  color: var(--good);
+}
+tr.wrong .key-given {
+  color: var(--bad);
+}
+
+/* --- why these words ------------------------------------------------------ */
+.note-list {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+  display: grid;
+  gap: 14px;
+}
+.note-list li {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 4px 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.note-list li:last-child {
+  border-bottom: 0;
+}
+.note-word {
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.note-band {
+  font-weight: 400;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.note-text {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+/* --- narrow screens ------------------------------------------------------- */
+@media (max-width: 780px) {
+  .round {
+    display: flex;
+    flex-direction: column;
+  }
+  /* free the card and action bar from .side so they can straddle the board */
+  .side {
+    display: contents;
+  }
+  .lang-card {
+    order: 1;
+    padding: 16px;
+  }
+  .board {
+    order: 2;
+  }
+  /* the button follows you down the page, so finishing the last pair doesn't
+     mean scrolling back to the top to advance */
+  .action-bar {
+    order: 3;
+    position: sticky;
+    bottom: 0;
+    margin: 0 -4px;
+    padding: 10px 4px 12px;
+    border: 0;
+    border-radius: 0;
+    background: linear-gradient(to top, var(--paper) 72%, rgba(250, 247, 242, 0));
+  }
+  .lang-name {
+    font-size: 1.35rem;
+  }
+  .progress-label {
+    margin-bottom: 10px;
+  }
+  .lang-facts {
+    grid-template-columns: 1fr 1fr;
+  }
+  .word .native {
+    font-size: 1.15rem;
+  }
+  .chip {
+    padding: 9px 11px;
+  }
+  .key-table {
+    font-size: 0.8rem;
+  }
+  .note-list li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .note-word {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 9px;
+  }
+}

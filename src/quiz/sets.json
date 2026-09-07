@@ -1,0 +1,93 @@
+[
+  {
+    "id": "indo-european",
+    "title": "Indo-European",
+    "tagline": "One family, deep roots",
+    "groupBy": "branch",
+    "blurb": "Every language here descends from a single ancestor spoken around 5,000 years ago. Cognates are everywhere once you start looking — but the further apart the branches, the better they hide.",
+    "languages": [
+      "es",
+      "fr",
+      "de",
+      "sv",
+      "el",
+      "ru",
+      "pl",
+      "lt",
+      "ga",
+      "cy",
+      "hy",
+      "hi",
+      "bn",
+      "fa"
+    ]
+  },
+  {
+    "id": "east-asia",
+    "title": "East & Southeast Asia",
+    "tagline": "Neighbours, not relatives",
+    "groupBy": "family",
+    "blurb": "Unrelated families sharing a neighbourhood — and centuries of borrowed vocabulary. Watch for the words Chinese lent to everyone, and the ones Europe lent for bread.",
+    "languages": [
+      "zh",
+      "yue",
+      "ja",
+      "ko",
+      "vi",
+      "km",
+      "th",
+      "lo",
+      "my",
+      "bo",
+      "mn"
+    ]
+  },
+  {
+    "id": "south-asia-mena",
+    "title": "South Asia, Middle East & North Africa",
+    "tagline": "Two subcontinents of loanwords",
+    "groupBy": "family",
+    "blurb": "Two very different halves. In South Asia, Indo-Aryan and Dravidian languages have traded words for millennia; across the Middle East and North Africa, Semitic roots and Arabic loans run through everything.",
+    "languages": [
+      "hi",
+      "ur",
+      "bn",
+      "pa",
+      "si",
+      "ta",
+      "te",
+      "ml",
+      "fa",
+      "ar",
+      "he",
+      "am",
+      "tr",
+      "kab"
+    ]
+  },
+  {
+    "id": "world",
+    "title": "The grand tour",
+    "tagline": "Five continents, one test",
+    "groupBy": "family",
+    "blurb": "The wide net: Bantu and Volta-Niger from Africa, Austronesian from across the Pacific, and an isolate related to nothing else on earth. Expect to guess more than you know.",
+    "languages": [
+      "el",
+      "ru",
+      "hi",
+      "ar",
+      "zh",
+      "ja",
+      "ka",
+      "fi",
+      "hu",
+      "sw",
+      "zu",
+      "yo",
+      "id",
+      "tl",
+      "haw",
+      "eu"
+    ]
+  }
+]

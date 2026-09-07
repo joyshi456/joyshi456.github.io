@@ -8,9 +8,10 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        // Win98 portfolio (root) + the standalone corkboard events page
+        // Win98 portfolio (root) + the standalone corkboard and quiz pages
         main: 'index.html',
         events: 'events/index.html',
+        quiz: 'quiz/index.html',
       },
     },
   },

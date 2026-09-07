@@ -1,0 +1,2684 @@
+{
+  "concepts": [
+    {
+      "id": "water",
+      "label": "Water",
+      "level": 1,
+      "note": "Core vocabulary: inherited almost everywhere, and among the last words a language gives up to borrowing."
+    },
+    {
+      "id": "mother",
+      "label": "Mother",
+      "level": 1,
+      "note": "The mama pattern — a nasal plus an open vowel — recurs across wholly unrelated families. Jakobson put it down to infant babbling rather than common descent."
+    },
+    {
+      "id": "hand",
+      "label": "Hand",
+      "level": 2,
+      "note": "Plenty of languages use one word for hand and arm: Russian ruka and Tibetan lag-pa cover both."
+    },
+    {
+      "id": "night",
+      "label": "Night",
+      "level": 2,
+      "note": "Old and stable. In the Indo-European test, nuit, Nacht, natt, noc, naktis and nychta are all the same word wearing different clothes."
+    },
+    {
+      "id": "bread",
+      "label": "Bread",
+      "level": 3,
+      "note": "The borrowing showcase. Japanese pan and Korean ppang both arrive from Portuguese pao."
+    },
+    {
+      "id": "milk",
+      "label": "Milk",
+      "level": 3,
+      "note": "Often a compound rather than a root: Mandarin niunai is literally cow-milk, Khmer tuk dos ko is cow-udder-water."
+    },
+    {
+      "id": "star",
+      "label": "Star",
+      "level": 4,
+      "note": "Indo-European keeps a shared root here — Greek asteri, Armenian astgh and Hindi tara all go back to it."
+    },
+    {
+      "id": "smoke",
+      "label": "Smoke",
+      "level": 4,
+      "note": "Frequently built out of the word for fire: Burmese mi-kho is fire-smoke."
+    },
+    {
+      "id": "honey",
+      "label": "Honey",
+      "level": 5,
+      "note": "An ancient travelling word. Proto-Indo-European melit gave Greek meli, and Chinese mi has long been argued to be a loan from the same source."
+    },
+    {
+      "id": "ash",
+      "label": "Ash",
+      "level": 5,
+      "note": "Basic enough for the Swadesh list, yet rare in ordinary speech — the hardest row in the table."
+    }
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "label": "Core"
+    },
+    {
+      "level": 2,
+      "label": "Everyday"
+    },
+    {
+      "level": 3,
+      "label": "Common"
+    },
+    {
+      "level": 4,
+      "label": "Less common"
+    },
+    {
+      "level": 5,
+      "label": "Rare"
+    }
+  ],
+  "languages": [
+    {
+      "code": "es",
+      "name": "Spanish",
+      "nativeName": "Español",
+      "family": "Indo-European",
+      "branch": "Romance",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "agua"
+        },
+        "fire": {
+          "native": "fuego"
+        },
+        "mother": {
+          "native": "madre"
+        },
+        "hand": {
+          "native": "mano"
+        },
+        "night": {
+          "native": "noche"
+        },
+        "bread": {
+          "native": "pan"
+        },
+        "star": {
+          "native": "estrella"
+        },
+        "dog": {
+          "native": "perro"
+        },
+        "mountain": {
+          "native": "montaña"
+        },
+        "milk": {
+          "native": "leche"
+        },
+        "smoke": {
+          "native": "humo"
+        },
+        "honey": {
+          "native": "miel"
+        },
+        "ash": {
+          "native": "ceniza"
+        }
+      }
+    },
+    {
+      "code": "fr",
+      "name": "French",
+      "nativeName": "Français",
+      "family": "Indo-European",
+      "branch": "Romance",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "eau"
+        },
+        "fire": {
+          "native": "feu"
+        },
+        "mother": {
+          "native": "mère"
+        },
+        "hand": {
+          "native": "main"
+        },
+        "night": {
+          "native": "nuit"
+        },
+        "bread": {
+          "native": "pain"
+        },
+        "star": {
+          "native": "étoile"
+        },
+        "dog": {
+          "native": "chien"
+        },
+        "mountain": {
+          "native": "montagne"
+        },
+        "milk": {
+          "native": "lait"
+        },
+        "smoke": {
+          "native": "fumée"
+        },
+        "honey": {
+          "native": "miel"
+        },
+        "ash": {
+          "native": "cendre"
+        }
+      }
+    },
+    {
+      "code": "de",
+      "name": "German",
+      "nativeName": "Deutsch",
+      "family": "Indo-European",
+      "branch": "Germanic",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "Wasser"
+        },
+        "fire": {
+          "native": "Feuer"
+        },
+        "mother": {
+          "native": "Mutter"
+        },
+        "hand": {
+          "native": "Hand"
+        },
+        "night": {
+          "native": "Nacht"
+        },
+        "bread": {
+          "native": "Brot"
+        },
+        "star": {
+          "native": "Stern"
+        },
+        "dog": {
+          "native": "Hund"
+        },
+        "mountain": {
+          "native": "Berg"
+        },
+        "milk": {
+          "native": "Milch"
+        },
+        "smoke": {
+          "native": "Rauch"
+        },
+        "honey": {
+          "native": "Honig"
+        },
+        "ash": {
+          "native": "Asche"
+        }
+      }
+    },
+    {
+      "code": "sv",
+      "name": "Swedish",
+      "nativeName": "Svenska",
+      "family": "Indo-European",
+      "branch": "Germanic",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "vatten"
+        },
+        "fire": {
+          "native": "eld"
+        },
+        "mother": {
+          "native": "mor"
+        },
+        "hand": {
+          "native": "hand"
+        },
+        "night": {
+          "native": "natt"
+        },
+        "bread": {
+          "native": "bröd"
+        },
+        "star": {
+          "native": "stjärna"
+        },
+        "dog": {
+          "native": "hund"
+        },
+        "mountain": {
+          "native": "berg"
+        },
+        "milk": {
+          "native": "mjölk"
+        },
+        "smoke": {
+          "native": "rök"
+        },
+        "honey": {
+          "native": "honung"
+        },
+        "ash": {
+          "native": "aska"
+        }
+      }
+    },
+    {
+      "code": "el",
+      "name": "Greek",
+      "nativeName": "Ελληνικά",
+      "family": "Indo-European",
+      "branch": "Hellenic",
+      "script": "Greek",
+      "words": {
+        "water": {
+          "native": "νερό",
+          "roman": "neró"
+        },
+        "fire": {
+          "native": "φωτιά",
+          "roman": "fotiá"
+        },
+        "mother": {
+          "native": "μητέρα",
+          "roman": "mitéra"
+        },
+        "hand": {
+          "native": "χέρι",
+          "roman": "chéri"
+        },
+        "night": {
+          "native": "νύχτα",
+          "roman": "nýchta"
+        },
+        "bread": {
+          "native": "ψωμί",
+          "roman": "psomí"
+        },
+        "star": {
+          "native": "αστέρι",
+          "roman": "astéri"
+        },
+        "dog": {
+          "native": "σκύλος",
+          "roman": "skýlos"
+        },
+        "mountain": {
+          "native": "βουνό",
+          "roman": "vounó"
+        },
+        "milk": {
+          "native": "γάλα",
+          "roman": "gála"
+        },
+        "smoke": {
+          "native": "καπνός",
+          "roman": "kapnós"
+        },
+        "honey": {
+          "native": "μέλι",
+          "roman": "méli"
+        },
+        "ash": {
+          "native": "στάχτη",
+          "roman": "stáchti"
+        }
+      }
+    },
+    {
+      "code": "ru",
+      "name": "Russian",
+      "nativeName": "Русский",
+      "family": "Indo-European",
+      "branch": "Balto-Slavic",
+      "script": "Cyrillic",
+      "words": {
+        "water": {
+          "native": "вода",
+          "roman": "voda"
+        },
+        "fire": {
+          "native": "огонь",
+          "roman": "ogon'"
+        },
+        "mother": {
+          "native": "мать",
+          "roman": "mat'"
+        },
+        "hand": {
+          "native": "рука",
+          "roman": "ruka"
+        },
+        "night": {
+          "native": "ночь",
+          "roman": "noch'"
+        },
+        "bread": {
+          "native": "хлеб",
+          "roman": "khleb"
+        },
+        "star": {
+          "native": "звезда",
+          "roman": "zvezda"
+        },
+        "dog": {
+          "native": "собака",
+          "roman": "sobaka"
+        },
+        "mountain": {
+          "native": "гора",
+          "roman": "gora"
+        },
+        "milk": {
+          "native": "молоко",
+          "roman": "moloko"
+        },
+        "smoke": {
+          "native": "дым",
+          "roman": "dym"
+        },
+        "honey": {
+          "native": "мёд",
+          "roman": "myod"
+        },
+        "ash": {
+          "native": "пепел",
+          "roman": "pepel"
+        }
+      }
+    },
+    {
+      "code": "pl",
+      "name": "Polish",
+      "nativeName": "Polski",
+      "family": "Indo-European",
+      "branch": "Balto-Slavic",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "woda"
+        },
+        "fire": {
+          "native": "ogień"
+        },
+        "mother": {
+          "native": "matka"
+        },
+        "hand": {
+          "native": "ręka"
+        },
+        "night": {
+          "native": "noc"
+        },
+        "bread": {
+          "native": "chleb"
+        },
+        "star": {
+          "native": "gwiazda"
+        },
+        "dog": {
+          "native": "pies"
+        },
+        "mountain": {
+          "native": "góra"
+        },
+        "milk": {
+          "native": "mleko"
+        },
+        "smoke": {
+          "native": "dym"
+        },
+        "honey": {
+          "native": "miód"
+        },
+        "ash": {
+          "native": "popiół"
+        }
+      }
+    },
+    {
+      "code": "lt",
+      "name": "Lithuanian",
+      "nativeName": "Lietuvių",
+      "family": "Indo-European",
+      "branch": "Balto-Slavic",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "vanduo"
+        },
+        "fire": {
+          "native": "ugnis"
+        },
+        "mother": {
+          "native": "mama"
+        },
+        "hand": {
+          "native": "ranka"
+        },
+        "night": {
+          "native": "naktis"
+        },
+        "bread": {
+          "native": "duona"
+        },
+        "star": {
+          "native": "žvaigždė"
+        },
+        "dog": {
+          "native": "šuo"
+        },
+        "mountain": {
+          "native": "kalnas"
+        },
+        "milk": {
+          "native": "pienas"
+        },
+        "smoke": {
+          "native": "dūmai"
+        },
+        "honey": {
+          "native": "medus"
+        },
+        "ash": {
+          "native": "pelenai"
+        }
+      }
+    },
+    {
+      "code": "ga",
+      "name": "Irish",
+      "nativeName": "Gaeilge",
+      "family": "Indo-European",
+      "branch": "Celtic",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "uisce"
+        },
+        "fire": {
+          "native": "tine"
+        },
+        "mother": {
+          "native": "máthair"
+        },
+        "hand": {
+          "native": "lámh"
+        },
+        "night": {
+          "native": "oíche"
+        },
+        "bread": {
+          "native": "arán"
+        },
+        "star": {
+          "native": "réalta"
+        },
+        "dog": {
+          "native": "madra"
+        },
+        "mountain": {
+          "native": "sliabh"
+        },
+        "milk": {
+          "native": "bainne"
+        },
+        "smoke": {
+          "native": "deatach"
+        },
+        "honey": {
+          "native": "mil"
+        },
+        "ash": {
+          "native": "luaith"
+        }
+      }
+    },
+    {
+      "code": "cy",
+      "name": "Welsh",
+      "nativeName": "Cymraeg",
+      "family": "Indo-European",
+      "branch": "Celtic",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "dŵr"
+        },
+        "fire": {
+          "native": "tân"
+        },
+        "mother": {
+          "native": "mam"
+        },
+        "hand": {
+          "native": "llaw"
+        },
+        "night": {
+          "native": "nos"
+        },
+        "bread": {
+          "native": "bara"
+        },
+        "star": {
+          "native": "seren"
+        },
+        "dog": {
+          "native": "ci"
+        },
+        "mountain": {
+          "native": "mynydd"
+        },
+        "milk": {
+          "native": "llaeth"
+        },
+        "smoke": {
+          "native": "mwg"
+        },
+        "honey": {
+          "native": "mêl"
+        },
+        "ash": {
+          "native": "lludw"
+        }
+      }
+    },
+    {
+      "code": "hy",
+      "name": "Armenian",
+      "nativeName": "Հայերեն",
+      "family": "Indo-European",
+      "branch": "Armenian",
+      "script": "Armenian",
+      "words": {
+        "water": {
+          "native": "ջուր",
+          "roman": "jur"
+        },
+        "fire": {
+          "native": "կրակ",
+          "roman": "krak"
+        },
+        "mother": {
+          "native": "մայր",
+          "roman": "mayr"
+        },
+        "hand": {
+          "native": "ձեռք",
+          "roman": "dzerrk"
+        },
+        "night": {
+          "native": "գիշեր",
+          "roman": "gisher"
+        },
+        "bread": {
+          "native": "հաց",
+          "roman": "hats"
+        },
+        "star": {
+          "native": "աստղ",
+          "roman": "astgh"
+        },
+        "dog": {
+          "native": "շուն",
+          "roman": "shun"
+        },
+        "mountain": {
+          "native": "սար",
+          "roman": "sar"
+        },
+        "milk": {
+          "native": "կաթ",
+          "roman": "kat"
+        },
+        "smoke": {
+          "native": "ծուխ",
+          "roman": "tsukh"
+        },
+        "honey": {
+          "native": "մեղր",
+          "roman": "meghr"
+        },
+        "ash": {
+          "native": "մոխիր",
+          "roman": "mokhir"
+        }
+      }
+    },
+    {
+      "code": "hi",
+      "name": "Hindi",
+      "nativeName": "हिन्दी",
+      "family": "Indo-European",
+      "branch": "Indo-Aryan",
+      "script": "Devanagari",
+      "words": {
+        "water": {
+          "native": "पानी",
+          "roman": "pānī"
+        },
+        "fire": {
+          "native": "आग",
+          "roman": "āg"
+        },
+        "mother": {
+          "native": "माँ",
+          "roman": "mā̃"
+        },
+        "hand": {
+          "native": "हाथ",
+          "roman": "hāth"
+        },
+        "night": {
+          "native": "रात",
+          "roman": "rāt"
+        },
+        "bread": {
+          "native": "रोटी",
+          "roman": "roṭī"
+        },
+        "star": {
+          "native": "तारा",
+          "roman": "tārā"
+        },
+        "dog": {
+          "native": "कुत्ता",
+          "roman": "kuttā"
+        },
+        "mountain": {
+          "native": "पहाड़",
+          "roman": "pahāṛ"
+        },
+        "milk": {
+          "native": "दूध",
+          "roman": "dūdh"
+        },
+        "smoke": {
+          "native": "धुआँ",
+          "roman": "dhuā̃"
+        },
+        "honey": {
+          "native": "शहद",
+          "roman": "shahad"
+        },
+        "ash": {
+          "native": "राख",
+          "roman": "rākh"
+        }
+      }
+    },
+    {
+      "code": "bn",
+      "name": "Bengali",
+      "nativeName": "বাংলা",
+      "family": "Indo-European",
+      "branch": "Indo-Aryan",
+      "script": "Bengali",
+      "words": {
+        "water": {
+          "native": "জল",
+          "roman": "jol"
+        },
+        "fire": {
+          "native": "আগুন",
+          "roman": "agun"
+        },
+        "mother": {
+          "native": "মা",
+          "roman": "ma"
+        },
+        "hand": {
+          "native": "হাত",
+          "roman": "hat"
+        },
+        "night": {
+          "native": "রাত",
+          "roman": "rat"
+        },
+        "bread": {
+          "native": "রুটি",
+          "roman": "ruti"
+        },
+        "star": {
+          "native": "তারা",
+          "roman": "tara"
+        },
+        "dog": {
+          "native": "কুকুর",
+          "roman": "kukur"
+        },
+        "mountain": {
+          "native": "পাহাড়",
+          "roman": "pahaṛ"
+        },
+        "milk": {
+          "native": "দুধ",
+          "roman": "dudh"
+        },
+        "smoke": {
+          "native": "ধোঁয়া",
+          "roman": "dhõya"
+        },
+        "honey": {
+          "native": "মধু",
+          "roman": "modhu"
+        },
+        "ash": {
+          "native": "ছাই",
+          "roman": "chhai"
+        }
+      }
+    },
+    {
+      "code": "fa",
+      "name": "Persian",
+      "nativeName": "فارسی",
+      "family": "Indo-European",
+      "branch": "Iranian",
+      "script": "Perso-Arabic",
+      "rtl": true,
+      "words": {
+        "water": {
+          "native": "آب",
+          "roman": "āb"
+        },
+        "fire": {
+          "native": "آتش",
+          "roman": "ātash"
+        },
+        "mother": {
+          "native": "مادر",
+          "roman": "mādar"
+        },
+        "hand": {
+          "native": "دست",
+          "roman": "dast"
+        },
+        "night": {
+          "native": "شب",
+          "roman": "shab"
+        },
+        "bread": {
+          "native": "نان",
+          "roman": "nān"
+        },
+        "star": {
+          "native": "ستاره",
+          "roman": "setāre"
+        },
+        "dog": {
+          "native": "سگ",
+          "roman": "sag"
+        },
+        "mountain": {
+          "native": "کوه",
+          "roman": "kuh"
+        },
+        "milk": {
+          "native": "شیر",
+          "roman": "shir"
+        },
+        "smoke": {
+          "native": "دود",
+          "roman": "dud"
+        },
+        "honey": {
+          "native": "عسل",
+          "roman": "asal"
+        },
+        "ash": {
+          "native": "خاکستر",
+          "roman": "khākestar"
+        }
+      }
+    },
+    {
+      "code": "zh",
+      "name": "Mandarin Chinese",
+      "nativeName": "普通话",
+      "family": "Sino-Tibetan",
+      "branch": "Sinitic",
+      "script": "Han",
+      "words": {
+        "water": {
+          "native": "水",
+          "roman": "shuǐ"
+        },
+        "fire": {
+          "native": "火",
+          "roman": "huǒ"
+        },
+        "mother": {
+          "native": "妈妈",
+          "roman": "māma"
+        },
+        "hand": {
+          "native": "手",
+          "roman": "shǒu"
+        },
+        "night": {
+          "native": "夜",
+          "roman": "yè"
+        },
+        "bread": {
+          "native": "面包",
+          "roman": "miànbāo"
+        },
+        "star": {
+          "native": "星",
+          "roman": "xīng"
+        },
+        "dog": {
+          "native": "狗",
+          "roman": "gǒu"
+        },
+        "mountain": {
+          "native": "山",
+          "roman": "shān"
+        },
+        "milk": {
+          "native": "牛奶",
+          "roman": "niúnǎi"
+        },
+        "smoke": {
+          "native": "烟",
+          "roman": "yān"
+        },
+        "honey": {
+          "native": "蜂蜜",
+          "roman": "fēngmì"
+        },
+        "ash": {
+          "native": "灰",
+          "roman": "huī"
+        }
+      }
+    },
+    {
+      "code": "yue",
+      "name": "Cantonese",
+      "nativeName": "廣東話",
+      "family": "Sino-Tibetan",
+      "branch": "Sinitic",
+      "script": "Han (traditional)",
+      "words": {
+        "water": {
+          "native": "水",
+          "roman": "seoi2"
+        },
+        "fire": {
+          "native": "火",
+          "roman": "fo2"
+        },
+        "mother": {
+          "native": "媽媽",
+          "roman": "maa1maa1"
+        },
+        "hand": {
+          "native": "手",
+          "roman": "sau2"
+        },
+        "night": {
+          "native": "夜",
+          "roman": "je6"
+        },
+        "bread": {
+          "native": "麵包",
+          "roman": "min6baau1"
+        },
+        "star": {
+          "native": "星",
+          "roman": "sing1"
+        },
+        "dog": {
+          "native": "狗",
+          "roman": "gau2"
+        },
+        "mountain": {
+          "native": "山",
+          "roman": "saan1"
+        },
+        "milk": {
+          "native": "牛奶",
+          "roman": "ngau4naai5"
+        },
+        "smoke": {
+          "native": "煙",
+          "roman": "jin1"
+        },
+        "honey": {
+          "native": "蜂蜜",
+          "roman": "fung1mat6"
+        },
+        "ash": {
+          "native": "灰",
+          "roman": "fui1"
+        }
+      }
+    },
+    {
+      "code": "ja",
+      "name": "Japanese",
+      "nativeName": "日本語",
+      "family": "Japonic",
+      "branch": "Japanese",
+      "script": "Kanji + Kana",
+      "words": {
+        "water": {
+          "native": "水",
+          "roman": "mizu"
+        },
+        "fire": {
+          "native": "火",
+          "roman": "hi"
+        },
+        "mother": {
+          "native": "母",
+          "roman": "haha"
+        },
+        "hand": {
+          "native": "手",
+          "roman": "te"
+        },
+        "night": {
+          "native": "夜",
+          "roman": "yoru"
+        },
+        "bread": {
+          "native": "パン",
+          "roman": "pan"
+        },
+        "star": {
+          "native": "星",
+          "roman": "hoshi"
+        },
+        "dog": {
+          "native": "犬",
+          "roman": "inu"
+        },
+        "mountain": {
+          "native": "山",
+          "roman": "yama"
+        },
+        "milk": {
+          "native": "牛乳",
+          "roman": "gyūnyū"
+        },
+        "smoke": {
+          "native": "煙",
+          "roman": "kemuri"
+        },
+        "honey": {
+          "native": "蜂蜜",
+          "roman": "hachimitsu"
+        },
+        "ash": {
+          "native": "灰",
+          "roman": "hai"
+        }
+      }
+    },
+    {
+      "code": "ko",
+      "name": "Korean",
+      "nativeName": "한국어",
+      "family": "Koreanic",
+      "branch": "Korean",
+      "script": "Hangul",
+      "words": {
+        "water": {
+          "native": "물",
+          "roman": "mul"
+        },
+        "fire": {
+          "native": "불",
+          "roman": "bul"
+        },
+        "mother": {
+          "native": "어머니",
+          "roman": "eomeoni"
+        },
+        "hand": {
+          "native": "손",
+          "roman": "son"
+        },
+        "night": {
+          "native": "밤",
+          "roman": "bam"
+        },
+        "bread": {
+          "native": "빵",
+          "roman": "ppang"
+        },
+        "star": {
+          "native": "별",
+          "roman": "byeol"
+        },
+        "dog": {
+          "native": "개",
+          "roman": "gae"
+        },
+        "mountain": {
+          "native": "산",
+          "roman": "san"
+        },
+        "milk": {
+          "native": "우유",
+          "roman": "uyu"
+        },
+        "smoke": {
+          "native": "연기",
+          "roman": "yeongi"
+        },
+        "honey": {
+          "native": "꿀",
+          "roman": "kkul"
+        },
+        "ash": {
+          "native": "재",
+          "roman": "jae"
+        }
+      }
+    },
+    {
+      "code": "vi",
+      "name": "Vietnamese",
+      "nativeName": "Tiếng Việt",
+      "family": "Austroasiatic",
+      "branch": "Vietic",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "nước"
+        },
+        "fire": {
+          "native": "lửa"
+        },
+        "mother": {
+          "native": "mẹ"
+        },
+        "hand": {
+          "native": "tay"
+        },
+        "night": {
+          "native": "đêm"
+        },
+        "bread": {
+          "native": "bánh mì"
+        },
+        "star": {
+          "native": "ngôi sao"
+        },
+        "dog": {
+          "native": "con chó"
+        },
+        "mountain": {
+          "native": "núi"
+        },
+        "milk": {
+          "native": "sữa"
+        },
+        "smoke": {
+          "native": "khói"
+        },
+        "honey": {
+          "native": "mật ong"
+        },
+        "ash": {
+          "native": "tro"
+        }
+      }
+    },
+    {
+      "code": "km",
+      "name": "Khmer",
+      "nativeName": "ភាសាខ្មែរ",
+      "family": "Austroasiatic",
+      "branch": "Khmeric",
+      "script": "Khmer",
+      "words": {
+        "water": {
+          "native": "ទឹក",
+          "roman": "tuk"
+        },
+        "fire": {
+          "native": "ភ្លើង",
+          "roman": "phleung"
+        },
+        "mother": {
+          "native": "ម្តាយ",
+          "roman": "mdaay"
+        },
+        "hand": {
+          "native": "ដៃ",
+          "roman": "dai"
+        },
+        "night": {
+          "native": "យប់",
+          "roman": "yup"
+        },
+        "bread": {
+          "native": "នំបុ័ង",
+          "roman": "num pang"
+        },
+        "star": {
+          "native": "ផ្កាយ",
+          "roman": "phkaay"
+        },
+        "dog": {
+          "native": "ឆ្កែ",
+          "roman": "chhkae"
+        },
+        "mountain": {
+          "native": "ភ្នំ",
+          "roman": "phnum"
+        },
+        "milk": {
+          "native": "ទឹកដោះគោ",
+          "roman": "tuk dos ko"
+        },
+        "smoke": {
+          "native": "ផ្សែង",
+          "roman": "phsaeng"
+        },
+        "honey": {
+          "native": "ទឹកឃ្មុំ",
+          "roman": "tuk khmum"
+        },
+        "ash": {
+          "native": "ផេះ",
+          "roman": "pheh"
+        }
+      }
+    },
+    {
+      "code": "th",
+      "name": "Thai",
+      "nativeName": "ภาษาไทย",
+      "family": "Kra-Dai",
+      "branch": "Tai",
+      "script": "Thai",
+      "words": {
+        "water": {
+          "native": "น้ำ",
+          "roman": "nam"
+        },
+        "fire": {
+          "native": "ไฟ",
+          "roman": "fai"
+        },
+        "mother": {
+          "native": "แม่",
+          "roman": "mae"
+        },
+        "hand": {
+          "native": "มือ",
+          "roman": "mue"
+        },
+        "night": {
+          "native": "คืน",
+          "roman": "khuen"
+        },
+        "bread": {
+          "native": "ขนมปัง",
+          "roman": "khanom pang"
+        },
+        "star": {
+          "native": "ดาว",
+          "roman": "dao"
+        },
+        "dog": {
+          "native": "หมา",
+          "roman": "maa"
+        },
+        "mountain": {
+          "native": "ภูเขา",
+          "roman": "phukhao"
+        },
+        "milk": {
+          "native": "นม",
+          "roman": "nom"
+        },
+        "smoke": {
+          "native": "ควัน",
+          "roman": "khwan"
+        },
+        "honey": {
+          "native": "น้ำผึ้ง",
+          "roman": "nam phueng"
+        },
+        "ash": {
+          "native": "ขี้เถ้า",
+          "roman": "khi thao"
+        }
+      }
+    },
+    {
+      "code": "lo",
+      "name": "Lao",
+      "nativeName": "ພາສາລາວ",
+      "family": "Kra-Dai",
+      "branch": "Tai",
+      "script": "Lao",
+      "words": {
+        "water": {
+          "native": "ນ້ຳ",
+          "roman": "nam"
+        },
+        "fire": {
+          "native": "ໄຟ",
+          "roman": "fai"
+        },
+        "mother": {
+          "native": "ແມ່",
+          "roman": "mae"
+        },
+        "hand": {
+          "native": "ມື",
+          "roman": "mue"
+        },
+        "night": {
+          "native": "ຄືນ",
+          "roman": "khuen"
+        },
+        "bread": {
+          "native": "ເຂົ້າຈີ່",
+          "roman": "khao chi"
+        },
+        "star": {
+          "native": "ດາວ",
+          "roman": "dao"
+        },
+        "dog": {
+          "native": "ໝາ",
+          "roman": "maa"
+        },
+        "mountain": {
+          "native": "ພູເຂົາ",
+          "roman": "phukhao"
+        },
+        "milk": {
+          "native": "ນົມ",
+          "roman": "nom"
+        },
+        "smoke": {
+          "native": "ຄວັນ",
+          "roman": "khwan"
+        },
+        "honey": {
+          "native": "ນ້ຳເຜິ້ງ",
+          "roman": "nam phueng"
+        },
+        "ash": {
+          "native": "ຂີ້ເຖ່າ",
+          "roman": "khi thao"
+        }
+      }
+    },
+    {
+      "code": "my",
+      "name": "Burmese",
+      "nativeName": "မြန်မာဘာသာ",
+      "family": "Sino-Tibetan",
+      "branch": "Tibeto-Burman",
+      "script": "Myanmar",
+      "words": {
+        "water": {
+          "native": "ရေ",
+          "roman": "ye"
+        },
+        "fire": {
+          "native": "မီး",
+          "roman": "mi"
+        },
+        "mother": {
+          "native": "အမေ",
+          "roman": "ame"
+        },
+        "hand": {
+          "native": "လက်",
+          "roman": "let"
+        },
+        "night": {
+          "native": "ည",
+          "roman": "nya"
+        },
+        "bread": {
+          "native": "ပေါင်မုန့်",
+          "roman": "paung-mont"
+        },
+        "star": {
+          "native": "ကြယ်",
+          "roman": "kyay"
+        },
+        "dog": {
+          "native": "ခွေး",
+          "roman": "khwe"
+        },
+        "mountain": {
+          "native": "တောင်",
+          "roman": "taung"
+        },
+        "milk": {
+          "native": "နွားနို့",
+          "roman": "nwa-no"
+        },
+        "smoke": {
+          "native": "မီးခိုး",
+          "roman": "mi-kho"
+        },
+        "honey": {
+          "native": "ပျားရည်",
+          "roman": "pya-ye"
+        },
+        "ash": {
+          "native": "ပြာ",
+          "roman": "pya"
+        }
+      }
+    },
+    {
+      "code": "bo",
+      "name": "Tibetan",
+      "nativeName": "བོད་སྐད",
+      "family": "Sino-Tibetan",
+      "branch": "Tibeto-Burman",
+      "script": "Tibetan",
+      "words": {
+        "water": {
+          "native": "ཆུ",
+          "roman": "chu"
+        },
+        "fire": {
+          "native": "མེ",
+          "roman": "me"
+        },
+        "mother": {
+          "native": "ཨ་མ",
+          "roman": "a-ma"
+        },
+        "hand": {
+          "native": "ལག་པ",
+          "roman": "lag-pa"
+        },
+        "night": {
+          "native": "མཚན་མོ",
+          "roman": "mtshan-mo"
+        },
+        "bread": {
+          "native": "བག་ལེབ",
+          "roman": "bag-leb"
+        },
+        "star": {
+          "native": "སྐར་མ",
+          "roman": "skar-ma"
+        },
+        "dog": {
+          "native": "ཁྱི",
+          "roman": "khyi"
+        },
+        "mountain": {
+          "native": "རི",
+          "roman": "ri"
+        },
+        "milk": {
+          "native": "འོ་མ",
+          "roman": "'o-ma"
+        },
+        "smoke": {
+          "native": "དུ་བ",
+          "roman": "du-ba"
+        },
+        "honey": {
+          "native": "སྦྲང་རྩི",
+          "roman": "sbrang-rtsi"
+        },
+        "ash": {
+          "native": "ཐལ་བ",
+          "roman": "thal-ba"
+        }
+      }
+    },
+    {
+      "code": "mn",
+      "name": "Mongolian",
+      "nativeName": "Монгол",
+      "family": "Mongolic",
+      "branch": "Central Mongolic",
+      "script": "Cyrillic",
+      "words": {
+        "water": {
+          "native": "ус",
+          "roman": "us"
+        },
+        "fire": {
+          "native": "гал",
+          "roman": "gal"
+        },
+        "mother": {
+          "native": "ээж",
+          "roman": "eej"
+        },
+        "hand": {
+          "native": "гар",
+          "roman": "gar"
+        },
+        "night": {
+          "native": "шөнө",
+          "roman": "shönö"
+        },
+        "bread": {
+          "native": "талх",
+          "roman": "talkh"
+        },
+        "star": {
+          "native": "од",
+          "roman": "od"
+        },
+        "dog": {
+          "native": "нохой",
+          "roman": "nokhoi"
+        },
+        "mountain": {
+          "native": "уул",
+          "roman": "uul"
+        },
+        "milk": {
+          "native": "сүү",
+          "roman": "süü"
+        },
+        "smoke": {
+          "native": "утаа",
+          "roman": "utaa"
+        },
+        "honey": {
+          "native": "зөгийн бал",
+          "roman": "zögiin bal"
+        },
+        "ash": {
+          "native": "үнс",
+          "roman": "üns"
+        }
+      }
+    },
+    {
+      "code": "ur",
+      "name": "Urdu",
+      "nativeName": "اردو",
+      "family": "Indo-European",
+      "branch": "Indo-Aryan",
+      "script": "Perso-Arabic (Nastaliq)",
+      "rtl": true,
+      "words": {
+        "water": {
+          "native": "پانی",
+          "roman": "pānī"
+        },
+        "fire": {
+          "native": "آگ",
+          "roman": "āg"
+        },
+        "mother": {
+          "native": "ماں",
+          "roman": "māṉ"
+        },
+        "hand": {
+          "native": "ہاتھ",
+          "roman": "hāth"
+        },
+        "night": {
+          "native": "رات",
+          "roman": "rāt"
+        },
+        "bread": {
+          "native": "روٹی",
+          "roman": "roṭī"
+        },
+        "star": {
+          "native": "ستارہ",
+          "roman": "sitāra"
+        },
+        "dog": {
+          "native": "کتا",
+          "roman": "kuttā"
+        },
+        "mountain": {
+          "native": "پہاڑ",
+          "roman": "pahāṛ"
+        },
+        "milk": {
+          "native": "دودھ",
+          "roman": "dūdh"
+        },
+        "smoke": {
+          "native": "دھواں",
+          "roman": "dhuāṉ"
+        },
+        "honey": {
+          "native": "شہد",
+          "roman": "shahad"
+        },
+        "ash": {
+          "native": "راکھ",
+          "roman": "rākh"
+        }
+      }
+    },
+    {
+      "code": "pa",
+      "name": "Punjabi",
+      "nativeName": "ਪੰਜਾਬੀ",
+      "family": "Indo-European",
+      "branch": "Indo-Aryan",
+      "script": "Gurmukhi",
+      "words": {
+        "water": {
+          "native": "ਪਾਣੀ",
+          "roman": "pāṇī"
+        },
+        "fire": {
+          "native": "ਅੱਗ",
+          "roman": "agg"
+        },
+        "mother": {
+          "native": "ਮਾਂ",
+          "roman": "māṉ"
+        },
+        "hand": {
+          "native": "ਹੱਥ",
+          "roman": "hatth"
+        },
+        "night": {
+          "native": "ਰਾਤ",
+          "roman": "rāt"
+        },
+        "bread": {
+          "native": "ਰੋਟੀ",
+          "roman": "roṭī"
+        },
+        "star": {
+          "native": "ਤਾਰਾ",
+          "roman": "tārā"
+        },
+        "dog": {
+          "native": "ਕੁੱਤਾ",
+          "roman": "kuttā"
+        },
+        "mountain": {
+          "native": "ਪਹਾੜ",
+          "roman": "pahāṛ"
+        },
+        "milk": {
+          "native": "ਦੁੱਧ",
+          "roman": "duddh"
+        },
+        "smoke": {
+          "native": "ਧੂੰਆਂ",
+          "roman": "dhūāṉ"
+        },
+        "honey": {
+          "native": "ਸ਼ਹਿਦ",
+          "roman": "shahid"
+        },
+        "ash": {
+          "native": "ਸੁਆਹ",
+          "roman": "suāh"
+        }
+      }
+    },
+    {
+      "code": "ta",
+      "name": "Tamil",
+      "nativeName": "தமிழ்",
+      "family": "Dravidian",
+      "branch": "Southern Dravidian",
+      "script": "Tamil",
+      "words": {
+        "water": {
+          "native": "தண்ணீர்",
+          "roman": "taṇṇīr"
+        },
+        "fire": {
+          "native": "நெருப்பு",
+          "roman": "neruppu"
+        },
+        "mother": {
+          "native": "அம்மா",
+          "roman": "ammā"
+        },
+        "hand": {
+          "native": "கை",
+          "roman": "kai"
+        },
+        "night": {
+          "native": "இரவு",
+          "roman": "iravu"
+        },
+        "bread": {
+          "native": "ரொட்டி",
+          "roman": "roṭṭi"
+        },
+        "star": {
+          "native": "நட்சத்திரம்",
+          "roman": "naṭchattiram"
+        },
+        "dog": {
+          "native": "நாய்",
+          "roman": "nāy"
+        },
+        "mountain": {
+          "native": "மலை",
+          "roman": "malai"
+        },
+        "milk": {
+          "native": "பால்",
+          "roman": "pāl"
+        },
+        "smoke": {
+          "native": "புகை",
+          "roman": "pukai"
+        },
+        "honey": {
+          "native": "தேன்",
+          "roman": "tēn"
+        },
+        "ash": {
+          "native": "சாம்பல்",
+          "roman": "sāmbal"
+        }
+      }
+    },
+    {
+      "code": "te",
+      "name": "Telugu",
+      "nativeName": "తెలుగు",
+      "family": "Dravidian",
+      "branch": "South-Central Dravidian",
+      "script": "Telugu",
+      "words": {
+        "water": {
+          "native": "నీరు",
+          "roman": "nīru"
+        },
+        "fire": {
+          "native": "మంట",
+          "roman": "manṭa"
+        },
+        "mother": {
+          "native": "అమ్మ",
+          "roman": "amma"
+        },
+        "hand": {
+          "native": "చేయి",
+          "roman": "chēyi"
+        },
+        "night": {
+          "native": "రాత్రి",
+          "roman": "rātri"
+        },
+        "bread": {
+          "native": "రొట్టె",
+          "roman": "roṭṭe"
+        },
+        "star": {
+          "native": "నక్షత్రం",
+          "roman": "nakshatram"
+        },
+        "dog": {
+          "native": "కుక్క",
+          "roman": "kukka"
+        },
+        "mountain": {
+          "native": "కొండ",
+          "roman": "koṇḍa"
+        },
+        "milk": {
+          "native": "పాలు",
+          "roman": "pālu"
+        },
+        "smoke": {
+          "native": "పొగ",
+          "roman": "poga"
+        },
+        "honey": {
+          "native": "తేనె",
+          "roman": "tēne"
+        },
+        "ash": {
+          "native": "బూడిద",
+          "roman": "būḍida"
+        }
+      }
+    },
+    {
+      "code": "ml",
+      "name": "Malayalam",
+      "nativeName": "മലയാളം",
+      "family": "Dravidian",
+      "branch": "Southern Dravidian",
+      "script": "Malayalam",
+      "words": {
+        "water": {
+          "native": "വെള്ളം",
+          "roman": "veḷḷam"
+        },
+        "fire": {
+          "native": "തീ",
+          "roman": "tī"
+        },
+        "mother": {
+          "native": "അമ്മ",
+          "roman": "amma"
+        },
+        "hand": {
+          "native": "കൈ",
+          "roman": "kai"
+        },
+        "night": {
+          "native": "രാത്രി",
+          "roman": "rātri"
+        },
+        "bread": {
+          "native": "റൊട്ടി",
+          "roman": "roṭṭi"
+        },
+        "star": {
+          "native": "നക്ഷത്രം",
+          "roman": "nakshatram"
+        },
+        "dog": {
+          "native": "നായ",
+          "roman": "nāya"
+        },
+        "mountain": {
+          "native": "മല",
+          "roman": "mala"
+        },
+        "milk": {
+          "native": "പാൽ",
+          "roman": "pāl"
+        },
+        "smoke": {
+          "native": "പുക",
+          "roman": "puka"
+        },
+        "honey": {
+          "native": "തേൻ",
+          "roman": "tēn"
+        },
+        "ash": {
+          "native": "ചാരം",
+          "roman": "chāram"
+        }
+      }
+    },
+    {
+      "code": "si",
+      "name": "Sinhala",
+      "nativeName": "සිංහල",
+      "family": "Indo-European",
+      "branch": "Indo-Aryan",
+      "script": "Sinhala",
+      "words": {
+        "water": {
+          "native": "වතුර",
+          "roman": "vathura"
+        },
+        "fire": {
+          "native": "ගින්න",
+          "roman": "ginna"
+        },
+        "mother": {
+          "native": "අම්මා",
+          "roman": "ammā"
+        },
+        "hand": {
+          "native": "අත",
+          "roman": "atha"
+        },
+        "night": {
+          "native": "රෑ",
+          "roman": "rǣ"
+        },
+        "bread": {
+          "native": "පාන්",
+          "roman": "pān"
+        },
+        "star": {
+          "native": "තරුව",
+          "roman": "tharuwa"
+        },
+        "dog": {
+          "native": "බල්ලා",
+          "roman": "ballā"
+        },
+        "mountain": {
+          "native": "කන්ද",
+          "roman": "kanda"
+        },
+        "milk": {
+          "native": "කිරි",
+          "roman": "kiri"
+        },
+        "smoke": {
+          "native": "දුම",
+          "roman": "duma"
+        },
+        "honey": {
+          "native": "මී පැණි",
+          "roman": "mī pæṇi"
+        },
+        "ash": {
+          "native": "අළු",
+          "roman": "aḷu"
+        }
+      }
+    },
+    {
+      "code": "ar",
+      "name": "Arabic",
+      "nativeName": "العربية",
+      "family": "Afro-Asiatic",
+      "branch": "Semitic",
+      "script": "Arabic",
+      "rtl": true,
+      "words": {
+        "water": {
+          "native": "ماء",
+          "roman": "māʾ"
+        },
+        "fire": {
+          "native": "نار",
+          "roman": "nār"
+        },
+        "mother": {
+          "native": "أم",
+          "roman": "umm"
+        },
+        "hand": {
+          "native": "يد",
+          "roman": "yad"
+        },
+        "night": {
+          "native": "ليل",
+          "roman": "layl"
+        },
+        "bread": {
+          "native": "خبز",
+          "roman": "khubz"
+        },
+        "star": {
+          "native": "نجم",
+          "roman": "najm"
+        },
+        "dog": {
+          "native": "كلب",
+          "roman": "kalb"
+        },
+        "mountain": {
+          "native": "جبل",
+          "roman": "jabal"
+        },
+        "milk": {
+          "native": "حليب",
+          "roman": "ḥalīb"
+        },
+        "smoke": {
+          "native": "دخان",
+          "roman": "dukhān"
+        },
+        "honey": {
+          "native": "عسل",
+          "roman": "ʿasal"
+        },
+        "ash": {
+          "native": "رماد",
+          "roman": "ramād"
+        }
+      }
+    },
+    {
+      "code": "he",
+      "name": "Hebrew",
+      "nativeName": "עברית",
+      "family": "Afro-Asiatic",
+      "branch": "Semitic",
+      "script": "Hebrew",
+      "rtl": true,
+      "words": {
+        "water": {
+          "native": "מים",
+          "roman": "mayim"
+        },
+        "fire": {
+          "native": "אש",
+          "roman": "esh"
+        },
+        "mother": {
+          "native": "אמא",
+          "roman": "ima"
+        },
+        "hand": {
+          "native": "יד",
+          "roman": "yad"
+        },
+        "night": {
+          "native": "לילה",
+          "roman": "layla"
+        },
+        "bread": {
+          "native": "לחם",
+          "roman": "lechem"
+        },
+        "star": {
+          "native": "כוכב",
+          "roman": "kochav"
+        },
+        "dog": {
+          "native": "כלב",
+          "roman": "kelev"
+        },
+        "mountain": {
+          "native": "הר",
+          "roman": "har"
+        },
+        "milk": {
+          "native": "חלב",
+          "roman": "chalav"
+        },
+        "smoke": {
+          "native": "עשן",
+          "roman": "ashan"
+        },
+        "honey": {
+          "native": "דבש",
+          "roman": "dvash"
+        },
+        "ash": {
+          "native": "אפר",
+          "roman": "efer"
+        }
+      }
+    },
+    {
+      "code": "am",
+      "name": "Amharic",
+      "nativeName": "አማርኛ",
+      "family": "Afro-Asiatic",
+      "branch": "Semitic",
+      "script": "Ethiopic",
+      "words": {
+        "water": {
+          "native": "ውሃ",
+          "roman": "wuha"
+        },
+        "fire": {
+          "native": "እሳት",
+          "roman": "isat"
+        },
+        "mother": {
+          "native": "እናት",
+          "roman": "inat"
+        },
+        "hand": {
+          "native": "እጅ",
+          "roman": "ij"
+        },
+        "night": {
+          "native": "ሌሊት",
+          "roman": "lelit"
+        },
+        "bread": {
+          "native": "ዳቦ",
+          "roman": "dabo"
+        },
+        "star": {
+          "native": "ኮከብ",
+          "roman": "kokeb"
+        },
+        "dog": {
+          "native": "ውሻ",
+          "roman": "wusha"
+        },
+        "mountain": {
+          "native": "ተራራ",
+          "roman": "terara"
+        },
+        "milk": {
+          "native": "ወተት",
+          "roman": "wetet"
+        },
+        "smoke": {
+          "native": "ጭስ",
+          "roman": "chis"
+        },
+        "honey": {
+          "native": "ማር",
+          "roman": "mar"
+        },
+        "ash": {
+          "native": "አመድ",
+          "roman": "amed"
+        }
+      }
+    },
+    {
+      "code": "tr",
+      "name": "Turkish",
+      "nativeName": "Türkçe",
+      "family": "Turkic",
+      "branch": "Oghuz",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "su"
+        },
+        "fire": {
+          "native": "ateş"
+        },
+        "mother": {
+          "native": "anne"
+        },
+        "hand": {
+          "native": "el"
+        },
+        "night": {
+          "native": "gece"
+        },
+        "bread": {
+          "native": "ekmek"
+        },
+        "star": {
+          "native": "yıldız"
+        },
+        "dog": {
+          "native": "köpek"
+        },
+        "mountain": {
+          "native": "dağ"
+        },
+        "milk": {
+          "native": "süt"
+        },
+        "smoke": {
+          "native": "duman"
+        },
+        "honey": {
+          "native": "bal"
+        },
+        "ash": {
+          "native": "kül"
+        }
+      }
+    },
+    {
+      "code": "kab",
+      "name": "Tamazight (Kabyle)",
+      "nativeName": "Taqbaylit",
+      "family": "Afro-Asiatic",
+      "branch": "Berber",
+      "script": "Latin (Berber)",
+      "words": {
+        "water": {
+          "native": "aman"
+        },
+        "fire": {
+          "native": "times"
+        },
+        "mother": {
+          "native": "yemma"
+        },
+        "hand": {
+          "native": "afus"
+        },
+        "night": {
+          "native": "iḍ"
+        },
+        "bread": {
+          "native": "aghrum"
+        },
+        "star": {
+          "native": "itri"
+        },
+        "dog": {
+          "native": "aydi"
+        },
+        "mountain": {
+          "native": "adrar"
+        },
+        "milk": {
+          "native": "akefay"
+        },
+        "smoke": {
+          "native": "abbu"
+        },
+        "honey": {
+          "native": "tament"
+        },
+        "ash": {
+          "native": "iɣed"
+        }
+      }
+    },
+    {
+      "code": "ka",
+      "name": "Georgian",
+      "nativeName": "ქართული",
+      "family": "Kartvelian",
+      "branch": "Karto-Zan",
+      "script": "Georgian (Mkhedruli)",
+      "words": {
+        "water": {
+          "native": "წყალი",
+          "roman": "ts'q'ali"
+        },
+        "fire": {
+          "native": "ცეცხლი",
+          "roman": "tsetskhli"
+        },
+        "mother": {
+          "native": "დედა",
+          "roman": "deda"
+        },
+        "hand": {
+          "native": "ხელი",
+          "roman": "kheli"
+        },
+        "night": {
+          "native": "ღამე",
+          "roman": "ghame"
+        },
+        "bread": {
+          "native": "პური",
+          "roman": "puri"
+        },
+        "star": {
+          "native": "ვარსკვლავი",
+          "roman": "varsk'vlavi"
+        },
+        "dog": {
+          "native": "ძაღლი",
+          "roman": "dzaghli"
+        },
+        "mountain": {
+          "native": "მთა",
+          "roman": "mta"
+        },
+        "milk": {
+          "native": "რძე",
+          "roman": "rdze"
+        },
+        "smoke": {
+          "native": "კვამლი",
+          "roman": "k'vamli"
+        },
+        "honey": {
+          "native": "თაფლი",
+          "roman": "tapli"
+        },
+        "ash": {
+          "native": "ნაცარი",
+          "roman": "natsari"
+        }
+      }
+    },
+    {
+      "code": "fi",
+      "name": "Finnish",
+      "nativeName": "Suomi",
+      "family": "Uralic",
+      "branch": "Finnic",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "vesi"
+        },
+        "fire": {
+          "native": "tuli"
+        },
+        "mother": {
+          "native": "äiti"
+        },
+        "hand": {
+          "native": "käsi"
+        },
+        "night": {
+          "native": "yö"
+        },
+        "bread": {
+          "native": "leipä"
+        },
+        "star": {
+          "native": "tähti"
+        },
+        "dog": {
+          "native": "koira"
+        },
+        "mountain": {
+          "native": "vuori"
+        },
+        "milk": {
+          "native": "maito"
+        },
+        "smoke": {
+          "native": "savu"
+        },
+        "honey": {
+          "native": "hunaja"
+        },
+        "ash": {
+          "native": "tuhka"
+        }
+      }
+    },
+    {
+      "code": "hu",
+      "name": "Hungarian",
+      "nativeName": "Magyar",
+      "family": "Uralic",
+      "branch": "Ugric",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "víz"
+        },
+        "fire": {
+          "native": "tűz"
+        },
+        "mother": {
+          "native": "anya"
+        },
+        "hand": {
+          "native": "kéz"
+        },
+        "night": {
+          "native": "éjszaka"
+        },
+        "bread": {
+          "native": "kenyér"
+        },
+        "star": {
+          "native": "csillag"
+        },
+        "dog": {
+          "native": "kutya"
+        },
+        "mountain": {
+          "native": "hegy"
+        },
+        "milk": {
+          "native": "tej"
+        },
+        "smoke": {
+          "native": "füst"
+        },
+        "honey": {
+          "native": "méz"
+        },
+        "ash": {
+          "native": "hamu"
+        }
+      }
+    },
+    {
+      "code": "sw",
+      "name": "Swahili",
+      "nativeName": "Kiswahili",
+      "family": "Atlantic-Congo",
+      "branch": "Bantu",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "maji"
+        },
+        "fire": {
+          "native": "moto"
+        },
+        "mother": {
+          "native": "mama"
+        },
+        "hand": {
+          "native": "mkono"
+        },
+        "night": {
+          "native": "usiku"
+        },
+        "bread": {
+          "native": "mkate"
+        },
+        "star": {
+          "native": "nyota"
+        },
+        "dog": {
+          "native": "mbwa"
+        },
+        "mountain": {
+          "native": "mlima"
+        },
+        "milk": {
+          "native": "maziwa"
+        },
+        "smoke": {
+          "native": "moshi"
+        },
+        "honey": {
+          "native": "asali"
+        },
+        "ash": {
+          "native": "jivu"
+        }
+      }
+    },
+    {
+      "code": "zu",
+      "name": "Zulu",
+      "nativeName": "isiZulu",
+      "family": "Atlantic-Congo",
+      "branch": "Bantu",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "amanzi"
+        },
+        "fire": {
+          "native": "umlilo"
+        },
+        "mother": {
+          "native": "umama"
+        },
+        "hand": {
+          "native": "isandla"
+        },
+        "night": {
+          "native": "ubusuku"
+        },
+        "bread": {
+          "native": "isinkwa"
+        },
+        "star": {
+          "native": "inkanyezi"
+        },
+        "dog": {
+          "native": "inja"
+        },
+        "mountain": {
+          "native": "intaba"
+        },
+        "milk": {
+          "native": "ubisi"
+        },
+        "smoke": {
+          "native": "intuthu"
+        },
+        "honey": {
+          "native": "uju"
+        },
+        "ash": {
+          "native": "umlotha"
+        }
+      }
+    },
+    {
+      "code": "yo",
+      "name": "Yoruba",
+      "nativeName": "Yorùbá",
+      "family": "Atlantic-Congo",
+      "branch": "Volta-Niger",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "omi"
+        },
+        "fire": {
+          "native": "iná"
+        },
+        "mother": {
+          "native": "ìyá"
+        },
+        "hand": {
+          "native": "ọwọ́"
+        },
+        "night": {
+          "native": "alẹ́"
+        },
+        "bread": {
+          "native": "búrẹ́dì"
+        },
+        "star": {
+          "native": "ìràwọ̀"
+        },
+        "dog": {
+          "native": "ajá"
+        },
+        "mountain": {
+          "native": "òkè"
+        },
+        "milk": {
+          "native": "wàrà"
+        },
+        "smoke": {
+          "native": "èéfín"
+        },
+        "honey": {
+          "native": "oyin"
+        },
+        "ash": {
+          "native": "eérú"
+        }
+      }
+    },
+    {
+      "code": "id",
+      "name": "Indonesian",
+      "nativeName": "Bahasa Indonesia",
+      "family": "Austronesian",
+      "branch": "Malayo-Polynesian",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "air"
+        },
+        "fire": {
+          "native": "api"
+        },
+        "mother": {
+          "native": "ibu"
+        },
+        "hand": {
+          "native": "tangan"
+        },
+        "night": {
+          "native": "malam"
+        },
+        "bread": {
+          "native": "roti"
+        },
+        "star": {
+          "native": "bintang"
+        },
+        "dog": {
+          "native": "anjing"
+        },
+        "mountain": {
+          "native": "gunung"
+        },
+        "milk": {
+          "native": "susu"
+        },
+        "smoke": {
+          "native": "asap"
+        },
+        "honey": {
+          "native": "madu"
+        },
+        "ash": {
+          "native": "abu"
+        }
+      }
+    },
+    {
+      "code": "tl",
+      "name": "Tagalog",
+      "nativeName": "Tagalog",
+      "family": "Austronesian",
+      "branch": "Malayo-Polynesian",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "tubig"
+        },
+        "fire": {
+          "native": "apoy"
+        },
+        "mother": {
+          "native": "ina"
+        },
+        "hand": {
+          "native": "kamay"
+        },
+        "night": {
+          "native": "gabi"
+        },
+        "bread": {
+          "native": "tinapay"
+        },
+        "star": {
+          "native": "bituin"
+        },
+        "dog": {
+          "native": "aso"
+        },
+        "mountain": {
+          "native": "bundok"
+        },
+        "milk": {
+          "native": "gatas"
+        },
+        "smoke": {
+          "native": "usok"
+        },
+        "honey": {
+          "native": "pulot"
+        },
+        "ash": {
+          "native": "abo"
+        }
+      }
+    },
+    {
+      "code": "haw",
+      "name": "Hawaiian",
+      "nativeName": "ʻŌlelo Hawaiʻi",
+      "family": "Austronesian",
+      "branch": "Polynesian",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "wai"
+        },
+        "fire": {
+          "native": "ahi"
+        },
+        "mother": {
+          "native": "makuahine"
+        },
+        "hand": {
+          "native": "lima"
+        },
+        "night": {
+          "native": "pō"
+        },
+        "bread": {
+          "native": "palaoa"
+        },
+        "star": {
+          "native": "hōkū"
+        },
+        "dog": {
+          "native": "ʻīlio"
+        },
+        "mountain": {
+          "native": "mauna"
+        },
+        "milk": {
+          "native": "waiū"
+        },
+        "smoke": {
+          "native": "uahi"
+        },
+        "honey": {
+          "native": "meli"
+        },
+        "ash": {
+          "native": "lehu"
+        }
+      }
+    },
+    {
+      "code": "eu",
+      "name": "Basque",
+      "nativeName": "Euskara",
+      "family": "Language isolate",
+      "branch": "—",
+      "script": "Latin",
+      "words": {
+        "water": {
+          "native": "ura"
+        },
+        "fire": {
+          "native": "sua"
+        },
+        "mother": {
+          "native": "ama"
+        },
+        "hand": {
+          "native": "eskua"
+        },
+        "night": {
+          "native": "gaua"
+        },
+        "bread": {
+          "native": "ogia"
+        },
+        "star": {
+          "native": "izarra"
+        },
+        "dog": {
+          "native": "txakurra"
+        },
+        "mountain": {
+          "native": "mendia"
+        },
+        "milk": {
+          "native": "esnea"
+        },
+        "smoke": {
+          "native": "kea"
+        },
+        "honey": {
+          "native": "ezti"
+        },
+        "ash": {
+          "native": "errauts"
+        }
+      }
+    }
+  ]
+}
